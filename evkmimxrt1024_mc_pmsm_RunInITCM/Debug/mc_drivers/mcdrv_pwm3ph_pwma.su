@@ -1,0 +1,4 @@
+../mc_drivers/mcdrv_pwm3ph_pwma.c:31:30:MCDRV_eFlexPwm3PhSet	12	static
+../mc_drivers/mcdrv_pwm3ph_pwma.c:72:30:MCDRV_eFlexPwm3PhOutEn	4	static
+../mc_drivers/mcdrv_pwm3ph_pwma.c:97:30:MCDRV_eFlexPwm3PhOutDis	4	static
+../mc_drivers/mcdrv_pwm3ph_pwma.c:129:32:MCDRV_eFlexPwm3PhFltGet	0	static

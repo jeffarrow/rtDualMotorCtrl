@@ -1,0 +1,4 @@
+../mc_drivers/mcdrv_enc_qd.c:26:30:MCDRV_QdEncGet	8	static
+../mc_drivers/mcdrv_enc_qd.c:73:30:MCDRV_QdEncClear	0	static
+../mc_drivers/mcdrv_enc_qd.c:101:30:MCDRV_QdEncSetPosMe	4	static
+../mc_drivers/mcdrv_enc_qd.c:122:30:MCDRV_QdEncSetDirection	0	static

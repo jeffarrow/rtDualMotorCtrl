@@ -1,0 +1,3 @@
+../device/system_MIMXRT1024.c:156:6:SystemCoreClockUpdate	24	static
+../device/system_MIMXRT1024.c:250:29:SystemInitHook	0	static
+../device/system_MIMXRT1024.c:68:6:SystemInit	520	static

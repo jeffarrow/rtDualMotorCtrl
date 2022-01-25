@@ -1,0 +1,9 @@
+../source/mc_periph_init.c:80:6:InitClock	16	static
+../source/mc_periph_init.c:106:6:InitADC	8	static
+../source/mc_periph_init.c:242:6:InitTMR1	4	static
+../source/mc_periph_init.c:291:6:M1_InitPWM	4	static
+../source/mc_periph_init.c:429:6:InitXBARA	8	static
+../source/mc_periph_init.c:452:6:InitADC_ETC	80	static
+../source/mc_periph_init.c:46:6:MCDRV_Init_M1	16	static
+../source/mc_periph_init.c:518:6:M1_InitQD	0	static
+../source/mc_periph_init.c:551:6:InitCMP	0	static

@@ -1,0 +1,6 @@
+../motor_control/pmsm/pmsm_float/mc_algorithms/pmsm_control.c:47:30:MCS_PMSMFocCtrl	48	static
+../motor_control/pmsm/pmsm_float/mc_algorithms/pmsm_control.c:144:30:MCS_PMSMFocCtrlSpeed	8	static
+../motor_control/pmsm/pmsm_float/mc_algorithms/pmsm_control.c:170:30:MCS_PMSMFocCtrlPosition	0	static
+../motor_control/pmsm/pmsm_float/mc_algorithms/pmsm_control.c:187:30:MCS_PMSMAlignment	0	static
+../motor_control/pmsm/pmsm_float/mc_algorithms/pmsm_control.c:210:30:MCS_PMSMOpenLoopStartUp	0	static
+../motor_control/pmsm/pmsm_float/mc_algorithms/pmsm_control.c:251:30:MCS_PMSMScalarCtrl	0	static

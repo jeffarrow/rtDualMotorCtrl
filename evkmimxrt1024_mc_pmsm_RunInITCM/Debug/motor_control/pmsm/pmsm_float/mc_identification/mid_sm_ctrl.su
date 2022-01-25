@@ -1,0 +1,10 @@
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:46:37:MID_SM_StateStart	16	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:101:37:MID_SM_StatePwrStgCharact	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:130:37:MID_SM_StateRs	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:159:37:MID_SM_StateLd	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:188:37:MID_SM_StateLq	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:217:37:MID_SM_StatePp	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:246:37:MID_SM_StateKe	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:275:37:MID_SM_StateMech	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:304:37:MID_SM_StateHall	8	static
+../motor_control/pmsm/pmsm_float/mc_identification/mid_sm_ctrl.c:333:37:MID_SM_StateStop	0	static

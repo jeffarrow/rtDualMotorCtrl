@@ -1,0 +1,8 @@
+../mc_drivers/mcdrv_adc_imxrt.c:29:30:MCDRV_Curr3Ph2ShGet	4	static
+../mc_drivers/mcdrv_adc_imxrt.c:99:30:MCDRV_Curr3Ph2ShChanAssignInit	16	static
+../mc_drivers/mcdrv_adc_imxrt.c:137:30:MCDRV_Curr3Ph2ShChanAssign	0	static
+../mc_drivers/mcdrv_adc_imxrt.c:186:30:MCDRV_Curr3Ph2ShCalibInit	12	static
+../mc_drivers/mcdrv_adc_imxrt.c:228:30:MCDRV_Curr3Ph2ShCalib	4	static
+../mc_drivers/mcdrv_adc_imxrt.c:277:30:MCDRV_Curr3Ph2ShCalibSet	0	static
+../mc_drivers/mcdrv_adc_imxrt.c:301:30:MCDRV_VoltDcBusGet	0	static
+../mc_drivers/mcdrv_adc_imxrt.c:316:30:MCDRV_AuxValGet	0	static

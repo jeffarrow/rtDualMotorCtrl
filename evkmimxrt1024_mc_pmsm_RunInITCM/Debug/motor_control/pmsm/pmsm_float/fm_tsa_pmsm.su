@@ -1,0 +1,7 @@
+../motor_control/pmsm/pmsm_float/fm_tsa_pmsm.c:34:1:FMSTR_TsaGetTable_gsM1Drive_table	0	static
+../motor_control/pmsm/pmsm_float/fm_tsa_pmsm.c:195:1:FMSTR_TsaGetTable_sMID_table	0	static
+../motor_control/pmsm/pmsm_float/fm_tsa_pmsm.c:282:1:FMSTR_TsaGetTable_gsM1Enc_table	0	static
+../motor_control/pmsm/pmsm_float/fm_tsa_pmsm.c:303:1:FMSTR_TsaGetTable_global_table	0	static
+../motor_control/pmsm/pmsm_float/fm_tsa_pmsm.c:323:1:FMSTR_TsaGetTable_M1_global_table	0	static
+../motor_control/pmsm/pmsm_float/fm_tsa_pmsm.c:357:1:FMSTR_TsaGetTable_sAppIdFM_table	0	static
+../motor_control/pmsm/pmsm_float/fm_tsa_pmsm.c:373:1:FMSTR_TsaGetTable	0	static

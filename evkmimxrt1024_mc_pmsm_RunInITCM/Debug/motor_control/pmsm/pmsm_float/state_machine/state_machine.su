@@ -1,0 +1,8 @@
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:49:37:SM_StateFaultFast	8	static
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:75:37:SM_StateInitFast	8	static
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:115:37:SM_StateStopFast	8	static
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:158:37:SM_StateRunFast	8	static
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:199:37:SM_StateFaultSlow	0	static
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:211:37:SM_StateInitSlow	0	static
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:223:37:SM_StateStopSlow	0	static
+../motor_control/pmsm/pmsm_float/state_machine/state_machine.c:235:37:SM_StateRunSlow	0	static

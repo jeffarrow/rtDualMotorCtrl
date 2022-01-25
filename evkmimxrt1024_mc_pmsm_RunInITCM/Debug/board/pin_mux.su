@@ -1,0 +1,7 @@
+../board/pin_mux.c:38:6:BOARD_InitBootPins	16	static
+../board/pin_mux.c:70:6:BOARD_InitPins	16	static
+../board/pin_mux.c:114:6:BOARD_InitLPUART	0	static
+../board/pin_mux.c:147:6:BOARD_InitPWM	4	static
+../board/pin_mux.c:191:6:DOARD_InitADC	0	static
+../board/pin_mux.c:225:6:BOARD_InitENC	8	static
+../board/pin_mux.c:260:6:BOARD_InitCMP	0	static
