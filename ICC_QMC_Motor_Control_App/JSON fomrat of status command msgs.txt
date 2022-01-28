@@ -1,0 +1,41 @@
+STATUS JSON STRUCTURE
+-------------------------------------------
+{
+"board_id": "imxrt1050_icc_daughter_card",
+	"motor status": [
+		{
+		"motor_id": "%d",
+		"app_status": "%d",
+		"motor_state": "%d",
+		"fault": "%d",
+		"speed": "%d",
+		"position": "%d", 
+		"position_mode_selection": "%d",
+		"position": "%d",
+		"current_iq [mA]": "%d",
+		"volatge_vdc [mV]": "%d",
+		},
+	]
+}
+
+
+
+COMMAND JSON STRUCTURE
+-------------------------------------------
+{
+"board_id": "imxrt1050_icc_daughter_card",
+	"motor command": [
+		{
+		"motor_id": "%d",
+		"app_status_command": "%d",
+		"control_method": "%d",
+		"speed_mode_selection": "%d",
+		"speed": "%d", 
+		"position_mode_selection": "%d",
+		"position": "%d",
+		},
+		.
+		.
+		.
+	]
+}

@@ -1,0 +1,8 @@
+/Debug/
+/Release/
+/.settings/
+/settings/
+/output/
+/code_flexspi_itcm_data_dtcm_ocram/
+
+*.md
