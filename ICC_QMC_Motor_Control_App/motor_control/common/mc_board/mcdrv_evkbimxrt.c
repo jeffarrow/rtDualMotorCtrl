@@ -115,14 +115,14 @@ void MCDRV_Init(void)
     /* 6-channel PWM peripheral init for M1, M2, M3 & M4 */
     M1_InitPWM();
     M2_InitPWM();
-    M3_InitPWM();
-    M4_InitPWM();
+//    M3_InitPWM();
+//    M4_InitPWM();
     
     /* Qudrature decoder peripheral init */
-    M1_InitQD();
-    M2_InitQD();
-    M3_InitQD();
-    M4_InitQD();
+//    M1_InitQD();
+//    M2_InitQD();
+//    M3_InitQD();
+//    M4_InitQD();
     
     /* Init PIT for CPU Load measuring */
     InitPIT();
@@ -130,6 +130,46 @@ void MCDRV_Init(void)
     /* Init LED  */
     InitLED();
     
+    //InitCMP();
+}
+
+void InitCMP(void)
+{
+    /* Enable clock for CMP module */
+    CLOCK_EnableClock(kCLOCK_Acmp3);
+
+    /* Filter - 4 consecutive samples must agree */
+    CMP3->CR0 = CMP_CR0_FILTER_CNT(4);
+
+    /* DAC output set to 3.197V ~ 7.73A (for 8.25A scale) */
+    /* Reference voltage will be VDD */
+    /* Enable DAC */
+    CMP3->DACCR = CMP_DACCR_VOSEL(60) | CMP_DACCR_VRSEL_MASK | CMP_DACCR_DACEN_MASK;
+
+    /* Plus is CMP3_IN3 ~ overcurrent pin */
+    /* Minus is CMP3_IN7 ~ 6bit reference */
+    CMP3->MUXCR = CMP_MUXCR_PSEL(3) | CMP_MUXCR_MSEL(7);
+
+    /* Enable analog comparator */
+    CMP3->CR1 = CMP_CR1_EN_MASK;
+
+    /* Enable clock for CMP module */
+    CLOCK_EnableClock(kCLOCK_Acmp4);
+
+    /* Filter - 4 consecutive samples must agree */
+    CMP3->CR0 = CMP_CR0_FILTER_CNT(4);
+
+    /* DAC output set to 3.197V ~ 7.73A (for 8.25A scale) */
+    /* Reference voltage will be VDD */
+    /* Enable DAC */
+    CMP3->DACCR = CMP_DACCR_VOSEL(60) | CMP_DACCR_VRSEL_MASK | CMP_DACCR_DACEN_MASK;
+
+    /* Plus is CMP3_IN3 ~ overcurrent pin */
+    /* Minus is CMP3_IN7 ~ 6bit reference */
+    CMP3->MUXCR = CMP_MUXCR_PSEL(3) | CMP_MUXCR_MSEL(7);
+
+    /* Enable analog comparator */
+    CMP3->CR1 = CMP_CR1_EN_MASK;
 }
 
 /*!

@@ -250,8 +250,8 @@ typedef struct _clock_setup
  * M2_U_DCB     | ADC1_IN12         | ---------
 */ 
 /* Phase current A assigned to ADC1 and ADC2 */
-#define M2_ADC1_PH_A (1)
-#define M2_ADC2_PH_A (1)
+#define M2_ADC1_PH_A (14)
+#define M2_ADC2_PH_A (14)
 /* Phase current A assigned to ADC1 and ADC2 */
 #define M2_ADC1_PH_B (8)
 #define M2_ADC2_PH_B (8)

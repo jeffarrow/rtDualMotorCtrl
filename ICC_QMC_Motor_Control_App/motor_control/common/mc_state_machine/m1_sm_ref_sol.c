@@ -1808,8 +1808,8 @@ static void M1_FaultDetection(void)
         FAULT_SET(g_sM1Drive.sFaultIdPending, FAULT_U_DCBUS_OVER);
 
     /* Fault:   DC-bus under-voltage */
-    if (g_sM1Drive.sFocPMSM.fltUDcBusFilt < g_sM1Drive.sFaultThresholds.fltUDcBusUnder)
-        FAULT_SET(g_sM1Drive.sFaultIdPending, FAULT_U_DCBUS_UNDER);
+//    if (g_sM1Drive.sFocPMSM.fltUDcBusFilt < g_sM1Drive.sFaultThresholds.fltUDcBusUnder)
+//        FAULT_SET(g_sM1Drive.sFaultIdPending, FAULT_U_DCBUS_UNDER);
 
     /* Check only in SPEED_FOC control, RUN state, kRunState_Spin and kRunState_FreeWheel sub-states */
     if((g_sM1Drive.eControl==kControlMode_SpeedFOC) && 

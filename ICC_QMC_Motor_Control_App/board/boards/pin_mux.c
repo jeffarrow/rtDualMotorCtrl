@@ -49,6 +49,18 @@ void BOARD_InitBootPins(void) {
 	IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_05_FLEXSPI_A_SS0_B, 1U);
 }
 
+void BOARD_InitCMP(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03U */
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_B1_06_GPIO1_IO22,        /* GPIO_AD_B1_06 is configured as GPIO1_IO22 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+	  IOMUXC_GPIO_AD_B1_07_GPIO1_IO23,        /* GPIO_AD_B1_06 is configured as GPIO1_IO22 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+}
+
+
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
@@ -155,39 +167,75 @@ void BOARD_InitPwmPins(void) {
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_14_FLEXPWM2_PWMA00,   /* GPIO_AD_B0_14 is configured as FLEXPWM2_PWMA00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_AD_B0_14_FLEXPWM2_PWMA00,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_15_FLEXPWM2_PWMB00,   /* GPIO_AD_B0_15 is configured as FLEXPWM2_PWMB00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_AD_B0_15_FLEXPWM2_PWMB00,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_12_FLEXPWM2_PWMA01,   /* GPIO_AD_B0_12 is configured as FLEXPWM2_PWMA01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_AD_B0_12_FLEXPWM2_PWMA01,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_13_FLEXPWM2_PWMB01,   /* GPIO_AD_B0_13 is configured as FLEXPWM2_PWMB01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_AD_B0_13_FLEXPWM2_PWMB01,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_10_FLEXPWM2_PWMA02,   /* GPIO_AD_B0_10 is configured as FLEXPWM2_PWMA02 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_AD_B0_10_FLEXPWM2_PWMA02,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_11_FLEXPWM2_PWMB02,   /* GPIO_AD_B0_11 is configured as FLEXPWM2_PWMB02 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_AD_B0_11_FLEXPWM2_PWMB02,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_26_FLEXPWM1_PWMA00,     /* GPIO_EMC_26 is configured as FLEXPWM1_PWMA00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_EMC_26_FLEXPWM1_PWMA00,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_27_FLEXPWM1_PWMB00,     /* GPIO_EMC_27 is configured as FLEXPWM1_PWMB00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_EMC_27_FLEXPWM1_PWMB00,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_24_FLEXPWM1_PWMA01,     /* GPIO_EMC_24 is configured as FLEXPWM1_PWMA01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_EMC_24_FLEXPWM1_PWMA01,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_25_FLEXPWM1_PWMB01,     /* GPIO_EMC_25 is configured as FLEXPWM1_PWMB01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_EMC_25_FLEXPWM1_PWMB01,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_22_FLEXPWM1_PWMA02,     /* GPIO_EMC_22 is configured as FLEXPWM1_PWMA02 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_EMC_22_FLEXPWM1_PWMA02,
+      0x10B0U);
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_23_FLEXPWM1_PWMB02,     /* GPIO_EMC_23 is configured as FLEXPWM1_PWMB02 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinConfig(
+	  IOMUXC_GPIO_EMC_23_FLEXPWM1_PWMB02,
+      0x10B0U);
 }
 
 

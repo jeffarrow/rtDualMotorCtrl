@@ -105,6 +105,14 @@ int main(void)
       PRINTF("Task creation failed!.\r\n");
       while (1);
   }
+
+  if (xTaskCreate(motor_control_init_task, "MOTOR_CONTROL_INIT_TASK", 1024, NULL, tskIDLE_PRIORITY+5, NULL) !=
+      pdPASS)
+  {
+      PRINTF("Task creation failed!.\r\n");
+      while (1);
+  }
+
   vTaskStartScheduler();
   return 0;
 }
