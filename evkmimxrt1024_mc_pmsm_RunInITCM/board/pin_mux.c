@@ -14,11 +14,15 @@ processor_version: 11.0.1
 board: MIMXRT1024-EVK
 pin_labels:
 - {pin_num: '84', pin_signal: GPIO_AD_B1_06, label: 'ENET_INT/U11[21]/J17[16]', identifier: ENET_INT;CUR_DCB}
+- {pin_num: '83', pin_signal: GPIO_AD_B1_07, label: CUR2_DCB, identifier: CUR2_DCB}
 - {pin_num: '80', pin_signal: GPIO_AD_B1_10, label: 'USB_OTG1_PWR/J18[2]', identifier: CUR_A}
 - {pin_num: '79', pin_signal: GPIO_AD_B1_11, label: 'USB_OTG1_ID/J18[4]', identifier: CUR_B}
 - {pin_num: '78', pin_signal: GPIO_AD_B1_12, label: 'USB_OTG1_OC/J18[6]', identifier: VOLT_DCB}
 - {pin_num: '76', pin_signal: GPIO_AD_B1_13, label: 'CAN_STBY/J18[8]', identifier: CAN_STBY;CUR_C}
+- {pin_num: '75', pin_signal: GPIO_AD_B1_14, label: CUR2_A, identifier: CUR2_A}
 - {pin_num: '30', pin_signal: GPIO_SD_B1_02, label: 'I2C4_SCL/J19[20]', identifier: TP}
+- {pin_num: '81', pin_signal: GPIO_AD_B1_09, label: CUR2_C, identifier: CUR2_C}
+- {pin_num: '82', pin_signal: GPIO_AD_B1_08, label: CUR2_B, identifier: CUR2_B}
 power_domains: {NVCC_GPIO: '3.3'}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -128,13 +132,13 @@ void BOARD_InitLPUART(void) {
 BOARD_InitPWM:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: '94', peripheral: PWM2, signal: 'A, 0', pin_signal: GPIO_AD_B0_14}
-  - {pin_num: '93', peripheral: PWM2, signal: 'B, 0', pin_signal: GPIO_AD_B0_15}
-  - {pin_num: '96', peripheral: PWM2, signal: 'A, 1', pin_signal: GPIO_AD_B0_12}
-  - {pin_num: '95', peripheral: PWM2, signal: 'B, 1', pin_signal: GPIO_AD_B0_13}
-  - {pin_num: '98', peripheral: PWM2, signal: 'A, 2', pin_signal: GPIO_AD_B0_10}
-  - {pin_num: '97', peripheral: PWM2, signal: 'B, 2', pin_signal: GPIO_AD_B0_11}
-  - {peripheral: PWM2, signal: 'FAULT, 0', pin_signal: ACMP3_OUT}
+  - {pin_num: '130', peripheral: PWM1, signal: 'A, 0', pin_signal: GPIO_EMC_26}
+  - {pin_num: '129', peripheral: PWM1, signal: 'B, 0', pin_signal: GPIO_EMC_27}
+  - {pin_num: '132', peripheral: PWM1, signal: 'A, 1', pin_signal: GPIO_EMC_24}
+  - {pin_num: '131', peripheral: PWM1, signal: 'B, 1', pin_signal: GPIO_EMC_25}
+  - {pin_num: '136', peripheral: PWM1, signal: 'A, 2', pin_signal: GPIO_EMC_22}
+  - {pin_num: '133', peripheral: PWM1, signal: 'B, 2', pin_signal: GPIO_EMC_23}
+  - {peripheral: PWM1, signal: 'FAULT, 0', pin_signal: ACMP3_OUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -149,24 +153,24 @@ void BOARD_InitPWM(void) {
   CLOCK_EnableClock(kCLOCK_Xbar1);            /* xbar1 clock (xbar1_clk_enable): 0x03U */
 
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_10_FLEXPWM2_PWMA02,   /* GPIO_AD_B0_10 is configured as FLEXPWM2_PWMA02 */
+      IOMUXC_GPIO_EMC_22_FLEXPWM1_PWMA02,     /* GPIO_EMC_22 is configured as FLEXPWM1_PWMA02 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_11_FLEXPWM2_PWMB02,   /* GPIO_AD_B0_11 is configured as FLEXPWM2_PWMB02 */
+      IOMUXC_GPIO_EMC_23_FLEXPWM1_PWMB02,     /* GPIO_EMC_23 is configured as FLEXPWM1_PWMB02 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_12_FLEXPWM2_PWMA01,   /* GPIO_AD_B0_12 is configured as FLEXPWM2_PWMA01 */
+      IOMUXC_GPIO_EMC_24_FLEXPWM1_PWMA01,     /* GPIO_EMC_24 is configured as FLEXPWM1_PWMA01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_13_FLEXPWM2_PWMB01,   /* GPIO_AD_B0_13 is configured as FLEXPWM2_PWMB01 */
+      IOMUXC_GPIO_EMC_25_FLEXPWM1_PWMB01,     /* GPIO_EMC_25 is configured as FLEXPWM1_PWMB01 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_14_FLEXPWM2_PWMA00,   /* GPIO_AD_B0_14 is configured as FLEXPWM2_PWMA00 */
+      IOMUXC_GPIO_EMC_26_FLEXPWM1_PWMA00,     /* GPIO_EMC_26 is configured as FLEXPWM1_PWMA00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_15_FLEXPWM2_PWMB00,   /* GPIO_AD_B0_15 is configured as FLEXPWM2_PWMB00 */
+      IOMUXC_GPIO_EMC_27_FLEXPWM1_PWMB00,     /* GPIO_EMC_27 is configured as FLEXPWM1_PWMB00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputAcmp3Out, kXBARA1_OutputFlexpwm2Fault0); /* ACMP3_OUT output assigned to XBARA_IN28 input is connected to XBARA_OUT49 output assigned to FLEXPWM2_FAULT0 */
+  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputAcmp3Out, kXBARA1_OutputFlexpwm1Fault0); /* ACMP3_OUT output assigned to XBARA_IN28 input is connected to XBARA_OUT35 output assigned to FLEXPWM1_FAULT0 */
 }
 
 
@@ -175,10 +179,10 @@ void BOARD_InitPWM(void) {
 DOARD_InitADC:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: '80', peripheral: ADC1, signal: 'IN, 10', pin_signal: GPIO_AD_B1_10}
-  - {pin_num: '79', peripheral: ADC1, signal: 'IN, 11', pin_signal: GPIO_AD_B1_11}
-  - {pin_num: '76', peripheral: ADC1, signal: 'IN, 13', pin_signal: GPIO_AD_B1_13, identifier: CUR_C}
   - {pin_num: '78', peripheral: ADC1, signal: 'IN, 12', pin_signal: GPIO_AD_B1_12}
+  - {pin_num: '81', peripheral: ADC1, signal: 'IN, 9', pin_signal: GPIO_AD_B1_09}
+  - {pin_num: '82', peripheral: ADC1, signal: 'IN, 8', pin_signal: GPIO_AD_B1_08}
+  - {pin_num: '75', peripheral: ADC1, signal: 'IN, 14', pin_signal: GPIO_AD_B1_14}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -192,16 +196,16 @@ void DOARD_InitADC(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03U */
 
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B1_10_GPIO1_IO26,        /* GPIO_AD_B1_10 is configured as GPIO1_IO26 */
+      IOMUXC_GPIO_AD_B1_08_GPIO1_IO24,        /* GPIO_AD_B1_08 is configured as GPIO1_IO24 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B1_11_GPIO1_IO27,        /* GPIO_AD_B1_11 is configured as GPIO1_IO27 */
+      IOMUXC_GPIO_AD_B1_09_GPIO1_IO25,        /* GPIO_AD_B1_09 is configured as GPIO1_IO25 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B1_12_GPIO1_IO28,        /* GPIO_AD_B1_12 is configured as GPIO1_IO28 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B1_13_GPIO1_IO29,        /* GPIO_AD_B1_13 is configured as GPIO1_IO29 */
+      IOMUXC_GPIO_AD_B1_14_GPIO1_IO30,        /* GPIO_AD_B1_14 is configured as GPIO1_IO30 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 
@@ -210,9 +214,7 @@ void DOARD_InitADC(void) {
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitENC:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
-- pin_list:
-  - {pin_num: '81', peripheral: ENC1, signal: 'PHASE, A', pin_signal: GPIO_AD_B1_09}
-  - {pin_num: '82', peripheral: ENC1, signal: 'PHASE, B', pin_signal: GPIO_AD_B1_08}
+- pin_list: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -223,22 +225,6 @@ BOARD_InitENC:
  *
  * END ****************************************************************************************************************/
 void BOARD_InitENC(void) {
-  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03U */
-  CLOCK_EnableClock(kCLOCK_Xbar1);            /* xbar1 clock (xbar1_clk_enable): 0x03U */
-
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B1_08_XBAR1_INOUT12,     /* GPIO_AD_B1_08 is configured as XBAR1_INOUT12 */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B1_09_XBAR1_INOUT13,     /* GPIO_AD_B1_09 is configured as XBAR1_INOUT13 */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_GPR->GPR6 = ((IOMUXC_GPR->GPR6 &
-    (~(IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_12_MASK | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_13_MASK))) /* Mask bits to zero which are setting */
-      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_12(0x00U) /* IOMUXC XBAR_INOUT12 function direction select: XBAR_INOUT as input */
-      | IOMUXC_GPR_GPR6_IOMUXC_XBAR_DIR_SEL_13(0x00U) /* IOMUXC XBAR_INOUT13 function direction select: XBAR_INOUT as input */
-    );
-  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout13, kXBARA1_OutputEnc1PhaseAInput); /* IOMUX_XBAR_INOUT13 output assigned to XBARA_IN13 input is connected to XBARA_OUT66 output assigned to ENC1_PHASE_A_INPUT */
-  XBARA_SetSignalsConnection(XBARA, kXBARA1_InputIomuxXbarInout12, kXBARA1_OutputEnc1PhaseBInput); /* IOMUX_XBAR_INOUT12 output assigned to XBARA_IN12 input is connected to XBARA_OUT67 output assigned to ENC1_PHASE_B_INPUT */
 }
 
 

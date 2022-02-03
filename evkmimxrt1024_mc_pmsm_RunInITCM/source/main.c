@@ -135,10 +135,10 @@ __RAMFUNC(SRAM_ITC_cm7) int main(void)
         FMSTR_Poll();
     }
 }
-__RAMFUNC(SRAM_ITC_cm7) void PWM2_0_IRQHandler(void)
+__RAMFUNC(SRAM_ITC_cm7) void PWM1_0_IRQHandler(void)
 {
 	// clear flag
-	PWM2->SM[0].STS  = PWM_STS_CMPF(1<<4);
+	PWM1->SM[0].STS  = PWM_STS_CMPF(1<<4);
 
 	// toggle test IO
 	GPIO_PortToggle(BOARD_INITPINS_TP_PORT, 1<<BOARD_INITPINS_TP_PIN);

@@ -84,6 +84,7 @@ void BOARD_USER_BUTTON_1_IRQ_HANDLER(void)
     user_button_callback();
     GPIO_PortClearInterruptFlags(BOARD_USER_BUTTON_1_GPIO, 1U << BOARD_USER_BUTTON_1_GPIO_PIN);
   }
+/*
   if(GPIO_GetPinsInterruptFlags(BOARD_USER_BUTTON_2_GPIO)&(1U << BOARD_USER_BUTTON_2_GPIO_PIN))
   {
     user_button_callback();
@@ -91,9 +92,10 @@ void BOARD_USER_BUTTON_1_IRQ_HANDLER(void)
   }
   if(GPIO_GetPinsInterruptFlags(BOARD_LCD_TOUCH_INT_GPIO)&(1U << BOARD_LCD_TOUCH_INT_GPIO_PIN))
   {
-    lcd_touch_int_callback();
+//    lcd_touch_int_callback();
     GPIO_PortClearInterruptFlags(BOARD_LCD_TOUCH_INT_GPIO, 1U << BOARD_LCD_TOUCH_INT_GPIO_PIN);
   }  
+*/
 }
 
 /***************************************************************************//*!
@@ -102,6 +104,7 @@ void BOARD_USER_BUTTON_1_IRQ_HANDLER(void)
  ******************************************************************************/
 void LCDIF_IRQHandler(void)
 {
+/*
   uint32_t intStatus;
 
   intStatus = ELCDIF_GetInterruptStatus(LCDIF);
@@ -110,4 +113,5 @@ void LCDIF_IRQHandler(void)
   {
     elcdif_frame_done_callback();
   }
+*/
 }

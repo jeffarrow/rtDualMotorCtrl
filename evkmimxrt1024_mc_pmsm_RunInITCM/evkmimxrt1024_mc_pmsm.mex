@@ -30,11 +30,15 @@
             </power_domains>
             <pin_labels>
                <pin_label pin_num="84" pin_signal="GPIO_AD_B1_06" label="ENET_INT/U11[21]/J17[16]" identifier="ENET_INT;CUR_DCB"/>
+               <pin_label pin_num="83" pin_signal="GPIO_AD_B1_07" label="CUR2_DCB" identifier="CUR2_DCB"/>
                <pin_label pin_num="80" pin_signal="GPIO_AD_B1_10" label="USB_OTG1_PWR/J18[2]" identifier="CUR_A"/>
                <pin_label pin_num="79" pin_signal="GPIO_AD_B1_11" label="USB_OTG1_ID/J18[4]" identifier="CUR_B"/>
                <pin_label pin_num="78" pin_signal="GPIO_AD_B1_12" label="USB_OTG1_OC/J18[6]" identifier="VOLT_DCB"/>
                <pin_label pin_num="76" pin_signal="GPIO_AD_B1_13" label="CAN_STBY/J18[8]" identifier="CAN_STBY;CUR_C"/>
+               <pin_label pin_num="75" pin_signal="GPIO_AD_B1_14" label="CUR2_A" identifier="CUR2_A"/>
                <pin_label pin_num="30" pin_signal="GPIO_SD_B1_02" label="I2C4_SCL/J19[20]" identifier="TP"/>
+               <pin_label pin_num="81" pin_signal="GPIO_AD_B1_09" label="CUR2_C" identifier="CUR2_C"/>
+               <pin_label pin_num="82" pin_signal="GPIO_AD_B1_08" label="CUR2_B" identifier="CUR2_B"/>
             </pin_labels>
          </pins_profile>
          <functions_list>
@@ -118,11 +122,6 @@
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.iomuxc" description="Pins initialization requires the IOMUXC Driver in the project." problem_level="2" source="Pins:BOARD_InitPWM">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
-                        <data>true</data>
-                     </feature>
-                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.xbara" description="Pins initialization requires the XBARA Driver in the project." problem_level="2" source="Pins:BOARD_InitPWM">
                      <feature name="enabled" evaluation="equal" configuration="core0">
                         <data>true</data>
@@ -130,12 +129,12 @@
                   </dependency>
                </dependencies>
                <pins>
-                  <pin peripheral="PWM2" signal="A, 0" pin_num="94" pin_signal="GPIO_AD_B0_14"/>
-                  <pin peripheral="PWM2" signal="B, 0" pin_num="93" pin_signal="GPIO_AD_B0_15"/>
-                  <pin peripheral="PWM2" signal="A, 1" pin_num="96" pin_signal="GPIO_AD_B0_12"/>
-                  <pin peripheral="PWM2" signal="B, 1" pin_num="95" pin_signal="GPIO_AD_B0_13"/>
-                  <pin peripheral="PWM2" signal="A, 2" pin_num="98" pin_signal="GPIO_AD_B0_10"/>
-                  <pin peripheral="PWM2" signal="B, 2" pin_num="97" pin_signal="GPIO_AD_B0_11"/>
+                  <pin peripheral="PWM2" signal="A, 0" pin_num="130" pin_signal="GPIO_EMC_26"/>
+                  <pin peripheral="PWM2" signal="B, 0" pin_num="129" pin_signal="GPIO_EMC_27"/>
+                  <pin peripheral="PWM2" signal="A, 1" pin_num="132" pin_signal="GPIO_EMC_24"/>
+                  <pin peripheral="PWM2" signal="B, 1" pin_num="131" pin_signal="GPIO_EMC_25"/>
+                  <pin peripheral="PWM2" signal="A, 2" pin_num="136" pin_signal="GPIO_EMC_22"/>
+                  <pin peripheral="PWM2" signal="B, 2" pin_num="133" pin_signal="GPIO_EMC_23"/>
                   <pin peripheral="PWM2" signal="FAULT, 0" pin_num="" pin_signal="ACMP3_OUT"/>
                </pins>
             </function>
@@ -164,14 +163,10 @@
                   </dependency>
                </dependencies>
                <pins>
-                  <pin peripheral="ADC1" signal="IN, 10" pin_num="80" pin_signal="GPIO_AD_B1_10"/>
-                  <pin peripheral="ADC1" signal="IN, 11" pin_num="79" pin_signal="GPIO_AD_B1_11"/>
-                  <pin peripheral="ADC1" signal="IN, 13" pin_num="76" pin_signal="GPIO_AD_B1_13">
-                     <pin_features>
-                        <pin_feature name="identifier" value="CUR_C"/>
-                     </pin_features>
-                  </pin>
                   <pin peripheral="ADC1" signal="IN, 12" pin_num="78" pin_signal="GPIO_AD_B1_12"/>
+                  <pin peripheral="ADC1" signal="IN, 9" pin_num="81" pin_signal="GPIO_AD_B1_09"/>
+                  <pin peripheral="ADC1" signal="IN, 8" pin_num="82" pin_signal="GPIO_AD_B1_08"/>
+                  <pin peripheral="ADC1" signal="IN, 14" pin_num="75" pin_signal="GPIO_AD_B1_14"/>
                </pins>
             </function>
             <function name="BOARD_InitENC">
@@ -182,31 +177,13 @@
                   <enableClock>true</enableClock>
                </options>
                <dependencies>
-                  <dependency resourceType="Peripheral" resourceId="ENC1" description="Peripheral ENC1 is not initialized" problem_level="1" source="Pins:BOARD_InitENC">
-                     <feature name="initialized" evaluation="equal">
-                        <data>true</data>
-                     </feature>
-                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitENC">
                      <feature name="enabled" evaluation="equal" configuration="core0">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.iomuxc" description="Pins initialization requires the IOMUXC Driver in the project." problem_level="2" source="Pins:BOARD_InitENC">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
-                        <data>true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.xbara" description="Pins initialization requires the XBARA Driver in the project." problem_level="2" source="Pins:BOARD_InitENC">
-                     <feature name="enabled" evaluation="equal" configuration="core0">
-                        <data>true</data>
-                     </feature>
-                  </dependency>
                </dependencies>
-               <pins>
-                  <pin peripheral="ENC1" signal="PHASE, A" pin_num="81" pin_signal="GPIO_AD_B1_09"/>
-                  <pin peripheral="ENC1" signal="PHASE, B" pin_num="82" pin_signal="GPIO_AD_B1_08"/>
-               </pins>
+               <pins/>
             </function>
             <function name="BOARD_InitCMP">
                <description>Configures pin routing and optionally pin electrical features.</description>
@@ -806,7 +783,7 @@
                         <struct name="lpuartConfig">
                            <setting name="clockSource" value="LpuartClock"/>
                            <setting name="lpuartSrcClkFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="baudRate_Bps" value="115200"/>
+                           <setting name="baudRate_Bps" value="19200"/>
                            <setting name="parityMode" value="kLPUART_ParityDisabled"/>
                            <setting name="dataBitsCount" value="kLPUART_EightDataBits"/>
                            <setting name="isMsb" value="false"/>

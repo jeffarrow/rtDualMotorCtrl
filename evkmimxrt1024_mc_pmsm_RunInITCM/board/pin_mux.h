@@ -72,35 +72,35 @@ void BOARD_InitPins(void);
  */
 void BOARD_InitLPUART(void);
 
-/* GPIO_AD_B0_14 (number 94), ENET_TXD0/U11[24]/J17[14] */
-#define BOARD_INITPWM_ENET_TXD0_PERIPHERAL                                  PWM2   /*!< Device name: PWM2 */
-#define BOARD_INITPWM_ENET_TXD0_SIGNAL                                         A   /*!< PWM2 signal: A */
-#define BOARD_INITPWM_ENET_TXD0_CHANNEL                                       0U   /*!< PWM2 A channel: 0 */
+/* GPIO_EMC_26 (number 130), SEMC_A11/U14[35]/BT_CFG[8] */
+#define BOARD_INITPWM_SEMC_A11_PERIPHERAL                                   PWM1   /*!< Device name: PWM1 */
+#define BOARD_INITPWM_SEMC_A11_SIGNAL                                          A   /*!< PWM1 signal: A */
+#define BOARD_INITPWM_SEMC_A11_CHANNEL                                        0U   /*!< PWM1 A channel: 0 */
 
-/* GPIO_AD_B0_15 (number 93), ENET_TXD1/U11[25]/J19[4] */
-#define BOARD_INITPWM_ENET_TXD1_PERIPHERAL                                  PWM2   /*!< Device name: PWM2 */
-#define BOARD_INITPWM_ENET_TXD1_SIGNAL                                         B   /*!< PWM2 signal: B */
-#define BOARD_INITPWM_ENET_TXD1_CHANNEL                                       0U   /*!< PWM2 B channel: 0 */
+/* GPIO_EMC_27 (number 129), SEMC_A12/U14[36]/BT_CFG[9] */
+#define BOARD_INITPWM_SEMC_A12_PERIPHERAL                                   PWM1   /*!< Device name: PWM1 */
+#define BOARD_INITPWM_SEMC_A12_SIGNAL                                          B   /*!< PWM1 signal: B */
+#define BOARD_INITPWM_SEMC_A12_CHANNEL                                        0U   /*!< PWM1 B channel: 0 */
 
-/* GPIO_AD_B0_12 (number 96), ENET_RXER/U11[20]/J19[8] */
-#define BOARD_INITPWM_ENET_RXER_PERIPHERAL                                  PWM2   /*!< Device name: PWM2 */
-#define BOARD_INITPWM_ENET_RXER_SIGNAL                                         A   /*!< PWM2 signal: A */
-#define BOARD_INITPWM_ENET_RXER_CHANNEL                                       1U   /*!< PWM2 A channel: 1 */
+/* GPIO_EMC_24 (number 132), SEMC_A8/U14[33]/BT_CFG[6] */
+#define BOARD_INITPWM_SEMC_A8_PERIPHERAL                                    PWM1   /*!< Device name: PWM1 */
+#define BOARD_INITPWM_SEMC_A8_SIGNAL                                           A   /*!< PWM1 signal: A */
+#define BOARD_INITPWM_SEMC_A8_CHANNEL                                         1U   /*!< PWM1 A channel: 1 */
 
-/* GPIO_AD_B0_13 (number 95), ENET_TXEN/U11[23]/J19[10] */
-#define BOARD_INITPWM_ENET_TXEN_PERIPHERAL                                  PWM2   /*!< Device name: PWM2 */
-#define BOARD_INITPWM_ENET_TXEN_SIGNAL                                         B   /*!< PWM2 signal: B */
-#define BOARD_INITPWM_ENET_TXEN_CHANNEL                                       1U   /*!< PWM2 B channel: 1 */
+/* GPIO_EMC_25 (number 131), SEMC_A9/U14[34]/BT_CFG[7] */
+#define BOARD_INITPWM_SEMC_A9_PERIPHERAL                                    PWM1   /*!< Device name: PWM1 */
+#define BOARD_INITPWM_SEMC_A9_SIGNAL                                           B   /*!< PWM1 signal: B */
+#define BOARD_INITPWM_SEMC_A9_CHANNEL                                         1U   /*!< PWM1 B channel: 1 */
 
-/* GPIO_AD_B0_10 (number 98), ENET_RXD0/U11[16]/J19[12] */
-#define BOARD_INITPWM_ENET_RXD0_PERIPHERAL                                  PWM2   /*!< Device name: PWM2 */
-#define BOARD_INITPWM_ENET_RXD0_SIGNAL                                         A   /*!< PWM2 signal: A */
-#define BOARD_INITPWM_ENET_RXD0_CHANNEL                                       2U   /*!< PWM2 A channel: 2 */
+/* GPIO_EMC_22 (number 136), SEMC_A6/U14[31]/BT_CFG[4] */
+#define BOARD_INITPWM_SEMC_A6_PERIPHERAL                                    PWM1   /*!< Device name: PWM1 */
+#define BOARD_INITPWM_SEMC_A6_SIGNAL                                           A   /*!< PWM1 signal: A */
+#define BOARD_INITPWM_SEMC_A6_CHANNEL                                         2U   /*!< PWM1 A channel: 2 */
 
-/* GPIO_AD_B0_11 (number 97), ENET_CRS_DV/U11[18]/J19[6] */
-#define BOARD_INITPWM_ENET_CRS_DV_PERIPHERAL                                PWM2   /*!< Device name: PWM2 */
-#define BOARD_INITPWM_ENET_CRS_DV_SIGNAL                                       B   /*!< PWM2 signal: B */
-#define BOARD_INITPWM_ENET_CRS_DV_CHANNEL                                     2U   /*!< PWM2 B channel: 2 */
+/* GPIO_EMC_23 (number 133), SEMC_A7/U14[32]/BT_CFG[5] */
+#define BOARD_INITPWM_SEMC_A7_PERIPHERAL                                    PWM1   /*!< Device name: PWM1 */
+#define BOARD_INITPWM_SEMC_A7_SIGNAL                                           B   /*!< PWM1 signal: B */
+#define BOARD_INITPWM_SEMC_A7_CHANNEL                                         2U   /*!< PWM1 B channel: 2 */
 
 
 /*!
@@ -109,25 +109,25 @@ void BOARD_InitLPUART(void);
  */
 void BOARD_InitPWM(void);
 
-/* GPIO_AD_B1_10 (number 80), USB_OTG1_PWR/J18[2] */
-#define DOARD_INITADC_CUR_A_PERIPHERAL                                      ADC1   /*!< Device name: ADC1 */
-#define DOARD_INITADC_CUR_A_SIGNAL                                            IN   /*!< ADC1 signal: IN */
-#define DOARD_INITADC_CUR_A_CHANNEL                                          10U   /*!< ADC1 IN channel: 10 */
-
-/* GPIO_AD_B1_11 (number 79), USB_OTG1_ID/J18[4] */
-#define DOARD_INITADC_CUR_B_PERIPHERAL                                      ADC1   /*!< Device name: ADC1 */
-#define DOARD_INITADC_CUR_B_SIGNAL                                            IN   /*!< ADC1 signal: IN */
-#define DOARD_INITADC_CUR_B_CHANNEL                                          11U   /*!< ADC1 IN channel: 11 */
-
-/* GPIO_AD_B1_13 (number 76), CAN_STBY/J18[8] */
-#define DOARD_INITADC_CUR_C_PERIPHERAL                                      ADC1   /*!< Device name: ADC1 */
-#define DOARD_INITADC_CUR_C_SIGNAL                                            IN   /*!< ADC1 signal: IN */
-#define DOARD_INITADC_CUR_C_CHANNEL                                          13U   /*!< ADC1 IN channel: 13 */
-
 /* GPIO_AD_B1_12 (number 78), USB_OTG1_OC/J18[6] */
 #define DOARD_INITADC_VOLT_DCB_PERIPHERAL                                   ADC1   /*!< Device name: ADC1 */
 #define DOARD_INITADC_VOLT_DCB_SIGNAL                                         IN   /*!< ADC1 signal: IN */
 #define DOARD_INITADC_VOLT_DCB_CHANNEL                                       12U   /*!< ADC1 IN channel: 12 */
+
+/* GPIO_AD_B1_09 (number 81), CUR2_C */
+#define DOARD_INITADC_CUR2_C_PERIPHERAL                                     ADC1   /*!< Device name: ADC1 */
+#define DOARD_INITADC_CUR2_C_SIGNAL                                           IN   /*!< ADC1 signal: IN */
+#define DOARD_INITADC_CUR2_C_CHANNEL                                          9U   /*!< ADC1 IN channel: 9 */
+
+/* GPIO_AD_B1_08 (number 82), CUR2_B */
+#define DOARD_INITADC_CUR2_B_PERIPHERAL                                     ADC1   /*!< Device name: ADC1 */
+#define DOARD_INITADC_CUR2_B_SIGNAL                                           IN   /*!< ADC1 signal: IN */
+#define DOARD_INITADC_CUR2_B_CHANNEL                                          8U   /*!< ADC1 IN channel: 8 */
+
+/* GPIO_AD_B1_14 (number 75), CUR2_A */
+#define DOARD_INITADC_CUR2_A_PERIPHERAL                                     ADC1   /*!< Device name: ADC1 */
+#define DOARD_INITADC_CUR2_A_SIGNAL                                           IN   /*!< ADC1 signal: IN */
+#define DOARD_INITADC_CUR2_A_CHANNEL                                         14U   /*!< ADC1 IN channel: 14 */
 
 
 /*!

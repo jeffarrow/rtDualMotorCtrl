@@ -291,10 +291,10 @@ void InitTMR1(void)
 void M1_InitPWM(void)
 {
     /* PWM base pointer (affects the entire initialization) */
-    PWM_Type *PWMBase = (PWM_Type *)PWM2;
+    PWM_Type *PWMBase = (PWM_Type *)PWM1;
 
     /* PWM clock gating register: enabled */
-    CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG9_MASK)) | CCM_CCGR4_CG9(0x3);
+    CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG8_MASK)) | CCM_CCGR4_CG8(0x3);
 
     /* Full cycle reload */
     PWMBase->SM[M1_PWM_PAIR_PHA].CTRL |= PWM_CTRL_HALF_MASK;

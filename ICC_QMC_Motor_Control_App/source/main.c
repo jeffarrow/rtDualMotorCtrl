@@ -54,19 +54,18 @@
   __ramfunc
 #endif
   uint32_t move_data(const uint32_t cData);
-  static void motor_nfc_identification_task(void *pvParameters);
   static void button_task(void *pvParameters);
   static void periodic_1s_task(void *pvParameters);
 
 /*******************************************************************************
  * Globals
  ******************************************************************************/
-QueueHandle_t queueEthernetMotorControlCommandData = NULL;
-QueueHandle_t queueLcdMotorControlCommandData = NULL;
-QueueHandle_t queueEthernetMotorControlStatusData = NULL;
-QueueHandle_t queueLcdMotorControlStatusData = NULL;
+//QueueHandle_t queueEthernetMotorControlCommandData = NULL;
+//QueueHandle_t queueLcdMotorControlCommandData = NULL;
+//QueueHandle_t queueEthernetMotorControlStatusData = NULL;
+//QueueHandle_t queueLcdMotorControlStatusData = NULL;
 EventGroupHandle_t eventGroupMotorControlData;
-TaskHandle_t xNfcTaskHandle;
+//TaskHandle_t xNfcTaskHandle;
 static mc_status_data_t appMotorControlStatusData[4];
 static mc_command_data_t appMotorControlCommandData[4];
 
@@ -84,39 +83,22 @@ int main(void)
   BOARD_InitDebugConsole();
   /* do not place a printf here*/
   
-  BOARD_LCD_BACKLIGHT_INIT(1U);
   
   InstallIRQHandler(Reserved144_IRQn, (uint32_t)SoftwareHandler); // check whether this function does not enable irq at the end
   
   SoftwareHandler();
 
-  PRINTF("This is FreeRTOS based ICC 4xMC demo (MCUXpresso).\r\n");
-  
-  queueEthernetMotorControlCommandData = xQueueCreate(1, (sizeof(mc_command_data_t)<<2));
-  queueLcdMotorControlCommandData = xQueueCreate(1, (sizeof(mc_command_data_t)<<2));
-  queueEthernetMotorControlStatusData = xQueueCreate(1, (sizeof(mc_status_data_t)<<2));
-  queueLcdMotorControlStatusData = xQueueCreate(1, (sizeof(mc_status_data_t)<<2));
+  PRINTF("This is FreeRTOS based ICC 2xMC demo (MCUXpresso).\r\n");
 
   eventGroupMotorControlData = xEventGroupCreate();
 
-  if (xTaskCreate(lcd_init_task, "LCD_INIT_TASK", configMINIMAL_STACK_SIZE+100, NULL, tskIDLE_PRIORITY+3, NULL) !=
-      pdPASS)
-  {
-      PRINTF("Task creation failed!.\r\n");
-      while (1);
-  }
-  if (xTaskCreate(nfc_task, "NFC_TASK", 1024, NULL, tskIDLE_PRIORITY+3, &xNfcTaskHandle) !=
-      pdPASS)
-  {
-      PRINTF("Task creation failed!.\r\n");
-      while (1);
-  }
-  if (xTaskCreate(motor_nfc_identification_task, "MOTOR_NFC_IDENTIFICATION_TASK", 1024, NULL, tskIDLE_PRIORITY+3, NULL) !=
-      pdPASS)
-  {
-      PRINTF("Task creation failed!.\r\n");
-      while (1);
-  }
+  if (xTaskCreate(periodic_1s_task, "PERIODIC_1S_TASK", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+4, NULL) !=
+            pdPASS)
+	{
+		PRINTF("Task creation failed!.\r\n");
+		while (1);
+	}
+
   if (xTaskCreate(button_task, "BUTTON_TASK", configMINIMAL_STACK_SIZE+100, NULL, tskIDLE_PRIORITY+4, NULL) !=
       pdPASS)
   {
@@ -127,51 +109,7 @@ int main(void)
   return 0;
 }
 
-/*!
- * @brief motor_nfc_identificaiton_task function
- */
-static void motor_nfc_identification_task(void *pvParameters)
-{
-  EventBits_t eventMotorIdentificationBit;
-  
-  PRINTF("motor_nfc_identification_task entered.\r\n");
 
-  while(1)
-  {                            
-    eventMotorIdentificationBit = xEventGroupWaitBits(eventGroupMotorControlData,
-                                                    EVENT_MOTOR_ID_SUCCESS,
-                                                    pdTRUE,
-                                                    pdFALSE,
-                                                    portMAX_DELAY);
-    if (eventMotorIdentificationBit & EVENT_MOTOR_ID_SUCCESS)
-    {
-      PRINTF("Motor identification succesfull.\r\n");
-      if (xTaskCreate(motor_control_init_task, "MOTOR_CONTROL_INIT_TASK", 1024, NULL, tskIDLE_PRIORITY+5, NULL) !=
-          pdPASS)
-      {
-          PRINTF("Task creation failed!.\r\n");
-          while (1);
-      }
-      if (xTaskCreate(periodic_1s_task, "PERIODIC_1S_TASK", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY+4, NULL) !=
-          pdPASS)
-      {
-          PRINTF("Task creation failed!.\r\n");
-          while (1);
-      }
-      if (xTaskCreate(lwip_udp_init_task, "LWIP_UDP_INIT_TASK", 1024, NULL, tskIDLE_PRIORITY+4, NULL) !=
-          pdPASS)
-      {
-          PRINTF("Task creation failed!.\r\n");
-          while (1);
-      }
-      vTaskDelete(NULL);
-    }
-    else
-    {
-      PRINTF("Motor identification fail.\r\n");
-    }
-  }
-}
 
 /*!
  * @brief button_task function
@@ -182,14 +120,10 @@ static void button_task(void *pvParameters)
   
   PRINTF("button_task entered.\r\n");
 
+  EnableIRQ(BOARD_USER_BUTTON_1_IRQ);
   GPIO_PinInit(BOARD_USER_BUTTON_1_GPIO, BOARD_USER_BUTTON_1_GPIO_PIN, &buttonConfig);
   GPIO_PortEnableInterrupts(BOARD_USER_BUTTON_1_GPIO, 1U << BOARD_USER_BUTTON_1_GPIO_PIN);
-  GPIO_PinInit(BOARD_USER_BUTTON_2_GPIO, BOARD_USER_BUTTON_2_GPIO_PIN, &buttonConfig);
-  GPIO_PortEnableInterrupts(BOARD_USER_BUTTON_2_GPIO, 1U << BOARD_USER_BUTTON_2_GPIO_PIN);
-  GPIO_PortClearInterruptFlags(BOARD_USER_BUTTON_1_GPIO, 1U << BOARD_USER_BUTTON_1_GPIO_PIN);
-  GPIO_PortClearInterruptFlags(BOARD_USER_BUTTON_2_GPIO, 1U << BOARD_USER_BUTTON_2_GPIO_PIN);
-  NVIC_EnableIRQ(BOARD_USER_BUTTON_1_IRQ);
-  NVIC_SetPriority(BOARD_USER_BUTTON_1_IRQ, configLIBRARY_LOWEST_INTERRUPT_PRIORITY); // lower priority 15
+  NVIC_SetPriority(BOARD_USER_BUTTON_1_IRQ, configLIBRARY_LOWEST_INTERRUPT_PRIORITY);
 
   vTaskDelete(NULL);
 }
@@ -217,6 +151,7 @@ static void periodic_1s_task(void *pvParameters)
     appMotorControlStatusData[0].u32Position = g_sM1Drive.sPosition.a32Position;
     appMotorControlStatusData[0].f32Iq = g_sM1Drive.sFocPMSM.sIDQ.fltQ;
     appMotorControlStatusData[0].f32UDcBus = g_sM1Drive.sFocPMSM.fltUDcBusFilt;
+/*
     // Motor 2 status data
     appMotorControlStatusData[1].appStatus = (mc_app_status_t)g_bM2SwitchAppOnOff;
     appMotorControlStatusData[1].motorState = (mc_state_t)g_sM2Ctrl.eState;
@@ -241,16 +176,18 @@ static void periodic_1s_task(void *pvParameters)
     appMotorControlStatusData[3].u32Position = g_sM4Drive.sPosition.a32Position;
     appMotorControlStatusData[3].f32Iq = g_sM4Drive.sFocPMSM.sIDQ.fltQ;
     appMotorControlStatusData[3].f32UDcBus = g_sM4Drive.sFocPMSM.fltUDcBusFilt;
+*/
     // Send data into the ethernet queue
-    if (xQueueSend(queueEthernetMotorControlStatusData, (void*)&appMotorControlStatusData, NULL) != pdPASS )
+//    if (xQueueSend(queueEthernetMotorControlStatusData, (void*)&appMotorControlStatusData, NULL) != pdPASS )
     {
       //PRINTF("Could not send a App Queue because it is already full.\r\n");
     }
-    if (xQueueSend(queueLcdMotorControlStatusData, (void*)&appMotorControlStatusData, NULL) != pdPASS )
+//    if (xQueueSend(queueLcdMotorControlStatusData, (void*)&appMotorControlStatusData, NULL) != pdPASS )
     {
       //PRINTF("Could not send a App Queue because it is already full.\r\n");
     }
-    if (xEventGroupSetBits(eventGroupMotorControlData,(EVENT_PERIODIC_1S|EVENT_ETHERNET_TX|EVENT_LCD_UPDATE)) == pdPASS);
+    if (xEventGroupSetBits(eventGroupMotorControlData,(EVENT_PERIODIC_1S)) == pdPASS) //|EVENT_ETHERNET_TX|EVENT_LCD_UPDATE)) == pdPASS);
+    	;
     vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(1000)); // temporarily 1s
   }
 }
@@ -261,7 +198,7 @@ static void periodic_1s_task(void *pvParameters)
 void user_button_callback(void)
 {  
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-
+/*
   if(eTaskGetState(xNfcTaskHandle) == eRunning)
   {
     vTaskDelete(xNfcTaskHandle);
@@ -275,6 +212,7 @@ void user_button_callback(void)
     PRINTF("Could not send a Ethernet Queue because it is already full.\r\n");
 #endif  
   }
+*/
 }
 
 void SoftwareHandler(void)

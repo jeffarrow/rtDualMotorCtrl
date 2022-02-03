@@ -101,20 +101,21 @@ void motor_control_init_task(void *pvParameters)
   /* Init peripheral motor control driver for motor M1, M2, M3 & M4 */
   MCDRV_Init();   
   /* Init UART for FreeMaster communication */ 
-  BOARD_InitUART(BOARD_FMSTR_UART_BAUDRATE);
+  BOARD_InitDebugConsole(); //BOARD_InitUART(BOARD_FMSTR_UART_BAUDRATE);
   /* FreeMaster init */
   FMSTR_Init();
 
   /* Turn off motor control application */
   M1_SetAppSwitch(0);
   M2_SetAppSwitch(0);
-  M3_SetAppSwitch(0);
-  M4_SetAppSwitch(0);
-
+//  M3_SetAppSwitch(0);
+//  M4_SetAppSwitch(0);
+/*
   USER_LED1_ON();
   USER_LED2_ON();
   USER_LED3_ON();
   USER_LED4_ON();
+*/
   /* Pass actual demo id and board info to FM */
   g_sAppIdFM = g_sAppId;
   
@@ -141,7 +142,7 @@ void ADC1_IRQHandler(void)
         SM_StateMachineFast(&g_sM1Ctrl);
        
         /* M3 State machine */
-        SM_StateMachineFast(&g_sM3Ctrl);
+//        SM_StateMachineFast(&g_sM3Ctrl);
         
         /* Clear PWM STS compare flags for M1 */
         PWM1->SM[0].STS |= PWM_STS_CMPF_MASK; 
@@ -154,7 +155,10 @@ void ADC1_IRQHandler(void)
     }     
     
     /* Check PWM compare flag for M3 - PWM3 Sub0 VAL4  */
-    ui16M2AdcConv =  (((PWM3->SM[0].STS & PWM_STS_CMPF_MASK) & 0x8U) >> 3U); 
+//    ui16M2AdcConv =  (((PWM3->SM[0].STS & PWM_STS_CMPF_MASK) & 0x8U) >> 3U);
+
+    /* Check PWM compare flag for M2 - PWM2 Sub0 VAL4  */
+    ui16M2AdcConv =  (((PWM2->SM[0].STS & PWM_STS_CMPF_MASK) & 0x8U) >> 3U);
        
     if(ui16M2AdcConv == 1U)
     {   
@@ -166,10 +170,10 @@ void ADC1_IRQHandler(void)
         SM_StateMachineFast(&g_sM2Ctrl);
         
         /* M4 State machine */
-        SM_StateMachineFast(&g_sM4Ctrl);
+//        SM_StateMachineFast(&g_sM4Ctrl);
                 
         /* Clear PWM STS compare flags for M2 */
-        PWM3->SM[0].STS |= PWM_STS_CMPF_MASK; 
+        PWM2->SM[0].STS |= PWM_STS_CMPF_MASK;
         ui16M2AdcConv =  0U; 
         
         /* Stop CPU tick number couting and store actual and maximum ticks */
@@ -201,10 +205,10 @@ void TMR1_IRQHandler(void)
     SM_StateMachineSlow(&g_sM2Ctrl);
     
     /* M3 Slow StateMachine call */
-    SM_StateMachineSlow(&g_sM3Ctrl);
+//    SM_StateMachineSlow(&g_sM3Ctrl);
     
     /* M4 Slow StateMachine call */
-    SM_StateMachineSlow(&g_sM4Ctrl);
+//    SM_StateMachineSlow(&g_sM4Ctrl);
     
     /* Demo speed stimulator */
     SpeedDemo();
@@ -219,9 +223,9 @@ void TMR1_IRQHandler(void)
     
     MCDRV_QdEncLedDemoType(&g_sM2Enc);
     
-    MCDRV_QdEncLedDemoType(&g_sM3Enc);
+//    MCDRV_QdEncLedDemoType(&g_sM3Enc);
     
-    MCDRV_QdEncLedDemoType(&g_sM4Enc);  
+//    MCDRV_QdEncLedDemoType(&g_sM4Enc);
     
     /* Clear the CSCTRL0[TCF1] flag */  
     TMR1->CHANNEL[0].CSCTRL |= TMR_CSCTRL_TCF1(0x00);
@@ -282,18 +286,6 @@ void ENC2_IRQHandler(void)
 RAM_FUNC
 void ENC3_IRQHandler(void)
 {   
-    
-    /* Read offset between Index position and position of the shaft after align*/
-    MCDRV_QdEncGetIndexOffset(&g_sM3Enc);
-    g_sM3Drive.sPosition.a32PositionIndexOffset = g_sM3Enc.a32PosIndexOffset;
-    g_sM3Drive.sPosition.a32PositionAlignOffset = ACC32(0.323*2);
-    
-    /* Clear interrupt flag */
-    ENC3->CTRL = (ENC3->CTRL & (uint16_t)(~((ENC_CTRL_HIRQ_MASK | ENC_CTRL_XIRQ_MASK | ENC_CTRL_DIRQ_MASK | ENC_CTRL_CMPIRQ_MASK)))) | ENC_CTRL_XIRQ_MASK;
-    /* Do not execuite next ENC interrupt */ 
-    ENC3->CTRL = 0x0;
-    
-    /* Add empty instructions for correct interrupt flag clearing */
     M1_END_OF_ISR;
 
 }
@@ -303,18 +295,6 @@ void ENC3_IRQHandler(void)
 RAM_FUNC
 void ENC4_IRQHandler(void)
 {   
-    
-    /* Read offset between Index position and position of the shaft after align*/
-    g_sM4Enc.a32PosIndexOffset = ACC32(0.0);
-    MCDRV_QdEncGetIndexOffset(&g_sM4Enc);
-    g_sM4Drive.sPosition.a32PositionIndexOffset = g_sM4Enc.a32PosIndexOffset;
-    g_sM4Drive.sPosition.a32PositionAlignOffset = ACC32(0.21*2);
-    
-    /* Clear interrupt flag */
-    ENC4->CTRL = (ENC4->CTRL & (uint16_t)(~((ENC_CTRL_HIRQ_MASK | ENC_CTRL_XIRQ_MASK | ENC_CTRL_DIRQ_MASK | ENC_CTRL_CMPIRQ_MASK)))) | ENC_CTRL_XIRQ_MASK;
-    /* Do not execuite next ENC interrupt */ 
-    ENC4->CTRL = 0x0;
-    
     /* Add empty instructions for correct interrupt flag clearing */
     M1_END_OF_ISR;
 

@@ -86,8 +86,8 @@
 									<listOptionValue builtIn="false" value="PRINTF_ADVANCED_ENABLE=0"/>
 									<listOptionValue builtIn="false" value="SCANF_ADVANCED_ENABLE=0"/>
 									<listOptionValue builtIn="false" value="SDK_OS_FREE_RTOS"/>
-									<listOptionValue builtIn="false" value="CPU_MIMXRT1052DVL6B"/>
-									<listOptionValue builtIn="false" value="CPU_MIMXRT1052DVL6B_cm7"/>
+									<listOptionValue builtIn="false" value="CPU_MIMXRT1024CAG4A"/>
+									<listOptionValue builtIn="false" value="CPU_MIMXRT1024CAG4A_cm7"/>
 									<listOptionValue builtIn="false" value="__MCUXPRESSO"/>
 									<listOptionValue builtIn="false" value="__USE_CMSIS"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -106,10 +106,6 @@
 									<listOptionValue builtIn="false" value="../device"/>
 									<listOptionValue builtIn="false" value="../drivers"/>
 									<listOptionValue builtIn="false" value="../drivers/freertos"/>
-									<listOptionValue builtIn="false" value="../lwip/port"/>
-									<listOptionValue builtIn="false" value="../lwip/src"/>
-									<listOptionValue builtIn="false" value="../lwip/src/include"/>
-									<listOptionValue builtIn="false" value="../lwip/contrib/apps"/>
 									<listOptionValue builtIn="false" value="../motor_control/common"/>
 									<listOptionValue builtIn="false" value="../motor_control/common/freemaster_drv"/>
 									<listOptionValue builtIn="false" value="../motor_control/common/mc_algorithms"/>
@@ -129,21 +125,9 @@
 									<listOptionValue builtIn="false" value="../motor_control/common/rtcesl/CM7F_RTCESL_4.5_MCUX/GMCLIB/Include"/>
 									<listOptionValue builtIn="false" value="../motor_control/common/rtcesl/CM7F_RTCESL_4.5_MCUX/MLIB"/>
 									<listOptionValue builtIn="false" value="../motor_control/common/rtcesl/CM7F_RTCESL_4.5_MCUX/MLIB/Include"/>
-									<listOptionValue builtIn="false" value="../nfc/inc/"/>
-									<listOptionValue builtIn="false" value="../nfc/NdefLibrary/inc/"/>
-									<listOptionValue builtIn="false" value="../nfc/NdefLibrary/src/"/>
-									<listOptionValue builtIn="false" value="../nfc/NxpNci/inc/"/>
-									<listOptionValue builtIn="false" value="../nfc/NxpNci/src/"/>
-									<listOptionValue builtIn="false" value="../nfc/tml/inc/"/>
-									<listOptionValue builtIn="false" value="../nfc/tml/src/"/>
 									<listOptionValue builtIn="false" value="../source/"/>
 									<listOptionValue builtIn="false" value="../source/json/"/>
-									<listOptionValue builtIn="false" value="../source/lcd_task/"/>
-									<listOptionValue builtIn="false" value="../source/lcd_task/ft5406_rt/"/>
-									<listOptionValue builtIn="false" value="../source/lwip_task/"/>
-									<listOptionValue builtIn="false" value="../source/lwip_task/"/>
 									<listOptionValue builtIn="false" value="../source/motor_control_task/"/>
-									<listOptionValue builtIn="false" value="../source/nfc_task/"/>
 									<listOptionValue builtIn="false" value="../startup"/>
 									<listOptionValue builtIn="false" value="../utilities"/>
 									<listOptionValue builtIn="false" value="../xip"/>
@@ -336,7 +320,6 @@
 					</folderInfo>
 					<fileInfo id="com.crt.advproject.config.exe.debug.1693077327.1091347720" name="ReadMe.url" rcbsApplicability="disable" resourcePath="amazon-freertos/freertos/portable/ReadMe.url" toolsToInvoke=""/>
 					<fileInfo id="com.crt.advproject.config.exe.debug.1693077327.21331665" name="GMCLIB_Svm_F16.h" rcbsApplicability="disable" resourcePath="motor_control/common/rtcesl/CM7F_RTCESL_4.5_MCUX/GMCLIB/Include/GMCLIB_Svm_F16.h" toolsToInvoke=""/>
-					<fileInfo id="com.crt.advproject.config.exe.debug.1693077327.737929719" name="lcd_480x272_rgb888_frames.h" rcbsApplicability="disable" resourcePath="source/lcd_task/lcd_480x272_rgb888_frames.h" toolsToInvoke=""/>
 					<fileInfo id="com.crt.advproject.config.exe.debug.1693077327.1041891302" name="fsl_adc_etc.h" rcbsApplicability="disable" resourcePath="drivers/fsl_adc_etc.h" toolsToInvoke=""/>
 					<fileInfo id="com.crt.advproject.config.exe.debug.1693077327.1320343691" name="fsl_adc.h" rcbsApplicability="disable" resourcePath="drivers/fsl_adc.h" toolsToInvoke=""/>
 					<sourceEntries>
@@ -346,9 +329,7 @@
 						<entry flags="LOCAL|VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="component"/>
 						<entry flags="LOCAL|VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="device"/>
 						<entry excluding="fsl_adc_etc.h|fsl_adc_etc.c|fsl_adc.h|fsl_adc.c" flags="LOCAL|VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="drivers"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="lwip"/>
 						<entry excluding="common/rtcesl/CM7F_RTCESL_4.5_MCUX/PCLIB|common/rtcesl/CM7F_RTCESL_4.5_IAR" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="motor_control"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="nfc"/>
 						<entry excluding="motor_control_task/tg drives|motor_control_task/teknic" flags="LOCAL|VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="source"/>
 						<entry excluding="IAR|startup_MIMXRT1052.s" flags="LOCAL|VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 						<entry flags="LOCAL|VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="utilities"/>
@@ -661,19 +642,19 @@
 	<storageModule moduleId="com.crt.config">
 		<projectStorage>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#13;
 &lt;TargetConfig&gt;&#13;
-&lt;Properties property_2="MIMXRT1050_SFDP_QSPI.cfx" property_3="NXP" property_4="MIMXRT1052xxxxB" property_count="5" version="100300"/&gt;&#13;
+&lt;Properties property_3="NXP" property_4="MIMXRT1024xxxxx" property_count="5" version="100300"/&gt;&#13;
 &lt;infoList vendor="NXP"&gt;&#13;
-&lt;info chip="MIMXRT1052xxxxB" name="MIMXRT1052xxxxB"&gt;&#13;
+&lt;info chip="MIMXRT1024xxxxx" name="MIMXRT1024xxxxx"&gt;&#13;
 &lt;chip&gt;&#13;
-&lt;name&gt;MIMXRT1052xxxxB&lt;/name&gt;&#13;
-&lt;family&gt;MIMXRT1050&lt;/family&gt;&#13;
+&lt;name&gt;MIMXRT1024xxxxx&lt;/name&gt;&#13;
+&lt;family&gt;MIMXRT1020&lt;/family&gt;&#13;
 &lt;vendor&gt;NXP&lt;/vendor&gt;&#13;
-&lt;memory can_program="true" id="Flash" is_ro="true" size="0" type="Flash"/&gt;&#13;
-&lt;memory id="RAM" size="512" type="RAM"/&gt;&#13;
-&lt;memoryInstance derived_from="Flash" driver="MIMXRT1050_SFDP_QSPI.cfx" edited="true" id="BOARD_FLASH" location="0x60000000" size="0x800000"/&gt;&#13;
-&lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_ITC" location="0x400" size="0xfc00"/&gt;&#13;
-&lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_DTC" location="0x20000000" size="0x60000"/&gt;&#13;
-&lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_OC" location="0x20200000" size="0x10000"/&gt;&#13;
+&lt;memory can_program="true" id="Flash" is_ro="true" size="4096" type="Flash"/&gt;&#13;
+&lt;memory id="RAM" size="256" type="RAM"/&gt;&#13;
+&lt;memoryInstance derived_from="Flash" driver="MIMXRT1024.cfx" edited="true" id="BOARD_FLASH" location="0x60000000" size="0x400000"/&gt;&#13;
+&lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_ITC" location="0x0" size="0x10000"/&gt;&#13;
+&lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_DTC" location="0x20000000" size="0x10000"/&gt;&#13;
+&lt;memoryInstance derived_from="RAM" edited="true" id="SRAM_OC" location="0x20200000" size="0x20000"/&gt;&#13;
 &lt;/chip&gt;&#13;
 &lt;processor&gt;&#13;
 &lt;name gcc_name="cortex-m7"&gt;Cortex-M7&lt;/name&gt;&#13;
@@ -682,15 +663,6 @@
 &lt;/info&gt;&#13;
 &lt;/infoList&gt;&#13;
 &lt;/TargetConfig&gt;</projectStorage>
-	</storageModule>
-	<storageModule moduleId="com.nxp.mcuxpresso.core.datamodels">
-		<sdkName>SDK_2.x_MIMXRT1052xxxxB</sdkName>
-		<sdkVersion>2.10.0</sdkVersion>
-		<sdkComponents>middleware.amazon_freertos.freertos.MIMXRT1052;middleware.template_application.amazon_freertos.MIMXRT1052;platform.drivers.clock.MIMXRT1052;device.MIMXRT1052_CMSIS.MIMXRT1052;platform.Include_common.MIMXRT1052;platform.Include_core_cm7.MIMXRT1052;platform.drivers.common.MIMXRT1052;platform.drivers.lpuart.MIMXRT1052;platform.drivers.igpio.MIMXRT1052;platform.drivers.iomuxc.MIMXRT1052;platform.drivers.xip_device.MIMXRT1052;platform.drivers.adc_12b1msps_sar.MIMXRT1052;platform.drivers.adc_etc.MIMXRT1052;platform.drivers.aipstz.MIMXRT1052;platform.drivers.aoi.MIMXRT1052;platform.drivers.bee.MIMXRT1052;platform.drivers.cache_armv7_m7.MIMXRT1052;platform.drivers.cmp.MIMXRT1052;platform.drivers.csi.MIMXRT1052;platform.drivers.dcdc_1.MIMXRT1052;platform.drivers.dcp.MIMXRT1052;platform.drivers.dmamux.MIMXRT1052;platform.drivers.edma.MIMXRT1052;platform.drivers.elcdif.MIMXRT1052;platform.drivers.enc.MIMXRT1052;platform.drivers.enet.MIMXRT1052;platform.drivers.ewm.MIMXRT1052;platform.drivers.flexcan.MIMXRT1052;platform.drivers.flexio.MIMXRT1052;platform.drivers.flexio_camera.MIMXRT1052;platform.drivers.flexio_camera_edma.MIMXRT1052;platform.drivers.flexio_i2c_master.MIMXRT1052;platform.drivers.flexio_i2s.MIMXRT1052;platform.drivers.flexio_i2s_edma.MIMXRT1052;platform.drivers.flexio_mculcd.MIMXRT1052;platform.drivers.flexio_mculcd_edma.MIMXRT1052;platform.drivers.flexio_spi.MIMXRT1052;platform.drivers.flexio_spi_edma.MIMXRT1052;platform.drivers.flexio_uart.MIMXRT1052;platform.drivers.flexio_uart_edma.MIMXRT1052;platform.drivers.flexram.MIMXRT1052;platform.drivers.flexspi.MIMXRT1052;platform.drivers.gpc_1.MIMXRT1052;platform.drivers.gpt.MIMXRT1052;platform.drivers.kpp.MIMXRT1052;platform.drivers.lpi2c.MIMXRT1052;platform.drivers.lpi2c_edma.MIMXRT1052;platform.drivers.lpi2c_freertos.MIMXRT1052;platform.drivers.lpspi.MIMXRT1052;platform.drivers.lpspi_edma.MIMXRT1052;platform.drivers.lpspi_freertos.MIMXRT1052;platform.drivers.lpuart_edma.MIMXRT1052;platform.drivers.lpuart_freertos.MIMXRT1052;platform.drivers.ocotp.MIMXRT1052;platform.drivers.pit.MIMXRT1052;platform.drivers.pmu.MIMXRT1052;platform.drivers.pwm.MIMXRT1052;platform.drivers.pxp.MIMXRT1052;platform.drivers.qtmr.MIMXRT1052;platform.drivers.rtwdog.MIMXRT1052;platform.drivers.sai.MIMXRT1052;platform.drivers.sai_edma.MIMXRT1052;platform.drivers.semc.MIMXRT1052;platform.drivers.snvs_hp.MIMXRT1052;platform.drivers.snvs_lp.MIMXRT1052;platform.drivers.spdif.MIMXRT1052;platform.drivers.spdif_edma.MIMXRT1052;platform.drivers.src.MIMXRT1052;platform.drivers.tempmon.MIMXRT1052;platform.drivers.trng.MIMXRT1052;platform.drivers.tsc.MIMXRT1052;platform.drivers.usdhc.MIMXRT1052;platform.drivers.wdog01.MIMXRT1052;platform.drivers.xbara.MIMXRT1052;platform.drivers.xbarb.MIMXRT1052;component.lpuart_adapter.MIMXRT1052;component.serial_manager.MIMXRT1052;component.lists.MIMXRT1052;component.serial_manager_uart.MIMXRT1052;utility.debug_console.MIMXRT1052;device.MIMXRT1052_startup.MIMXRT1052;project_template.evkbimxrt1050.MIMXRT1052;platform.drivers.xip_board.MIMXRT1052;</sdkComponents>
-		<boardId>evkbimxrt1050</boardId>
-		<package>MIMXRT1052DVL6B</package>
-		<core>cm7</core>
-		<coreId>core0_MIMXRT1052xxxxB</coreId>
 	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
@@ -701,4 +673,8 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="com.nxp.mcuxpresso.core.datamodels">
+		<sdkName>SDK_2.x_MIMXRT1024-EVK</sdkName>
+		<sdkVersion>2.10.0</sdkVersion>
+	</storageModule>
 </cproject>

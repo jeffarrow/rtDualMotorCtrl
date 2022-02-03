@@ -1,5 +1,5 @@
 ../source/main.c:102:29:main	32	static
-../source/main.c:138:30:PWM2_0_IRQHandler	0	static
+../source/main.c:138:30:PWM1_0_IRQHandler	0	static
 ../source/main.c:156:30:ADC1_IRQHandler	8	static
 ../source/main.c:186:30:TMR1_IRQHandler	8	static
 ../source/main.c:222:6:GPIO5_Combined_0_15_IRQHandler	16	static

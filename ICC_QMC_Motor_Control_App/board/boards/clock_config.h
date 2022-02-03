@@ -67,15 +67,15 @@ void BOARD_InitBootClocks(void);
  ******************************************************************************/
 #define BOARD_BOOTCLOCKRUN_CORE_CLOCK             600000000U  /*!< Core clock frequency: 600000000Hz */
 
-/*! @brief Arm PLL set for BOARD_BootClockRUN configuration.
- */
-extern const clock_arm_pll_config_t g_armPllConfig_BOARD_BootClockRUN;
 /*! @brief Usb1 PLL set for BOARD_BootClockRUN configuration.
  */
-extern const clock_usb_pll_config_t g_usb1PllConfig_BOARD_BootClockRUN;
+extern const clock_usb_pll_config_t usb1PllConfig_BOARD_BootClockRUN;
 /*! @brief Sys PLL for BOARD_BootClockRUN configuration.
  */
-extern const clock_sys_pll_config_t g_sysPllConfig_BOARD_BootClockRUN;
+extern const clock_sys_pll_config_t sysPllConfig_BOARD_BootClockRUN;
+/*! @brief Enet PLL set for BOARD_BootClockRUN configuration.
+ */
+extern const clock_enet_pll_config_t enetPllConfig_BOARD_BootClockRUN;
 
 /*******************************************************************************
  * API for BOARD_BootClockRUN configuration

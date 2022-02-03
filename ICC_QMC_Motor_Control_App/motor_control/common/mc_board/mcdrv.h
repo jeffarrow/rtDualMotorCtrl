@@ -31,6 +31,6 @@
 #ifndef __MCDRV_H
 #define __MCDRV_H
 
-#include "mcdrv_evkbimxrt1050.h"
+#include "mcdrv_evkbimxrt.h"
 
 #endif /* _MCDRV_H_ */

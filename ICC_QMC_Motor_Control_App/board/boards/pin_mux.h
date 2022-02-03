@@ -10,6 +10,14 @@
  * Definitions
  **********************************************************************************************************************/
 
+/* Define the flexspi macro. Note that it can't be modified here */
+#define IOMUXC_GPIO_AD_B1_00_FLEXSPI_A_DATA03 0x401F80FCU, 0x1U, 0x401F8374U, 0x1U, 0x401F8270U
+#define IOMUXC_GPIO_AD_B1_01_FLEXSPI_A_SCLK 0x401F8100U, 0x1U, 0x401F8378U, 0x1U, 0x401F8274U
+#define IOMUXC_GPIO_AD_B1_02_FLEXSPI_A_DATA00 0x401F8104U, 0x1U, 0x401F8368U, 0x1U, 0x401F8278U
+#define IOMUXC_GPIO_AD_B1_03_FLEXSPI_A_DATA02 0x401F8108U, 0x1U, 0x401F8370U, 0x1U, 0x401F827CU
+#define IOMUXC_GPIO_AD_B1_04_FLEXSPI_A_DATA01 0x401F810CU, 0x1U, 0x401F836CU, 0x1U, 0x401F8280U
+#define IOMUXC_GPIO_AD_B1_05_FLEXSPI_A_SS0_B 0x401F8110U, 0x1U, 0, 0, 0x401F8284U
+
 /*! @brief Direction type  */
 typedef enum _pin_mux_direction
 {
@@ -124,86 +132,6 @@ void BOARD_InitPins(void);
 #define BOARD_INITADCPINS_CURR2_C_LABEL                                "CURR2_C"   /*!< Label */
 #define BOARD_INITADCPINS_CURR2_C_NAME                                 "CURR2_C"   /*!< Identifier name */
 
-/* GPIO_AD_B1_06 (coord J12), CURR3_A */
-#define BOARD_INITADCPINS_CURR3_A_PERIPHERAL                                ADC1   /*!< Device name: ADC1 */
-#define BOARD_INITADCPINS_CURR3_A_SIGNAL                                      IN   /*!< ADC1 signal: IN */
-#define BOARD_INITADCPINS_CURR3_A_CHANNEL                                    11U   /*!< ADC1 IN channel: 11 */
-#define BOARD_INITADCPINS_CURR3_A_PIN_NAME                         GPIO_AD_B1_06   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR3_A_LABEL                                "CURR3_A"   /*!< Label */
-#define BOARD_INITADCPINS_CURR3_A_NAME                                 "CURR3_A"   /*!< Identifier name */
-
-/* GPIO_AD_B1_07 (coord K10), CURR3_B */
-#define BOARD_INITADCPINS_CURR3_B_PERIPHERAL                                ADC1   /*!< Device name: ADC1 */
-#define BOARD_INITADCPINS_CURR3_B_SIGNAL                                      IN   /*!< ADC1 signal: IN */
-#define BOARD_INITADCPINS_CURR3_B_CHANNEL                                    12U   /*!< ADC1 IN channel: 12 */
-#define BOARD_INITADCPINS_CURR3_B_PIN_NAME                         GPIO_AD_B1_07   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR3_B_LABEL                                "CURR3_B"   /*!< Label */
-#define BOARD_INITADCPINS_CURR3_B_NAME                                 "CURR3_B"   /*!< Identifier name */
-
-/* GPIO_AD_B1_08 (coord H13), CURR3_C */
-#define BOARD_INITADCPINS_CURR3_C_PERIPHERAL                                ADC1   /*!< Device name: ADC1 */
-#define BOARD_INITADCPINS_CURR3_C_SIGNAL                                      IN   /*!< ADC1 signal: IN */
-#define BOARD_INITADCPINS_CURR3_C_CHANNEL                                    13U   /*!< ADC1 IN channel: 13 */
-#define BOARD_INITADCPINS_CURR3_C_PIN_NAME                         GPIO_AD_B1_08   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR3_C_LABEL                                "CURR3_C"   /*!< Label */
-#define BOARD_INITADCPINS_CURR3_C_NAME                                 "CURR3_C"   /*!< Identifier name */
-
-/* GPIO_AD_B1_09 (coord M13), CURR4_A */
-#define BOARD_INITADCPINS_CURR4_A_PERIPHERAL                                ADC1   /*!< Device name: ADC1 */
-#define BOARD_INITADCPINS_CURR4_A_SIGNAL                                      IN   /*!< ADC1 signal: IN */
-#define BOARD_INITADCPINS_CURR4_A_CHANNEL                                    14U   /*!< ADC1 IN channel: 14 */
-#define BOARD_INITADCPINS_CURR4_A_PIN_NAME                         GPIO_AD_B1_09   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR4_A_LABEL                                "CURR4_A"   /*!< Label */
-#define BOARD_INITADCPINS_CURR4_A_NAME                                 "CURR4_A"   /*!< Identifier name */
-
-/* GPIO_AD_B1_10 (coord L13), CURR4_B */
-#define BOARD_INITADCPINS_CURR4_B_PERIPHERAL                                ADC1   /*!< Device name: ADC1 */
-#define BOARD_INITADCPINS_CURR4_B_SIGNAL                                      IN   /*!< ADC1 signal: IN */
-#define BOARD_INITADCPINS_CURR4_B_CHANNEL                                    15U   /*!< ADC1 IN channel: 15 */
-#define BOARD_INITADCPINS_CURR4_B_PIN_NAME                         GPIO_AD_B1_10   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR4_B_LABEL                                "CURR4_B"   /*!< Label */
-#define BOARD_INITADCPINS_CURR4_B_NAME                                 "CURR4_B"   /*!< Identifier name */
-
-/* GPIO_AD_B1_11 (coord J13), CURR4_C */
-#define BOARD_INITADCPINS_CURR4_C_PERIPHERAL                                ADC1   /*!< Device name: ADC1 */
-#define BOARD_INITADCPINS_CURR4_C_SIGNAL                                      IN   /*!< ADC1 signal: IN */
-#define BOARD_INITADCPINS_CURR4_C_CHANNEL                                     0U   /*!< ADC1 IN channel: 0 */
-#define BOARD_INITADCPINS_CURR4_C_PIN_NAME                         GPIO_AD_B1_11   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR4_C_LABEL                                "CURR4_C"   /*!< Label */
-#define BOARD_INITADCPINS_CURR4_C_NAME                                 "CURR4_C"   /*!< Identifier name */
-
-/* GPIO_AD_B1_12 (coord H12), CURR3_DCB */
-#define BOARD_INITADCPINS_CURR3_DCB_PERIPHERAL                              ADC2   /*!< Device name: ADC2 */
-#define BOARD_INITADCPINS_CURR3_DCB_SIGNAL                                    IN   /*!< ADC2 signal: IN */
-#define BOARD_INITADCPINS_CURR3_DCB_CHANNEL                                   1U   /*!< ADC2 IN channel: 1 */
-#define BOARD_INITADCPINS_CURR3_DCB_PIN_NAME                       GPIO_AD_B1_12   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR3_DCB_LABEL                            "CURR3_DCB"   /*!< Label */
-#define BOARD_INITADCPINS_CURR3_DCB_NAME                             "CURR3_DCB"   /*!< Identifier name */
-
-/* GPIO_AD_B1_13 (coord H11), VOLT3_DCB */
-#define BOARD_INITADCPINS_VOLT3_DCB_PERIPHERAL                              ADC2   /*!< Device name: ADC2 */
-#define BOARD_INITADCPINS_VOLT3_DCB_SIGNAL                                    IN   /*!< ADC2 signal: IN */
-#define BOARD_INITADCPINS_VOLT3_DCB_CHANNEL                                   2U   /*!< ADC2 IN channel: 2 */
-#define BOARD_INITADCPINS_VOLT3_DCB_PIN_NAME                       GPIO_AD_B1_13   /*!< Pin name */
-#define BOARD_INITADCPINS_VOLT3_DCB_LABEL                            "VOLT3_DCB"   /*!< Label */
-#define BOARD_INITADCPINS_VOLT3_DCB_NAME                             "VOLT3_DCB"   /*!< Identifier name */
-
-/* GPIO_AD_B1_14 (coord G12), CURR4_DCB */
-#define BOARD_INITADCPINS_CURR4_DCB_PERIPHERAL                              ADC2   /*!< Device name: ADC2 */
-#define BOARD_INITADCPINS_CURR4_DCB_SIGNAL                                    IN   /*!< ADC2 signal: IN */
-#define BOARD_INITADCPINS_CURR4_DCB_CHANNEL                                   3U   /*!< ADC2 IN channel: 3 */
-#define BOARD_INITADCPINS_CURR4_DCB_PIN_NAME                       GPIO_AD_B1_14   /*!< Pin name */
-#define BOARD_INITADCPINS_CURR4_DCB_LABEL                            "CURR4_DCB"   /*!< Label */
-#define BOARD_INITADCPINS_CURR4_DCB_NAME                             "CURR4_DCB"   /*!< Identifier name */
-
-/* GPIO_AD_B1_15 (coord J14), VOLT4_DCB */
-#define BOARD_INITADCPINS_VOLT4_DCB_PERIPHERAL                              ADC2   /*!< Device name: ADC2 */
-#define BOARD_INITADCPINS_VOLT4_DCB_SIGNAL                                    IN   /*!< ADC2 signal: IN */
-#define BOARD_INITADCPINS_VOLT4_DCB_CHANNEL                                   4U   /*!< ADC2 IN channel: 4 */
-#define BOARD_INITADCPINS_VOLT4_DCB_PIN_NAME                       GPIO_AD_B1_15   /*!< Pin name */
-#define BOARD_INITADCPINS_VOLT4_DCB_LABEL                            "VOLT4_DCB"   /*!< Label */
-#define BOARD_INITADCPINS_VOLT4_DCB_NAME                             "VOLT4_DCB"   /*!< Identifier name */
-
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
@@ -215,7 +143,7 @@ void BOARD_InitAdcPins(void);
 #define BOARD_INITPWMPINS_PWM1_AT_PERIPHERAL                                PWM1   /*!< Device name: PWM1 */
 #define BOARD_INITPWMPINS_PWM1_AT_SIGNAL                                       A   /*!< PWM1 signal: A */
 #define BOARD_INITPWMPINS_PWM1_AT_CHANNEL                                     0U   /*!< PWM1 A channel: 0 */
-#define BOARD_INITPWMPINS_PWM1_AT_PIN_NAME                           GPIO_EMC_23   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM1_AT_PIN_NAME                           GPIO_EMC_26   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM1_AT_LABEL                                "PWM1_AT"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM1_AT_NAME                                 "PWM1_AT"   /*!< Identifier name */
 
@@ -223,7 +151,7 @@ void BOARD_InitAdcPins(void);
 #define BOARD_INITPWMPINS_PWM1_AB_PERIPHERAL                                PWM1   /*!< Device name: PWM1 */
 #define BOARD_INITPWMPINS_PWM1_AB_SIGNAL                                       B   /*!< PWM1 signal: B */
 #define BOARD_INITPWMPINS_PWM1_AB_CHANNEL                                     0U   /*!< PWM1 B channel: 0 */
-#define BOARD_INITPWMPINS_PWM1_AB_PIN_NAME                           GPIO_EMC_24   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM1_AB_PIN_NAME                           GPIO_EMC_27   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM1_AB_LABEL                                "PWM1_AB"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM1_AB_NAME                                 "PWM1_AB"   /*!< Identifier name */
 
@@ -231,7 +159,7 @@ void BOARD_InitAdcPins(void);
 #define BOARD_INITPWMPINS_PWM1_BT_PERIPHERAL                                PWM1   /*!< Device name: PWM1 */
 #define BOARD_INITPWMPINS_PWM1_BT_SIGNAL                                       A   /*!< PWM1 signal: A */
 #define BOARD_INITPWMPINS_PWM1_BT_CHANNEL                                     1U   /*!< PWM1 A channel: 1 */
-#define BOARD_INITPWMPINS_PWM1_BT_PIN_NAME                           GPIO_EMC_25   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM1_BT_PIN_NAME                           GPIO_EMC_24   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM1_BT_LABEL                                "PWM1_BT"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM1_BT_NAME                                 "PWM1_BT"   /*!< Identifier name */
 
@@ -239,7 +167,7 @@ void BOARD_InitAdcPins(void);
 #define BOARD_INITPWMPINS_PWM1_BB_PERIPHERAL                                PWM1   /*!< Device name: PWM1 */
 #define BOARD_INITPWMPINS_PWM1_BB_SIGNAL                                       B   /*!< PWM1 signal: B */
 #define BOARD_INITPWMPINS_PWM1_BB_CHANNEL                                     1U   /*!< PWM1 B channel: 1 */
-#define BOARD_INITPWMPINS_PWM1_BB_PIN_NAME                           GPIO_EMC_26   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM1_BB_PIN_NAME                           GPIO_EMC_25   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM1_BB_LABEL                                "PWM1_BB"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM1_BB_NAME                                 "PWM1_BB"   /*!< Identifier name */
 
@@ -247,7 +175,7 @@ void BOARD_InitAdcPins(void);
 #define BOARD_INITPWMPINS_PWM1_CT_PERIPHERAL                                PWM1   /*!< Device name: PWM1 */
 #define BOARD_INITPWMPINS_PWM1_CT_SIGNAL                                       A   /*!< PWM1 signal: A */
 #define BOARD_INITPWMPINS_PWM1_CT_CHANNEL                                     2U   /*!< PWM1 A channel: 2 */
-#define BOARD_INITPWMPINS_PWM1_CT_PIN_NAME                           GPIO_EMC_27   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM1_CT_PIN_NAME                           GPIO_EMC_22   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM1_CT_LABEL                                "PWM1_CT"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM1_CT_NAME                                 "PWM1_CT"   /*!< Identifier name */
 
@@ -255,153 +183,57 @@ void BOARD_InitAdcPins(void);
 #define BOARD_INITPWMPINS_PWM1_CB_PERIPHERAL                                PWM1   /*!< Device name: PWM1 */
 #define BOARD_INITPWMPINS_PWM1_CB_SIGNAL                                       B   /*!< PWM1 signal: B */
 #define BOARD_INITPWMPINS_PWM1_CB_CHANNEL                                     2U   /*!< PWM1 B channel: 2 */
-#define BOARD_INITPWMPINS_PWM1_CB_PIN_NAME                           GPIO_EMC_28   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM1_CB_PIN_NAME                           GPIO_EMC_23   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM1_CB_LABEL                                "PWM1_CB"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM1_CB_NAME                                 "PWM1_CB"   /*!< Identifier name */
 
-/* GPIO_EMC_06 (coord H5), PWM2_AT */
+/* GPIO_AD_B0_14, PWM2_AT */
 #define BOARD_INITPWMPINS_PWM2_AT_PERIPHERAL                                PWM2   /*!< Device name: PWM2 */
 #define BOARD_INITPWMPINS_PWM2_AT_SIGNAL                                       A   /*!< PWM2 signal: A */
 #define BOARD_INITPWMPINS_PWM2_AT_CHANNEL                                     0U   /*!< PWM2 A channel: 0 */
-#define BOARD_INITPWMPINS_PWM2_AT_PIN_NAME                           GPIO_EMC_06   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM2_AT_PIN_NAME                         GPIO_AD_B0_14   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM2_AT_LABEL                                "PWM2_AT"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM2_AT_NAME                                 "PWM2_AT"   /*!< Identifier name */
 
-/* GPIO_EMC_07 (coord H4), PWM2_AB */
+/* GPIO_AD_B0_15, PWM2_AB */
 #define BOARD_INITPWMPINS_PWM2_AB_PERIPHERAL                                PWM2   /*!< Device name: PWM2 */
 #define BOARD_INITPWMPINS_PWM2_AB_SIGNAL                                       B   /*!< PWM2 signal: B */
 #define BOARD_INITPWMPINS_PWM2_AB_CHANNEL                                     0U   /*!< PWM2 B channel: 0 */
-#define BOARD_INITPWMPINS_PWM2_AB_PIN_NAME                           GPIO_EMC_07   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM2_AB_PIN_NAME                         GPIO_AD_B0_15   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM2_AB_LABEL                                "PWM2_AB"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM2_AB_NAME                                 "PWM2_AB"   /*!< Identifier name */
 
-/* GPIO_EMC_08 (coord H3), PWM2_BT */
+/* GPIO_AD_B0_12, PWM2_BT */
 #define BOARD_INITPWMPINS_PWM2_BT_PERIPHERAL                                PWM2   /*!< Device name: PWM2 */
 #define BOARD_INITPWMPINS_PWM2_BT_SIGNAL                                       A   /*!< PWM2 signal: A */
 #define BOARD_INITPWMPINS_PWM2_BT_CHANNEL                                     1U   /*!< PWM2 A channel: 1 */
-#define BOARD_INITPWMPINS_PWM2_BT_PIN_NAME                           GPIO_EMC_08   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM2_BT_PIN_NAME                         GPIO_AD_B0_12   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM2_BT_LABEL                                "PWM2_BT"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM2_BT_NAME                                 "PWM2_BT"   /*!< Identifier name */
 
-/* GPIO_EMC_09 (coord C2), PWM2_BB */
+/* GPIO_AD_B0_13, PWM2_BB */
 #define BOARD_INITPWMPINS_PWM2_BB_PERIPHERAL                                PWM2   /*!< Device name: PWM2 */
 #define BOARD_INITPWMPINS_PWM2_BB_SIGNAL                                       B   /*!< PWM2 signal: B */
 #define BOARD_INITPWMPINS_PWM2_BB_CHANNEL                                     1U   /*!< PWM2 B channel: 1 */
-#define BOARD_INITPWMPINS_PWM2_BB_PIN_NAME                           GPIO_EMC_09   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM2_BB_PIN_NAME                         GPIO_AD_B0_13   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM2_BB_LABEL                                "PWM2_BB"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM2_BB_NAME                                 "PWM2_BB"   /*!< Identifier name */
 
-/* GPIO_AD_B0_00 (coord M14), PWM2_CT */
+/* GPIO_AD_B0_10, PWM2_CT */
 #define BOARD_INITPWMPINS_PWM2_CT_PERIPHERAL                                PWM2   /*!< Device name: PWM2 */
 #define BOARD_INITPWMPINS_PWM2_CT_SIGNAL                                       A   /*!< PWM2 signal: A */
 #define BOARD_INITPWMPINS_PWM2_CT_CHANNEL                                     3U   /*!< PWM2 A channel: 3 */
-#define BOARD_INITPWMPINS_PWM2_CT_PIN_NAME                         GPIO_AD_B0_00   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM2_CT_PIN_NAME                         GPIO_AD_B0_10   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM2_CT_LABEL                                "PWM2_CT"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM2_CT_NAME                                 "PWM2_CT"   /*!< Identifier name */
 
-/* GPIO_AD_B0_01 (coord H10), PWM2_CB */
+/* GPIO_AD_B0_11, PWM2_CB */
 #define BOARD_INITPWMPINS_PWM2_CB_PERIPHERAL                                PWM2   /*!< Device name: PWM2 */
 #define BOARD_INITPWMPINS_PWM2_CB_SIGNAL                                       B   /*!< PWM2 signal: B */
 #define BOARD_INITPWMPINS_PWM2_CB_CHANNEL                                     3U   /*!< PWM2 B channel: 3 */
-#define BOARD_INITPWMPINS_PWM2_CB_PIN_NAME                         GPIO_AD_B0_01   /*!< Pin name */
+#define BOARD_INITPWMPINS_PWM2_CB_PIN_NAME                         GPIO_AD_B0_11   /*!< Pin name */
 #define BOARD_INITPWMPINS_PWM2_CB_LABEL                                "PWM2_CB"   /*!< Label */
 #define BOARD_INITPWMPINS_PWM2_CB_NAME                                 "PWM2_CB"   /*!< Identifier name */
-
-/* GPIO_EMC_29 (coord E1), PWM3_AT */
-#define BOARD_INITPWMPINS_PWM3_AT_PERIPHERAL                                PWM3   /*!< Device name: PWM3 */
-#define BOARD_INITPWMPINS_PWM3_AT_SIGNAL                                       A   /*!< PWM3 signal: A */
-#define BOARD_INITPWMPINS_PWM3_AT_CHANNEL                                     0U   /*!< PWM3 A channel: 0 */
-#define BOARD_INITPWMPINS_PWM3_AT_PIN_NAME                           GPIO_EMC_29   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM3_AT_LABEL                                "PWM3_AT"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM3_AT_NAME                                 "PWM3_AT"   /*!< Identifier name */
-
-/* GPIO_EMC_30 (coord C6), PWM3_AB */
-#define BOARD_INITPWMPINS_PWM3_AB_PERIPHERAL                                PWM3   /*!< Device name: PWM3 */
-#define BOARD_INITPWMPINS_PWM3_AB_SIGNAL                                       B   /*!< PWM3 signal: B */
-#define BOARD_INITPWMPINS_PWM3_AB_CHANNEL                                     0U   /*!< PWM3 B channel: 0 */
-#define BOARD_INITPWMPINS_PWM3_AB_PIN_NAME                           GPIO_EMC_30   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM3_AB_LABEL                                "PWM3_AB"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM3_AB_NAME                                 "PWM3_AB"   /*!< Identifier name */
-
-/* GPIO_EMC_31 (coord C5), PWM3_BT */
-#define BOARD_INITPWMPINS_PWM3_BT_PERIPHERAL                                PWM3   /*!< Device name: PWM3 */
-#define BOARD_INITPWMPINS_PWM3_BT_SIGNAL                                       A   /*!< PWM3 signal: A */
-#define BOARD_INITPWMPINS_PWM3_BT_CHANNEL                                     1U   /*!< PWM3 A channel: 1 */
-#define BOARD_INITPWMPINS_PWM3_BT_PIN_NAME                           GPIO_EMC_31   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM3_BT_LABEL                                "PWM3_BT"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM3_BT_NAME                                 "PWM3_BT"   /*!< Identifier name */
-
-/* GPIO_EMC_32 (coord D5), PWM3_BB */
-#define BOARD_INITPWMPINS_PWM3_BB_PERIPHERAL                                PWM3   /*!< Device name: PWM3 */
-#define BOARD_INITPWMPINS_PWM3_BB_SIGNAL                                       B   /*!< PWM3 signal: B */
-#define BOARD_INITPWMPINS_PWM3_BB_CHANNEL                                     1U   /*!< PWM3 B channel: 1 */
-#define BOARD_INITPWMPINS_PWM3_BB_PIN_NAME                           GPIO_EMC_32   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM3_BB_LABEL                                "PWM3_BB"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM3_BB_NAME                                 "PWM3_BB"   /*!< Identifier name */
-
-/* GPIO_EMC_33 (coord C4), PWM3_CT */
-#define BOARD_INITPWMPINS_PWM3_CT_PERIPHERAL                                PWM3   /*!< Device name: PWM3 */
-#define BOARD_INITPWMPINS_PWM3_CT_SIGNAL                                       A   /*!< PWM3 signal: A */
-#define BOARD_INITPWMPINS_PWM3_CT_CHANNEL                                     2U   /*!< PWM3 A channel: 2 */
-#define BOARD_INITPWMPINS_PWM3_CT_PIN_NAME                           GPIO_EMC_33   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM3_CT_LABEL                                "PWM3_CT"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM3_CT_NAME                                 "PWM3_CT"   /*!< Identifier name */
-
-/* GPIO_EMC_34 (coord D4), PWM3_CB */
-#define BOARD_INITPWMPINS_PWM3_CB_PERIPHERAL                                PWM3   /*!< Device name: PWM3 */
-#define BOARD_INITPWMPINS_PWM3_CB_SIGNAL                                       B   /*!< PWM3 signal: B */
-#define BOARD_INITPWMPINS_PWM3_CB_CHANNEL                                     2U   /*!< PWM3 B channel: 2 */
-#define BOARD_INITPWMPINS_PWM3_CB_PIN_NAME                           GPIO_EMC_34   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM3_CB_LABEL                                "PWM3_CB"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM3_CB_NAME                                 "PWM3_CB"   /*!< Identifier name */
-
-/* GPIO_EMC_00 (coord E3), PWM4_AT */
-#define BOARD_INITPWMPINS_PWM4_AT_PERIPHERAL                                PWM4   /*!< Device name: PWM4 */
-#define BOARD_INITPWMPINS_PWM4_AT_SIGNAL                                       A   /*!< PWM4 signal: A */
-#define BOARD_INITPWMPINS_PWM4_AT_CHANNEL                                     0U   /*!< PWM4 A channel: 0 */
-#define BOARD_INITPWMPINS_PWM4_AT_PIN_NAME                           GPIO_EMC_00   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM4_AT_LABEL                                "PWM4_AT"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM4_AT_NAME                                 "PWM4_AT"   /*!< Identifier name */
-
-/* GPIO_EMC_01 (coord F3), PWM4_AB */
-#define BOARD_INITPWMPINS_PWM4_AB_PERIPHERAL                                PWM4   /*!< Device name: PWM4 */
-#define BOARD_INITPWMPINS_PWM4_AB_SIGNAL                                       B   /*!< PWM4 signal: B */
-#define BOARD_INITPWMPINS_PWM4_AB_CHANNEL                                     0U   /*!< PWM4 B channel: 0 */
-#define BOARD_INITPWMPINS_PWM4_AB_PIN_NAME                           GPIO_EMC_01   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM4_AB_LABEL                                "PWM4_AB"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM4_AB_NAME                                 "PWM4_AB"   /*!< Identifier name */
-
-/* GPIO_EMC_02 (coord F4), PWM4_BT */
-#define BOARD_INITPWMPINS_PWM4_BT_PERIPHERAL                                PWM4   /*!< Device name: PWM4 */
-#define BOARD_INITPWMPINS_PWM4_BT_SIGNAL                                       A   /*!< PWM4 signal: A */
-#define BOARD_INITPWMPINS_PWM4_BT_CHANNEL                                     1U   /*!< PWM4 A channel: 1 */
-#define BOARD_INITPWMPINS_PWM4_BT_PIN_NAME                           GPIO_EMC_02   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM4_BT_LABEL                                "PWM4_BT"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM4_BT_NAME                                 "PWM4_BT"   /*!< Identifier name */
-
-/* GPIO_EMC_03 (coord G4), PWM4_BB */
-#define BOARD_INITPWMPINS_PWM4_BB_PERIPHERAL                                PWM4   /*!< Device name: PWM4 */
-#define BOARD_INITPWMPINS_PWM4_BB_SIGNAL                                       B   /*!< PWM4 signal: B */
-#define BOARD_INITPWMPINS_PWM4_BB_CHANNEL                                     1U   /*!< PWM4 B channel: 1 */
-#define BOARD_INITPWMPINS_PWM4_BB_PIN_NAME                           GPIO_EMC_03   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM4_BB_LABEL                                "PWM4_BB"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM4_BB_NAME                                 "PWM4_BB"   /*!< Identifier name */
-
-/* GPIO_EMC_04 (coord F2), PWM4_CT */
-#define BOARD_INITPWMPINS_PWM4_CT_PERIPHERAL                                PWM4   /*!< Device name: PWM4 */
-#define BOARD_INITPWMPINS_PWM4_CT_SIGNAL                                       A   /*!< PWM4 signal: A */
-#define BOARD_INITPWMPINS_PWM4_CT_CHANNEL                                     2U   /*!< PWM4 A channel: 2 */
-#define BOARD_INITPWMPINS_PWM4_CT_PIN_NAME                           GPIO_EMC_04   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM4_CT_LABEL                                "PWM4_CT"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM4_CT_NAME                                 "PWM4_CT"   /*!< Identifier name */
-
-/* GPIO_EMC_05 (coord G5), PWM4_CB */
-#define BOARD_INITPWMPINS_PWM4_CB_PERIPHERAL                                PWM4   /*!< Device name: PWM4 */
-#define BOARD_INITPWMPINS_PWM4_CB_SIGNAL                                       B   /*!< PWM4 signal: B */
-#define BOARD_INITPWMPINS_PWM4_CB_CHANNEL                                     2U   /*!< PWM4 B channel: 2 */
-#define BOARD_INITPWMPINS_PWM4_CB_PIN_NAME                           GPIO_EMC_05   /*!< Pin name */
-#define BOARD_INITPWMPINS_PWM4_CB_LABEL                                "PWM4_CB"   /*!< Label */
-#define BOARD_INITPWMPINS_PWM4_CB_NAME                                 "PWM4_CB"   /*!< Identifier name */
 
 
 /*!
@@ -508,125 +340,6 @@ void BOARD_InitPwmPins(void);
  *
  */
 void BOARD_InitEncPins(void);
-
-/* GPIO_B0_00 (coord D7), LCDIF_CLK */
-#define BOARD_INITLCDPINS_LCDIF_CLK_PERIPHERAL                             LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_CLK_SIGNAL                             lcdif_clk   /*!< LCDIF signal: lcdif_clk */
-#define BOARD_INITLCDPINS_LCDIF_CLK_PIN_NAME                          GPIO_B0_00   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_CLK_LABEL                            "LCDIF_CLK"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_CLK_NAME                             "LCDIF_CLK"   /*!< Identifier name */
-
-/* GPIO_B0_01 (coord E7), LCDIF_ENABLE */
-#define BOARD_INITLCDPINS_LCDIF_ENABLE_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_ENABLE_SIGNAL                       lcdif_enable   /*!< LCDIF signal: lcdif_enable */
-#define BOARD_INITLCDPINS_LCDIF_ENABLE_PIN_NAME                       GPIO_B0_01   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_ENABLE_LABEL                      "LCDIF_ENABLE"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_ENABLE_NAME                       "LCDIF_ENABLE"   /*!< Identifier name */
-
-/* GPIO_B0_02 (coord E8), LCDIF_HSYNC */
-#define BOARD_INITLCDPINS_LCDIF_HSYNC_PERIPHERAL                           LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_HSYNC_SIGNAL                         lcdif_hsync   /*!< LCDIF signal: lcdif_hsync */
-#define BOARD_INITLCDPINS_LCDIF_HSYNC_PIN_NAME                        GPIO_B0_02   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_HSYNC_LABEL                        "LCDIF_HSYNC"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_HSYNC_NAME                         "LCDIF_HSYNC"   /*!< Identifier name */
-
-/* GPIO_B0_03 (coord D8), LCDIF_VSYNC */
-#define BOARD_INITLCDPINS_LCDIF_VSYNC_PERIPHERAL                           LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_VSYNC_SIGNAL                         lcdif_vsync   /*!< LCDIF signal: lcdif_vsync */
-#define BOARD_INITLCDPINS_LCDIF_VSYNC_PIN_NAME                        GPIO_B0_03   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_VSYNC_LABEL                        "LCDIF_VSYNC"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_VSYNC_NAME                         "LCDIF_VSYNC"   /*!< Identifier name */
-
-/* GPIO_B0_04 (coord C8), LCDIF_DATA00 */
-#define BOARD_INITLCDPINS_LCDIF_DATA00_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA00_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA00_CHANNEL                                0U   /*!< LCDIF lcdif_data channel: 00 */
-#define BOARD_INITLCDPINS_LCDIF_DATA00_PIN_NAME                       GPIO_B0_04   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA00_LABEL                      "LCDIF_DATA00"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA00_NAME                       "LCDIF_DATA00"   /*!< Identifier name */
-
-/* GPIO_B0_05 (coord B8), LCDIF_DATA01 */
-#define BOARD_INITLCDPINS_LCDIF_DATA01_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA01_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA01_CHANNEL                                1U   /*!< LCDIF lcdif_data channel: 01 */
-#define BOARD_INITLCDPINS_LCDIF_DATA01_PIN_NAME                       GPIO_B0_05   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA01_LABEL                      "LCDIF_DATA01"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA01_NAME                       "LCDIF_DATA01"   /*!< Identifier name */
-
-/* GPIO_B0_06 (coord A8), LCDIF_DATA02 */
-#define BOARD_INITLCDPINS_LCDIF_DATA02_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA02_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA02_CHANNEL                                2U   /*!< LCDIF lcdif_data channel: 02 */
-#define BOARD_INITLCDPINS_LCDIF_DATA02_PIN_NAME                       GPIO_B0_06   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA02_LABEL                      "LCDIF_DATA02"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA02_NAME                       "LCDIF_DATA02"   /*!< Identifier name */
-
-/* GPIO_B0_07 (coord A9), LCDIF_DATA03 */
-#define BOARD_INITLCDPINS_LCDIF_DATA03_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA03_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA03_CHANNEL                                3U   /*!< LCDIF lcdif_data channel: 03 */
-#define BOARD_INITLCDPINS_LCDIF_DATA03_PIN_NAME                       GPIO_B0_07   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA03_LABEL                      "LCDIF_DATA03"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA03_NAME                       "LCDIF_DATA03"   /*!< Identifier name */
-
-/* GPIO_B0_08 (coord B9), LCDIF_DATA04 */
-#define BOARD_INITLCDPINS_LCDIF_DATA04_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA04_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA04_CHANNEL                                4U   /*!< LCDIF lcdif_data channel: 04 */
-#define BOARD_INITLCDPINS_LCDIF_DATA04_PIN_NAME                       GPIO_B0_08   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA04_LABEL                      "LCDIF_DATA04"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA04_NAME                       "LCDIF_DATA04"   /*!< Identifier name */
-
-/* GPIO_B0_09 (coord C9), LCDIF_DATA05 */
-#define BOARD_INITLCDPINS_LCDIF_DATA05_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA05_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA05_CHANNEL                                5U   /*!< LCDIF lcdif_data channel: 05 */
-#define BOARD_INITLCDPINS_LCDIF_DATA05_PIN_NAME                       GPIO_B0_09   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA05_LABEL                      "LCDIF_DATA05"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA05_NAME                       "LCDIF_DATA05"   /*!< Identifier name */
-
-/* GPIO_B0_10 (coord D9), LCDIF_DATA06 */
-#define BOARD_INITLCDPINS_LCDIF_DATA06_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA06_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA06_CHANNEL                                6U   /*!< LCDIF lcdif_data channel: 06 */
-#define BOARD_INITLCDPINS_LCDIF_DATA06_PIN_NAME                       GPIO_B0_10   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA06_LABEL                      "LCDIF_DATA06"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA06_NAME                       "LCDIF_DATA06"   /*!< Identifier name */
-
-/* GPIO_B0_11 (coord A10), LCDIF_DATA07 */
-#define BOARD_INITLCDPINS_LCDIF_DATA07_PERIPHERAL                          LCDIF   /*!< Device name: LCDIF */
-#define BOARD_INITLCDPINS_LCDIF_DATA07_SIGNAL                         lcdif_data   /*!< LCDIF signal: lcdif_data */
-#define BOARD_INITLCDPINS_LCDIF_DATA07_CHANNEL                                7U   /*!< LCDIF lcdif_data channel: 07 */
-#define BOARD_INITLCDPINS_LCDIF_DATA07_PIN_NAME                       GPIO_B0_11   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCDIF_DATA07_LABEL                      "LCDIF_DATA07"   /*!< Label */
-#define BOARD_INITLCDPINS_LCDIF_DATA07_NAME                       "LCDIF_DATA07"   /*!< Identifier name */
-
-/* GPIO_AD_B0_11 (coord G10), LCD_TOUCH_INT */
-#define BOARD_INITLCDPINS_LCD_TOUCH_INT_GPIO                               GPIO1   /*!< GPIO device name: GPIO1 */
-#define BOARD_INITLCDPINS_LCD_TOUCH_INT_PORT                               GPIO1   /*!< PORT device name: GPIO1 */
-#define BOARD_INITLCDPINS_LCD_TOUCH_INT_GPIO_PIN                             11U   /*!< GPIO1 pin index: 11 */
-#define BOARD_INITLCDPINS_LCD_TOUCH_INT_PIN_NAME                   GPIO_AD_B0_11   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCD_TOUCH_INT_LABEL                    "LCD_TOUCH_INT"   /*!< Label */
-#define BOARD_INITLCDPINS_LCD_TOUCH_INT_NAME                     "LCD_TOUCH_INT"   /*!< Identifier name */
-#define BOARD_INITLCDPINS_LCD_TOUCH_INT_DIRECTION        kPIN_MUX_DirectionInput   /*!< Direction */
-
-/* GPIO_EMC_40 (coord A7), LCD_RST */
-#define BOARD_INITLCDPINS_LCD_RST_GPIO                                     GPIO3   /*!< GPIO device name: GPIO3 */
-#define BOARD_INITLCDPINS_LCD_RST_PORT                                     GPIO3   /*!< PORT device name: GPIO3 */
-#define BOARD_INITLCDPINS_LCD_RST_GPIO_PIN                                   26U   /*!< GPIO3 pin index: 26 */
-#define BOARD_INITLCDPINS_LCD_RST_PIN_NAME                           GPIO_EMC_40   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCD_RST_LABEL                                "LCD_RST"   /*!< Label */
-#define BOARD_INITLCDPINS_LCD_RST_NAME                                 "LCD_RST"   /*!< Identifier name */
-#define BOARD_INITLCDPINS_LCD_RST_DIRECTION             kPIN_MUX_DirectionOutput   /*!< Direction */
-
-/* GPIO_AD_B0_08 (coord F13), LCD_BACKLIGHT_CTRL */
-#define BOARD_INITLCDPINS_LCD_BACKLIGHT_CTRL_GPIO                          GPIO1   /*!< GPIO device name: GPIO1 */
-#define BOARD_INITLCDPINS_LCD_BACKLIGHT_CTRL_PORT                          GPIO1   /*!< PORT device name: GPIO1 */
-#define BOARD_INITLCDPINS_LCD_BACKLIGHT_CTRL_GPIO_PIN                         8U   /*!< GPIO1 pin index: 8 */
-#define BOARD_INITLCDPINS_LCD_BACKLIGHT_CTRL_PIN_NAME              GPIO_AD_B0_08   /*!< Pin name */
-#define BOARD_INITLCDPINS_LCD_BACKLIGHT_CTRL_LABEL          "LCD_BACKLIGHT_CTRL"   /*!< Label */
-#define BOARD_INITLCDPINS_LCD_BACKLIGHT_CTRL_NAME           "LCD_BACKLIGHT_CTRL"   /*!< Identifier name */
-#define BOARD_INITLCDPINS_LCD_BACKLIGHT_CTRL_DIRECTION  kPIN_MUX_DirectionOutput   /*!< Direction */
 
 
 /*!

@@ -78,25 +78,25 @@ typedef struct _clock_setup
  * Motor 1
  * Quantity     | Module A (ADC1)       | Module B (ADC2)
  * --------------------------------------------------------------------------
- * M1_I_A       | ADC1_CH10             | ADC2_CH10
- * M1_I_B       | ADC1_CH11             | ADC2_CH11
- * M1_I_C       | ADC1_CH13             | ADC2_CH13
- * M1_U_DCB     | ADC1_CH12             | ADC2_CH12
+ * M1_I_A       | ADC1_CH14             | ADC2_CH14
+ * M1_I_B       | ADC1_CH8              | ADC2_CH8
+ * M1_I_C       | ADC1_CH9              | ADC2_CH9
+ * M1_U_DCB     | ADC1_CH7              | ADC2_CH7
  *
  */
 
 /* Phase current A assigned to ADC1 and ADC2 */
-#define M1_ADC1_PH_A (10)
-#define M1_ADC2_PH_A (10)
+#define M1_ADC1_PH_A (14)
+#define M1_ADC2_PH_A (14)
 /* Phase current A assigned to ADC1 and ADC2 */
-#define M1_ADC1_PH_B (11)
-#define M1_ADC2_PH_B (11)
+#define M1_ADC1_PH_B (8)
+#define M1_ADC2_PH_B (8)
 /* Phase current A assigned to ADC1 and ADC2 */
-#define M1_ADC1_PH_C (13)
-#define M1_ADC2_PH_C (13)
+#define M1_ADC1_PH_C (9)
+#define M1_ADC2_PH_C (9)
 /* Phase current A assigned to ADC1 and ADC2 */
-#define M1_ADC1_UDCB (12)
-#define M1_ADC2_UDCB (12)
+#define M1_ADC1_UDCB (7)
+#define M1_ADC2_UDCB (7)
 
 /* offset measurement filter window */
 #define ADC_OFFSET_WINDOW (3)
