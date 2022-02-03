@@ -72,6 +72,39 @@ static mc_command_data_t appMotorControlCommandData[4];
 /*******************************************************************************
  * Code
  ******************************************************************************/
+#define MAX_DEBUG_ARR 100
+struct {
+	uint32_t idx;
+	uint32_t pad1;
+	uint32_t pad2;
+	uint32_t pad3;
+	uint32_t arr[MAX_DEBUG_ARR][4];
+}reg_debug;
+void register_debug_init()
+{
+	uint32_t idx;
+	reg_debug.idx = 0;
+	idx = reg_debug.idx;
+	reg_debug.arr[idx][0] = 0xffffffff;
+	reg_debug.arr[idx][1] = 0xffffffff;
+	reg_debug.arr[idx][2] = 0xffffffff;
+	reg_debug.arr[idx][3] = 0xffffffff;
+}
+void register_debug (uint32_t code, uint32_t val1, uint32_t val2, uint32_t val3)
+{
+	reg_debug.arr[reg_debug.idx][0] = code;
+	reg_debug.arr[reg_debug.idx][1] = val1;
+	reg_debug.arr[reg_debug.idx][2] = val2;
+	reg_debug.arr[reg_debug.idx][3] = val3;
+
+	reg_debug.idx++;
+	if (reg_debug.idx >= MAX_DEBUG_ARR)
+		reg_debug.idx = 0;
+	reg_debug.arr[reg_debug.idx][0] = 0xffffffff;
+	reg_debug.arr[reg_debug.idx][1] = 0xffffffff;
+	reg_debug.arr[reg_debug.idx][2] = 0xffffffff;
+	reg_debug.arr[reg_debug.idx][3] = 0xffffffff;
+}
 /*!
  * @brief Main function
  */

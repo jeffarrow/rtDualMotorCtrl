@@ -571,7 +571,7 @@ void M1_InitPWM(void)
     PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
 
     PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
-    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
+    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)(0));
     PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
 
     PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
