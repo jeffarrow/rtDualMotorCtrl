@@ -202,12 +202,6 @@ void TMR1_IRQHandler(void)
     /* M2 Slow StateMachine call */
     SM_StateMachineSlow(&g_sM2Ctrl);
     
-    /* M3 Slow StateMachine call */
-//    SM_StateMachineSlow(&g_sM3Ctrl);
-    
-    /* M4 Slow StateMachine call */
-//    SM_StateMachineSlow(&g_sM4Ctrl);
-    
     /* Demo speed stimulator */
     SpeedDemo();
     
@@ -220,10 +214,6 @@ void TMR1_IRQHandler(void)
     MCDRV_QdEncLedDemoType(&g_sM1Enc);
     
     MCDRV_QdEncLedDemoType(&g_sM2Enc);
-    
-//    MCDRV_QdEncLedDemoType(&g_sM3Enc);
-    
-//    MCDRV_QdEncLedDemoType(&g_sM4Enc);
     
     /* Clear the CSCTRL0[TCF1] flag */  
     TMR1->CHANNEL[0].CSCTRL |= TMR_CSCTRL_TCF1(0x00);
