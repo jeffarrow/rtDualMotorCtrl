@@ -200,20 +200,6 @@ void InitClock(void)
     g_sClockSetup.ui16M2PwmDeadTime = ui32CyclesNumber;
     g_sClockSetup.ui16M2SpeedLoopFreq = M2_SPEED_LOOP_FREQ; /* 1kHz */   
     
-    /* Parameters for motor M3 */
-    g_sClockSetup.ui16M3PwmFreq = M3_PWM_FREQ; /* 10 kHz */
-    g_sClockSetup.ui16M3PwmModulo = g_sClockSetup.ui32FastPeripheralClock / g_sClockSetup.ui16M3PwmFreq;
-    ui32CyclesNumber = ((M3_PWM_DEADTIME * (g_sClockSetup.ui32FastPeripheralClock / 1000000U))/1000U); /* max 2047 cycles */
-    g_sClockSetup.ui16M3PwmDeadTime = ui32CyclesNumber;
-    g_sClockSetup.ui16M3SpeedLoopFreq = M3_SPEED_LOOP_FREQ; /* 1kHz */
-    
-    /* Parameters for motor M2 */
-    g_sClockSetup.ui16M4PwmFreq = M4_PWM_FREQ; /* 10 kHz */
-    g_sClockSetup.ui16M4PwmModulo = g_sClockSetup.ui32FastPeripheralClock / g_sClockSetup.ui16M4PwmFreq;
-    ui32CyclesNumber = ((M4_PWM_DEADTIME * (g_sClockSetup.ui32FastPeripheralClock / 1000000U))/1000U); /* max 2047 cycles */
-    g_sClockSetup.ui16M4PwmDeadTime = ui32CyclesNumber;
-    g_sClockSetup.ui16M4SpeedLoopFreq = M4_SPEED_LOOP_FREQ; /* 1kHz */
-    
 }
 
 /*!

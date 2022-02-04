@@ -92,7 +92,7 @@ typedef struct _clock_setup
 #define M1_PWM_FREQ (10000)         /* PWM frequency - 10kHz */
 #define M1_FOC_FREQ_VS_PWM_FREQ (1) /* FOC calculation is called every n-th PWM reload */
 #define M1_SPEED_LOOP_FREQ (1000)   /* Speed loop frequency */
-#define M1_PWM_DEADTIME (2270)      /* Output PWM deadtime value in nanoseconds */
+#define M1_PWM_DEADTIME (500)      /* Output PWM deadtime value in nanoseconds */
 
 #define M1_FAST_LOOP_TS ((float_t)1.0/(float_t)(M1_PWM_FREQ / M1_FOC_FREQ_VS_PWM_FREQ))
 #define M1_SLOW_LOOP_TS ((float_t)1.0/(float_t)(M1_SLOW_LOOP_FREQ))
@@ -116,7 +116,7 @@ typedef struct _clock_setup
 #define M2_PWM_FREQ (10000)         /* PWM frequency - 10kHz */
 #define M2_FOC_FREQ_VS_PWM_FREQ (1) /* FOC calculation is called every n-th PWM reload */
 #define M2_SPEED_LOOP_FREQ (1000)   /* Speed loop frequency */
-#define M2_PWM_DEADTIME (2270)      /* Output PWM deadtime value in nanoseconds */
+#define M2_PWM_DEADTIME (500)      /* Output PWM deadtime value in nanoseconds */
 
 #define M2_FAST_LOOP_TS ((float_t)1.0/(float_t)(M2_PWM_FREQ / M2_FOC_FREQ_VS_PWM_FREQ))
 #define M2_SLOW_LOOP_TS ((float_t)1.0/(float_t)(M2_SLOW_LOOP_FREQ))
@@ -133,56 +133,6 @@ typedef struct _clock_setup
 
 /* Over Current Fault detection */
 #define M2_FAULT_NUM (0)
-
-
-/******************************************************************************
- * Clock & PWM definition for motor 3
- ******************************************************************************/
-#define M3_PWM_FREQ (10000)         /* PWM frequency - 10kHz */
-#define M3_FOC_FREQ_VS_PWM_FREQ (1) /* FOC calculation is called every n-th PWM reload */
-#define M3_SPEED_LOOP_FREQ (1000)   /* Speed loop frequency */
-#define M3_PWM_DEADTIME (2270)      /* Output PWM deadtime value in nanoseconds */
-
-#define M3_FAST_LOOP_TS ((float_t)1.0/(float_t)(M3_PWM_FREQ / M3_FOC_FREQ_VS_PWM_FREQ))
-#define M3_SLOW_LOOP_TS ((float_t)1.0/(float_t)(M3_SLOW_LOOP_FREQ))
-#define M3_TIME_ONESEC_COUNT (M3_PWM_FREQ / M3_FOC_FREQ_VS_PWM_FREQ)
-
-/* Assignment of eFlexPWM channels to motor 2 phases
- * 0 - PWM channels A0&B0 - sub-module 0
- * 1 - PWM channels A1&B1 - sub-module 1
- * 2 - PWM channels A2&B2 - sub-module 2
- */
-#define M3_PWM_PAIR_PHA (0)
-#define M3_PWM_PAIR_PHB (1)
-#define M3_PWM_PAIR_PHC (2)
-
-/* Over Current Fault detection */
-#define M3_FAULT_NUM (0)
-
-
-/******************************************************************************
- * Clock & PWM definition for motor 4
- ******************************************************************************/
-#define M4_PWM_FREQ (10000)         /* PWM frequency - 10kHz */
-#define M4_FOC_FREQ_VS_PWM_FREQ (1) /* FOC calculation is called every n-th PWM reload */
-#define M4_SPEED_LOOP_FREQ (1000)   /* Speed loop frequency */
-#define M4_PWM_DEADTIME (2270)      /* Output PWM deadtime value in nanoseconds */
-
-#define M4_FAST_LOOP_TS ((float_t)1.0/(float_t)(M4_PWM_FREQ / M4_FOC_FREQ_VS_PWM_FREQ))
-#define M4_SLOW_LOOP_TS ((float_t)1.0/(float_t)(M4_SLOW_LOOP_FREQ))
-#define M4_TIME_ONESEC_COUNT (M4_PWM_FREQ / M4_FOC_FREQ_VS_PWM_FREQ)
-
-/* Assignment of eFlexPWM channels to motor 2 phases
- * 0 - PWM channels A0&B0 - sub-module 0
- * 1 - PWM channels A1&B1 - sub-module 1
- * 2 - PWM channels A2&B2 - sub-module 2
- */
-#define M4_PWM_PAIR_PHA (0)
-#define M4_PWM_PAIR_PHB (1)
-#define M4_PWM_PAIR_PHC (2)
-
-/* Over Current Fault detection */
-#define M4_FAULT_NUM (0)
 
 
 /******************************************************************************
