@@ -115,7 +115,7 @@ typedef struct _clock_setup
  */
 #define M2_PWM_PAIR_PHA (0)
 #define M2_PWM_PAIR_PHB (1)
-#define M2_PWM_PAIR_PHC (3)
+#define M2_PWM_PAIR_PHC (2)
 
 /* Over Current Fault detection */
 #define M2_FAULT_NUM (0)
