@@ -33,8 +33,6 @@
 
 #include "m1_sm_ref_sol.h"
 #include "m2_sm_ref_sol.h"
-#include "m3_sm_ref_sol.h"
-#include "m4_sm_ref_sol.h"
 
 #include "mcdrv_enc_qd.h"
 

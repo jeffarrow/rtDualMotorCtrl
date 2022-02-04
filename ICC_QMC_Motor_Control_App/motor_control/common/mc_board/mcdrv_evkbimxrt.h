@@ -36,8 +36,6 @@
 #include "mcdrv_enc_qd.h"
 #include "m1_pmsm_appconfig.h"
 #include "m2_pmsm_appconfig.h"
-#include "m3_pmsm_appconfig.h"
-#include "m4_pmsm_appconfig.h"
 
 /*******************************************************************************
  * Definitions
@@ -71,18 +69,6 @@ typedef struct _clock_setup
     uint16_t ui16M2PwmFreq;
     uint16_t ui16M2PwmModulo;
     uint16_t ui16M2PwmDeadTime;
-    
-    uint16_t ui16M3SpeedLoopFreq;
-    uint16_t ui16M3SpeedLoopModulo;
-    uint16_t ui16M3PwmFreq;
-    uint16_t ui16M3PwmModulo;
-    uint16_t ui16M3PwmDeadTime;
-    
-    uint16_t ui16M4SpeedLoopFreq;
-    uint16_t ui16M4SpeedLoopModulo;
-    uint16_t ui16M4PwmFreq;
-    uint16_t ui16M4PwmModulo;
-    uint16_t ui16M4PwmDeadTime;
     
 } clock_setup_t;
 
@@ -147,16 +133,6 @@ typedef struct _clock_setup
 #define M2_MCDRV_PWM3PH_EN(par) (MCDRV_eFlexPwm3PhOutEn(par))
 #define M2_MCDRV_PWM3PH_DIS(par) (MCDRV_eFlexPwm3PhOutDis(par))
 #define M2_MCDRV_PWM3PH_FLT_GET(par) (MCDRV_eFlexPwm3PhFltGet(par))
- 
-#define M3_MCDRV_PWM3PH_SET(par) (MCDRV_eFlexPwm3PhSet(par))
-#define M3_MCDRV_PWM3PH_EN(par) (MCDRV_eFlexPwm3PhOutEn(par))
-#define M3_MCDRV_PWM3PH_DIS(par) (MCDRV_eFlexPwm3PhOutDis(par))
-#define M3_MCDRV_PWM3PH_FLT_GET(par) (MCDRV_eFlexPwm3PhFltGet(par))
-
-#define M4_MCDRV_PWM3PH_SET(par) (MCDRV_eFlexPwm3PhSet(par))
-#define M4_MCDRV_PWM3PH_EN(par) (MCDRV_eFlexPwm3PhOutEn(par))
-#define M4_MCDRV_PWM3PH_DIS(par) (MCDRV_eFlexPwm3PhOutDis(par))
-#define M4_MCDRV_PWM3PH_FLT_GET(par) (MCDRV_eFlexPwm3PhFltGet(par))
 
 
 /******************************************************************************
@@ -211,48 +187,6 @@ typedef struct _clock_setup
 /* Phase current A assigned to ADC1 and ADC2 */
 #define M2_ADC1_UDCB (12)
 #define M2_ADC2_UDCB (MCDRV_CHAN_OFF)
-
-/* Motor 3
- * Quantity     | Module 1 (ADC1)   | Module 2 (ADC2)
- * --------------------------------------------------------------------------
- * M3_I_A       | ADC1_IN11         | ADC2_IN11 
- * M3_I_B       | ADC1_IN12         | ADC2_IN12  
- * M3_I_C       | ADC1_IN13         | ADC2_IN13  
- * M3_U_DCB     | ---------         | ADC2_IN2
-*/ 
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M3_ADC1_PH_A (11)
-#define M3_ADC2_PH_A (11)
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M3_ADC1_PH_B (12)
-#define M3_ADC2_PH_B (12)
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M3_ADC1_PH_C (13)
-#define M3_ADC2_PH_C (13)
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M3_ADC1_UDCB (MCDRV_CHAN_OFF)
-#define M3_ADC2_UDCB (2)
-
-/* Motor 4
- * Quantity     | Module 1 (ADC1)   | Module 2 (ADC2)
- * --------------------------------------------------------------------------
- * M4_I_A       | ADC1_IN14         | ADC2_IN14 
- * M4_I_B       | ADC1_IN15         | ADC2_IN15  
- * M4_I_C       | ADC1_IN0          | ADC2_IN0   
- * M4_U_DCB     | ---------         | ADC2_IN4 
-*/ 
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M4_ADC1_PH_A (14)
-#define M4_ADC2_PH_A (14)
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M4_ADC1_PH_B (15)
-#define M4_ADC2_PH_B (15)
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M4_ADC1_PH_C (0)
-#define M4_ADC2_PH_C (0)
-/* Phase current A assigned to ADC1 and ADC2 */
-#define M4_ADC1_UDCB (MCDRV_CHAN_OFF)
-#define M4_ADC2_UDCB (4)
      
 /* offset measurement filter window */     
 #define ADC_OFFSET_WINDOW (3)
@@ -268,14 +202,6 @@ typedef struct _clock_setup
     MCDRV_Curr3Ph2ShGet(par); \
     MCDRV_VoltDcBusGet(par);  \
     MCDRV_AuxValGet(par);
-#define M3_MCDRV_ADC_GET(par) \
-    MCDRV_Curr3Ph2ShGet(par); \
-    MCDRV_VoltDcBusGet(par);  \
-    MCDRV_AuxValGet(par);
-#define M4_MCDRV_ADC_GET(par) \
-    MCDRV_Curr3Ph2ShGet(par); \
-    MCDRV_VoltDcBusGet(par);  \
-    MCDRV_AuxValGet(par);
     
 #define M1_MCDRV_CURR_3PH_CHAN_ASSIGN(par) (MCDRV_Curr3Ph2ShChanAssign(par))
 #define M1_MCDRV_CURR_3PH_CALIB_INIT(par) (MCDRV_Curr3Ph2ShCalibInit(par))
@@ -286,16 +212,6 @@ typedef struct _clock_setup
 #define M2_MCDRV_CURR_3PH_CALIB_INIT(par) (MCDRV_Curr3Ph2ShCalibInit(par))
 #define M2_MCDRV_CURR_3PH_CALIB(par) (MCDRV_Curr3Ph2ShCalib(par))
 #define M2_MCDRV_CURR_3PH_CALIB_SET(par) (MCDRV_Curr3Ph2ShCalibSet(par))
-
-#define M3_MCDRV_CURR_3PH_CHAN_ASSIGN(par) (MCDRV_Curr3Ph2ShChanAssign(par))
-#define M3_MCDRV_CURR_3PH_CALIB_INIT(par) (MCDRV_Curr3Ph2ShCalibInit(par))
-#define M3_MCDRV_CURR_3PH_CALIB(par) (MCDRV_Curr3Ph2ShCalib(par))
-#define M3_MCDRV_CURR_3PH_CALIB_SET(par) (MCDRV_Curr3Ph2ShCalibSet(par))
-
-#define M4_MCDRV_CURR_3PH_CHAN_ASSIGN(par) (MCDRV_Curr3Ph2ShChanAssign(par))
-#define M4_MCDRV_CURR_3PH_CALIB_INIT(par) (MCDRV_Curr3Ph2ShCalibInit(par))
-#define M4_MCDRV_CURR_3PH_CALIB(par) (MCDRV_Curr3Ph2ShCalib(par)) 
-#define M4_MCDRV_CURR_3PH_CALIB_SET(par) (MCDRV_Curr3Ph2ShCalibSet(par))
 
     
 /******************************************************************************
@@ -316,22 +232,6 @@ typedef struct _clock_setup
 #define M2_MCDRV_DRV3PH_RD_S1(par) (MCDRV_Driver3PhGetSr1(par))
 #define M2_MCDRV_DRV3PH_RD_S2(par) (MCDRV_Driver3PhGetSr2(par))
 #define M2_MCDRV_DRV3PH_RD_S3(par) (MCDRV_Driver3PhGetSr3(par))
-
-#define M3_MCDRV_DRV3PH_RD_OC(par) (MCDRV_Driver3PhReadOc(par))
-#define M3_MCDRV_DRV3PH_RD_INT(par) (MCDRV_Driver3PhReadInt(par))
-#define M3_MCDRV_DRV3PH_CLR_FLG(par) (MCDRV_Driver3PhClearFlags(par))
-#define M3_MCDRV_DRV3PH_RD_S0(par) (MCDRV_Driver3PhGetSr0(par))
-#define M3_MCDRV_DRV3PH_RD_S1(par) (MCDRV_Driver3PhGetSr1(par))
-#define M3_MCDRV_DRV3PH_RD_S2(par) (MCDRV_Driver3PhGetSr2(par))
-#define M3_MCDRV_DRV3PH_RD_S3(par) (MCDRV_Driver3PhGetSr3(par))
-
-#define M4_MCDRV_DRV3PH_RD_OC(par) (MCDRV_Driver3PhReadOc(par))
-#define M4_MCDRV_DRV3PH_RD_INT(par) (MCDRV_Driver3PhReadInt(par))
-#define M4_MCDRV_DRV3PH_CLR_FLG(par) (MCDRV_Driver3PhClearFlags(par))
-#define M4_MCDRV_DRV3PH_RD_S0(par) (MCDRV_Driver3PhGetSr0(par))
-#define M4_MCDRV_DRV3PH_RD_S1(par) (MCDRV_Driver3PhGetSr1(par))
-#define M4_MCDRV_DRV3PH_RD_S2(par) (MCDRV_Driver3PhGetSr2(par))
-#define M4_MCDRV_DRV3PH_RD_S3(par) (MCDRV_Driver3PhGetSr3(par))
     
 
 /******************************************************************************
@@ -348,19 +248,6 @@ typedef struct _clock_setup
 #define M2_MCDRV_QD_SET_DIRECTION(par) (MCDRV_QdEncSetDirection(par))
 #define M2_MCDRV_QD_CLEAR(par) (MCDRV_QdEncClear(par))
 #define M2_MCDRV_QD_INDEX_IRQ_ON(par) (MCDRV_QdEncIndexIRQOn(par))
-
-#define M3_MCDRV_QD_GET(par) (MCDRV_QdEncGet(par))
-#define M3_MCDRV_QD_LED(par) (MCDRV_QdEncLedPosition(par))
-#define M3_MCDRV_QD_SET_DIRECTION(par) (MCDRV_QdEncSetDirection(par))
-#define M3_MCDRV_QD_CLEAR(par) (MCDRV_QdEncClear(par))
-#define M3_MCDRV_QD_INDEX_IRQ_ON(par) (MCDRV_QdEncIndexIRQOn(par))
-
-#define M4_MCDRV_QD_GET(par) (MCDRV_QdEncGet(par))
-#define M4_MCDRV_QD_LED(par) (MCDRV_QdEncLedPosition(par))
-#define M4_MCDRV_QD_SET_DIRECTION(par) (MCDRV_QdEncSetDirection(par))
-#define M4_MCDRV_QD_CLEAR(par) (MCDRV_QdEncClear(par))
-#define M4_MCDRV_QD_INDEX_IRQ_ON(par) (MCDRV_QdEncIndexIRQOn(par))
-    
     
 /******************************************************************************
  * Brake resistor definitions
@@ -370,12 +257,6 @@ typedef struct _clock_setup
     
 #define M2_BRAKE_SET() //GPIO2->DR |= GPIO_DR_DR(1U << 18U)
 #define M2_BRAKE_CLEAR() //GPIO2->DR &= ~(GPIO_DR_DR(1U << 18U))
-    
-#define M3_BRAKE_SET() //GPIO2->DR |= GPIO_DR_DR(1U << 18U)
-#define M3_BRAKE_CLEAR() //GPIO2->DR &= ~(GPIO_DR_DR(1U << 18U))
-    
-#define M4_BRAKE_SET() //GPIO2->DR |= GPIO_DR_DR(1U << 18U)
-#define M4_BRAKE_CLEAR() //GPIO2->DR &= ~(GPIO_DR_DR(1U << 18U))
            
 /******************************************************************************
  * Global variable definitions
@@ -387,14 +268,6 @@ extern mcdrv_qd_enc_t g_sM1Enc;
 extern mcdrv_adc_t g_sM2AdcSensor;
 extern mcdrv_pwm3ph_pwma_t g_sM2Pwm3ph;
 extern mcdrv_qd_enc_t g_sM2Enc;
-
-extern mcdrv_adc_t g_sM3AdcSensor;
-extern mcdrv_pwm3ph_pwma_t g_sM3Pwm3ph;
-extern mcdrv_qd_enc_t g_sM3Enc;
-
-extern mcdrv_adc_t g_sM4AdcSensor;
-extern mcdrv_pwm3ph_pwma_t g_sM4Pwm3ph;
-extern mcdrv_qd_enc_t g_sM4Enc;
 
 extern clock_setup_t g_sClockSetup;
 
@@ -419,12 +292,6 @@ void M1_InitQD(void);
 
 void M2_InitPWM(void);
 void M2_InitQD(void);
-
-void M3_InitPWM(void);
-void M3_InitQD(void);
-
-void M4_InitPWM(void);
-void M4_InitQD(void);
 
 #ifdef __cplusplus
 }

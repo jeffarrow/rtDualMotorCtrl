@@ -39,8 +39,6 @@
 #include "mid_sm_states.h"
 
 #include "m2_sm_ref_sol.h"
-#include "m3_sm_ref_sol.h"
-#include "m4_sm_ref_sol.h"
 
 #include "mc_demo_mode.h"
 
