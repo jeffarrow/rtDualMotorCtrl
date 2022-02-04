@@ -457,10 +457,8 @@ void M1_InitPWM(void)
     PWMBase->SM[1].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
     PWMBase->SM[2].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
 
-    /* PWM1 module 0 trigger on VAL4 enabled for ADC synchronization */
-    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); /// kXBARA1_InputFlexpwm1Pwm1OutTrig01 - ADC TRIGGER & SYNCHRONIZATION FOR PWM3
-    /* PWM1 module 1 trigger on VAL0 enabled for PWM synchronization */
-    PWMBase->SM[1].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 0); /// kXBARA1_InputFlexpwm1Pwm2OutTrig01 - SYNCHRONIZATION FOR PWM2 and PWM4
+    /* PWM2 module 0 trigger on VAL4 enabled for ADC2 synchronization */
+    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); // kXBARA1_InputFlexpwm2Pwm1OutTrig01 ADC TRIGGER
         
     /* Set dead-time register */
     PWMBase->SM[0].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
@@ -575,9 +573,11 @@ void M2_InitPWM(void)
     PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
     PWMBase->SM[1].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
     PWMBase->SM[2].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
-    
-    /* PWM2 module 0 trigger on VAL4 enabled for ADC2 synchronization */
-    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); // kXBARA1_InputFlexpwm2Pwm1OutTrig01 ADC TRIGGER
+
+    /* PWM1 module 0 trigger on VAL4 enabled for ADC synchronization */
+    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); /// kXBARA1_InputFlexpwm1Pwm1OutTrig01 - ADC TRIGGER & SYNCHRONIZATION FOR PWM3
+    /* PWM1 module 1 trigger on VAL0 enabled for PWM synchronization */
+    PWMBase->SM[1].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 0); /// kXBARA1_InputFlexpwm1Pwm2OutTrig01 - SYNCHRONIZATION FOR PWM2 and PWM4
 
     /* Set dead-time register */
     PWMBase->SM[0].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
