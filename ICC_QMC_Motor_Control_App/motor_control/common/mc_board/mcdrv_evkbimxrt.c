@@ -419,121 +419,100 @@ void M1_InitPWM(void)
 { 
     /* PWM base pointer (affects the entire initialization) */
     PWM_Type *PWMBase = (PWM_Type *)PWM1;
-
+  
     /* PWM clock gating register: enabled */
     CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG8_MASK)) | CCM_CCGR4_CG8(0x3);
-
+  
     /* Full cycle reload */
-    PWMBase->SM[M1_PWM_PAIR_PHA].CTRL |= PWM_CTRL_HALF_MASK;
-    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL |= PWM_CTRL_HALF_MASK;
-    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[0].CTRL |= PWM_CTRL_FULL_MASK;
+    PWMBase->SM[1].CTRL |= PWM_CTRL_FULL_MASK;
+    PWMBase->SM[2].CTRL |= PWM_CTRL_FULL_MASK;
 
     /* Value register initial values, duty cycle 50% */
-    PWMBase->SM[M1_PWM_PAIR_PHA].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2)));
-    PWMBase->SM[M1_PWM_PAIR_PHB].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2)));
-    PWMBase->SM[M1_PWM_PAIR_PHC].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2)));
+    PWMBase->SM[0].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2U)));
+    PWMBase->SM[1].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2U)));
+    PWMBase->SM[2].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2U)));
 
-    PWMBase->SM[M1_PWM_PAIR_PHA].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
-    PWMBase->SM[M1_PWM_PAIR_PHB].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
-    PWMBase->SM[M1_PWM_PAIR_PHC].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
+    PWMBase->SM[0].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
+    PWMBase->SM[1].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
+    PWMBase->SM[2].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
+    
+    PWMBase->SM[0].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
+    PWMBase->SM[1].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
+    PWMBase->SM[2].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
+   
+    PWMBase->SM[0].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
+    PWMBase->SM[1].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
+    PWMBase->SM[2].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
+ 
+    PWMBase->SM[0].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
+    PWMBase->SM[1].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
+    PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
 
-    PWMBase->SM[M1_PWM_PAIR_PHA].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2) - 1));
-    PWMBase->SM[M1_PWM_PAIR_PHB].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2) - 1));
-    PWMBase->SM[M1_PWM_PAIR_PHC].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2) - 1));
+    PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
+    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
+    PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
 
-    PWMBase->SM[M1_PWM_PAIR_PHA].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4)));
-    PWMBase->SM[M1_PWM_PAIR_PHB].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4)));
-    PWMBase->SM[M1_PWM_PAIR_PHC].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4)));
+    PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
+    PWMBase->SM[1].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
+    PWMBase->SM[2].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
 
-    PWMBase->SM[M1_PWM_PAIR_PHA].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4));
-    PWMBase->SM[M1_PWM_PAIR_PHB].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4));
-    PWMBase->SM[M1_PWM_PAIR_PHC].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4));
-
-    /* Trigger for ADC synchronization */
-//    PWMBase->SM[M1_PWM_PAIR_PHA].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2) + 10)));
-    PWMBase->SM[M1_PWM_PAIR_PHA].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2) + 140)));
-    PWMBase->SM[M1_PWM_PAIR_PHB].VAL4 = PWM_VAL4_VAL4((uint16_t)(0));
-    PWMBase->SM[M1_PWM_PAIR_PHC].VAL4 = PWM_VAL4_VAL4((uint16_t)(0));
-
-    PWMBase->SM[M1_PWM_PAIR_PHA].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
-    PWMBase->SM[M1_PWM_PAIR_PHB].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
-    PWMBase->SM[M1_PWM_PAIR_PHC].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
-
-    /* PWM0 module 0 trigger on VAL4 enabled for ADC synchronization */
-    PWMBase->SM[M1_PWM_PAIR_PHA].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4);
-
+    /* PWM1 module 0 trigger on VAL4 enabled for ADC synchronization */
+    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); /// kXBARA1_InputFlexpwm1Pwm1OutTrig01 - ADC TRIGGER & SYNCHRONIZATION FOR PWM3
+    /* PWM1 module 1 trigger on VAL0 enabled for PWM synchronization */
+    PWMBase->SM[1].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 0); /// kXBARA1_InputFlexpwm1Pwm2OutTrig01 - SYNCHRONIZATION FOR PWM2 and PWM4
+        
     /* Set dead-time register */
-    PWMBase->SM[M1_PWM_PAIR_PHA].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[M1_PWM_PAIR_PHB].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[M1_PWM_PAIR_PHC].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[M1_PWM_PAIR_PHA].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[M1_PWM_PAIR_PHB].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[M1_PWM_PAIR_PHC].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[0].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[1].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[2].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[0].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[1].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[2].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
 
     /* Channels A and B disabled when fault 0 occurs */
-    PWMBase->SM[M1_PWM_PAIR_PHA].DISMAP[0] =
-        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[M1_PWM_PAIR_PHB].DISMAP[0] =
-        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[M1_PWM_PAIR_PHC].DISMAP[0] =
-        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[M1_PWM_PAIR_PHA].DISMAP[0] =
-        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
-    PWMBase->SM[M1_PWM_PAIR_PHB].DISMAP[0] =
-        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
-    PWMBase->SM[M1_PWM_PAIR_PHC].DISMAP[0] =
-        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[0].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[1].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[2].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[0].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[1].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[2].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
 
     /* Modules one and two gets clock from module zero */
-    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 =
-        (PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
-    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 =
-        (PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
+    PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
+    PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
 
-    /* Master reload active for modules one and three */
-    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
-    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
+    /* Master reload active for modules one and two*/
+    PWMBase->SM[1].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
+    PWMBase->SM[2].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
 
-    /* Master reload is generated every one opportunity */
-    PWMBase->SM[M1_PWM_PAIR_PHA].CTRL =
-        (PWMBase->SM[M1_PWM_PAIR_PHA].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M1_FOC_FREQ_VS_PWM_FREQ - 1);
+    /* Master reload is generated every PWM opportunity */
+    PWMBase->SM[0].CTRL = (PWMBase->SM[0].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M1_FOC_FREQ_VS_PWM_FREQ - 1);
 
-    /* Master sync active for modules one and three*/
-    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 =
-        (PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
-    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 =
-        (PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
+    /* Master sync active for modules one and two*/
+    PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
+    PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
 
     /* Fault 0 active in logic level one, automatic clearing */
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FLVL_MASK) | PWM_FCTRL_FLVL(0x1);
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FAUTO_MASK) | PWM_FCTRL_FAUTO(0x1);
 
     /* Clear fault flags */
-    PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFLAG_MASK) | PWM_FSTS_FFLAG(0xF);
+    PWMBase->FSTS = (PWMBase->FCTRL & ~PWM_FSTS_FFLAG_MASK) | PWM_FSTS_FFLAG(0xF);
 
     /* PWMs are re-enabled at PWM full cycle */
     PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFULL_MASK) | PWM_FSTS_FFULL(0x1);
 
     /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing
        samples to activate */
-    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5);
-    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5);
-
-    /* Enable A&B PWM outputs for submodules zero, one and three */
-    PWMBase->OUTEN = (PWMBase->OUTEN & ~PWM_OUTEN_PWMA_EN_MASK) | PWM_OUTEN_PWMA_EN(0xD);
-    PWMBase->OUTEN = (PWMBase->OUTEN & ~PWM_OUTEN_PWMB_EN_MASK) | PWM_OUTEN_PWMB_EN(0xD);
+    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5U);
+    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5U);
 
     /* Start PWMs (set load OK flags and run) */
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_CLDOK_MASK) | PWM_MCTRL_CLDOK(0xF);
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_LDOK_MASK) | PWM_MCTRL_LDOK(0xF);
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_RUN_MASK) | PWM_MCTRL_RUN(0xF);
-
-    /*************************************** debug *****************************************/
-//    PWMBase->SM[M1_PWM_PAIR_PHA].INTEN = PWM_INTEN_CMPIE(1<<4);
-//    EnableIRQ(PWM2_0_IRQn);
-//    NVIC_SetPriority(PWM2_0_IRQn, 1U);
-    /***************************************************************************************/
-
+    
     /* Initialize MC driver */
     g_sM1Pwm3ph.pui32PwmBaseAddress = (PWM_Type *)PWMBase;
 
@@ -678,7 +657,7 @@ void InitXBAR(void)
     /* Init xbara module. */
     XBARA_Init(XBARA);
     
-    /* PWM synchronization - From PWM1 SM[1] (VAL4) to PWM2 */
+    /* PWM synchronization - From PWM1 SM[1] (VAL4) to PWM2 */ 
     /* FLEXPWM1_PWM2_OUT_TRIG0_1 ==> FLEXPWM2_EXT_SYNC0 */
     XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm2OutTrig01, kXBARA1_OutputFlexpwm2ExtSync0);
 

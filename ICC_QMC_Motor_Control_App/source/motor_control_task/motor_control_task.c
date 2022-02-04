@@ -209,11 +209,11 @@ void TMR1_IRQHandler(void)
     PositionDemo();
     
     /* Motor synchronisation */
-    MotorSynchronisation();
+    //MotorSynchronisation();
     
-    MCDRV_QdEncLedDemoType(&g_sM1Enc);
+    //MCDRV_QdEncLedDemoType(&g_sM1Enc);
     
-    MCDRV_QdEncLedDemoType(&g_sM2Enc);
+    //MCDRV_QdEncLedDemoType(&g_sM2Enc);
     
     /* Clear the CSCTRL0[TCF1] flag */  
     TMR1->CHANNEL[0].CSCTRL |= TMR_CSCTRL_TCF1(0x00);
