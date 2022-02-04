@@ -57,25 +57,6 @@ mcdrv_pwm3ph_pwma_t g_sM2Pwm3ph;
 /* Structure for Encoder driver */
 mcdrv_qd_enc_t g_sM2Enc;
 
-
-/* Motor 3 */
-/* Structure for current and voltage measurement */
-mcdrv_adc_t g_sM3AdcSensor;
-/* Structure for 3-phase PWM MC driver */
-mcdrv_pwm3ph_pwma_t g_sM3Pwm3ph;
-/* Structure for Encoder driver */
-mcdrv_qd_enc_t g_sM3Enc;
-
-
-/* Motor 4 */
-/* Structure for current and voltage measurement */
-mcdrv_adc_t g_sM4AdcSensor;
-/* Structure for 3-phase PWM MC driver */
-mcdrv_pwm3ph_pwma_t g_sM4Pwm3ph;
-/* Structure for Encoder driver */
-mcdrv_qd_enc_t g_sM4Enc;
-
-
 /* Clock setup structure */
 clock_setup_t g_sClockSetup;
 
@@ -115,14 +96,10 @@ void MCDRV_Init(void)
     /* 6-channel PWM peripheral init for M1, M2, M3 & M4 */
     M1_InitPWM();
     M2_InitPWM();
-//    M3_InitPWM();
-//    M4_InitPWM();
     
     /* Qudrature decoder peripheral init */
 //    M1_InitQD();
 //    M2_InitQD();
-//    M3_InitQD();
-//    M4_InitQD();
     
     /* Init PIT for CPU Load measuring */
     InitPIT();
@@ -701,19 +678,16 @@ void InitXBAR(void)
     /* Init xbara module. */
     XBARA_Init(XBARA);
     
-//    /* PWM synchronization - From PWM1 SM[1] (VAL4) to PWM2 */
-//    /* FLEXPWM1_PWM2_OUT_TRIG0_1 ==> FLEXPWM2_EXT_SYNC0 */
-//    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm2OutTrig01, kXBARA1_OutputFlexpwm2ExtSync0);
-//
-//    /* ADC TRIGGER - trigger from PWM1 SM[0] (VAL4) to ADC_ETC trigger 0 */
-//    /* FLEXPWM1_PWM1_OUT_TRIG0_1 ==> ADC_ETC */
-//    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm2Pwm1OutTrig01, kXBARA1_OutputAdcEtcTrig00);
-//    /* ADC TRIGGER - trigger from PWM2 SM[0] (VAL4) to ADC_ETC trigger 1 */
-//    /* FLEXPWM2_PWM1_OUT_TRIG0_1 ==> ADC_ETC */
-//    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm1OutTrig01, kXBARA1_OutputAdcEtcTrig01);
+    /* PWM synchronization - From PWM1 SM[1] (VAL4) to PWM2 */
+    /* FLEXPWM1_PWM2_OUT_TRIG0_1 ==> FLEXPWM2_EXT_SYNC0 */
+    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm2OutTrig01, kXBARA1_OutputFlexpwm2ExtSync0);
 
-    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm1OutTrig01, kXBARA1_OutputAdcEtcTrig00);
-
+    /* ADC TRIGGER - trigger from PWM1 SM[0] (VAL4) to ADC_ETC trigger 0 */
+    /* FLEXPWM1_PWM1_OUT_TRIG0_1 ==> ADC_ETC */
+    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm2Pwm1OutTrig01, kXBARA1_OutputAdcEtcTrig00);
+    /* ADC TRIGGER - trigger from PWM2 SM[0] (VAL4) to ADC_ETC trigger 1 */
+    /* FLEXPWM2_PWM1_OUT_TRIG0_1 ==> ADC_ETC */
+    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm1OutTrig01, kXBARA1_OutputAdcEtcTrig01);
 
 //    XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputIomuxXbarInout18, kXBARA1_OutputEnc1PhaseAInput); /* IOMUX_XBAR_INOUT18 output assigned to XBARA1_IN18 input is connected to XBARA1_OUT66 output assigned to ENC1_PHASE_A_INPUT */
 //    XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputIomuxXbarIn22, kXBARA1_OutputEnc1PhaseBInput); /* IOMUX_XBAR_IN22 output assigned to XBARA1_IN22 input is connected to XBARA1_OUT67 output assigned to ENC1_PHASE_B_INPUT */

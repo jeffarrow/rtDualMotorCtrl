@@ -108,8 +108,6 @@ void motor_control_init_task(void *pvParameters)
   /* Turn off motor control application */
   M1_SetAppSwitch(0);
   M2_SetAppSwitch(0);
-//  M3_SetAppSwitch(0);
-//  M4_SetAppSwitch(0);
 /*
   USER_LED1_ON();
   USER_LED2_ON();
