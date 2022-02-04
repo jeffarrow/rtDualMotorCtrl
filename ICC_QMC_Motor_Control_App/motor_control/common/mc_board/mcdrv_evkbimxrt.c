@@ -419,7 +419,7 @@ void M1_InitPWM(void)
 { 
     /* PWM base pointer (affects the entire initialization) */
     PWM_Type *PWMBase = (PWM_Type *)PWM2;
-  
+
     /* PWM clock gating register: enabled */
     CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG9_MASK)) | CCM_CCGR4_CG9(0x3);
   
@@ -436,30 +436,30 @@ void M1_InitPWM(void)
     PWMBase->SM[0].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
     PWMBase->SM[1].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
     PWMBase->SM[2].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
-    
+
     PWMBase->SM[0].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
     PWMBase->SM[1].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
     PWMBase->SM[2].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
-   
+
     PWMBase->SM[0].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
     PWMBase->SM[1].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
     PWMBase->SM[2].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
- 
+
     PWMBase->SM[0].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
     PWMBase->SM[1].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
     PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
 
     PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
-    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
+    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
     PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
 
     PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
     PWMBase->SM[1].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
     PWMBase->SM[2].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
 
-    /* PWM2 module 0 trigger on VAL4 enabled for ADC2 synchronization */
-    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); // kXBARA1_InputFlexpwm2Pwm1OutTrig01 ADC TRIGGER
-        
+    /* PWM1 module 0 trigger on VAL4 enabled for ADC1 synchronization */
+    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); // kXBARA1_InputFlexpwm1Pwm1OutTrig01 ADC TRIGGER
+
     /* Set dead-time register */
     PWMBase->SM[0].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
     PWMBase->SM[1].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
@@ -487,6 +487,9 @@ void M1_InitPWM(void)
     /* Master reload is generated every PWM opportunity */
     PWMBase->SM[0].CTRL = (PWMBase->SM[0].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M1_FOC_FREQ_VS_PWM_FREQ - 1);
 
+    /* External synchronization for submodule 0 */
+    PWMBase->SM[0].CTRL2 = (PWMBase->SM[0].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x3); //  EXTERNAL SYNCHRONIZATION FROM PWM1
+
     /* Master sync active for modules one and two*/
     PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
     PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
@@ -501,8 +504,7 @@ void M1_InitPWM(void)
     /* PWMs are re-enabled at PWM full cycle */
     PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFULL_MASK) | PWM_FSTS_FFULL(0x1);
 
-    /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing
-       samples to activate */
+    /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing samples to activate */
     PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5U);
     PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5U);
 
@@ -567,17 +569,17 @@ void M2_InitPWM(void)
     PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4U));
 
     PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 10U)));
-    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
+    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 10U)));
     PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
 
     PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
     PWMBase->SM[1].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
     PWMBase->SM[2].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
 
-    /* PWM1 module 0 trigger on VAL4 enabled for ADC synchronization */
-    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); /// kXBARA1_InputFlexpwm1Pwm1OutTrig01 - ADC TRIGGER & SYNCHRONIZATION FOR PWM3
+    /* PWM2 module 0 trigger on VAL4 enabled for ADC synchronization */
+    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); /// kXBARA1_InputFlexpwm1Pwm1OutTrig01 - ADC TRIGGER
     /* PWM1 module 1 trigger on VAL0 enabled for PWM synchronization */
-    PWMBase->SM[1].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 0); /// kXBARA1_InputFlexpwm1Pwm2OutTrig01 - SYNCHRONIZATION FOR PWM2 and PWM4
+    PWMBase->SM[1].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 0); /// kXBARA1_InputFlexpwm1Pwm2OutTrig01 - SYNCHRONIZATION FOR PWM2
 
     /* Set dead-time register */
     PWMBase->SM[0].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
@@ -604,15 +606,12 @@ void M2_InitPWM(void)
     PWMBase->SM[2].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
 
     /* Master reload is generated every PWM opportunity */
-    PWMBase->SM[0].CTRL = (PWMBase->SM[0].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M1_FOC_FREQ_VS_PWM_FREQ - 1);
-    
-    /* External synchronization for submodule 0 */
-    PWMBase->SM[0].CTRL2 = (PWMBase->SM[0].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x3); //  EXTERNAL SYNCHRONIZATION FROM PWM1 
+    PWMBase->SM[0].CTRL = (PWMBase->SM[0].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M2_FOC_FREQ_VS_PWM_FREQ - 1);
 
     /* Master sync active for modules one and two*/
     PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
     PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
-  
+
     /* Fault 0 active in logic level one, automatic clearing */
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FLVL_MASK) | PWM_FCTRL_FLVL(0x1);
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FAUTO_MASK) | PWM_FCTRL_FAUTO(0x1);
@@ -623,7 +622,8 @@ void M2_InitPWM(void)
     /* PWMs are re-enabled at PWM full cycle */
     PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFULL_MASK) | PWM_FSTS_FFULL(0x1);
 
-    /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing samples to activate */
+    /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing
+       samples to activate */
     PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5U);
     PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5U);
 
