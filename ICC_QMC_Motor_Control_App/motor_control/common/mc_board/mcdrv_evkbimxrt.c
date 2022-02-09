@@ -424,9 +424,9 @@ void M1_InitPWM(void)
     CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG9_MASK)) | CCM_CCGR4_CG9(0x3);
   
     /* Full cycle reload */
-    PWMBase->SM[0].CTRL |= PWM_CTRL_FULL_MASK;
-    PWMBase->SM[1].CTRL |= PWM_CTRL_FULL_MASK;
-    PWMBase->SM[2].CTRL |= PWM_CTRL_FULL_MASK;
+    PWMBase->SM[0].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[1].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[2].CTRL |= PWM_CTRL_HALF_MASK;
 
     /* Value register initial values, duty cycle 50% */
     PWMBase->SM[0].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2U)));
@@ -449,7 +449,8 @@ void M1_InitPWM(void)
     PWMBase->SM[1].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
     PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
 
-    PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
+    //PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
+    PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2) + 140)));
     PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
     PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
 
@@ -543,9 +544,9 @@ void M2_InitPWM(void)
     CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG8_MASK)) | CCM_CCGR4_CG8(0x3);
   
     /* Full cycle reload */
-    PWMBase->SM[0].CTRL |= PWM_CTRL_FULL_MASK;
-    PWMBase->SM[1].CTRL |= PWM_CTRL_FULL_MASK;
-    PWMBase->SM[2].CTRL |= PWM_CTRL_FULL_MASK;
+    PWMBase->SM[0].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[1].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[2].CTRL |= PWM_CTRL_HALF_MASK;
 
     /* Value register initial values, duty cycle 50% */
     PWMBase->SM[0].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 2U)));
@@ -568,8 +569,8 @@ void M2_InitPWM(void)
     PWMBase->SM[1].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4U));
     PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4U));
 
-    PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 10U)));
-    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 10U)));
+    PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 140U)));
+    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 140U)));
     PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
 
     PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));

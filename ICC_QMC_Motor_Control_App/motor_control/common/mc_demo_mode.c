@@ -60,6 +60,52 @@ static uint32_t ui32M2PositionDemoCnt = 0U;
  * Code
  ******************************************************************************/
 
+bool_t bM1ScalarDemo = FALSE;
+float_t fltVHzGain = 0.0623999983;
+float_t fltFreqCmd = 10;
+RAM_FUNC void M1ScalarDemo(void)
+{
+	if (bM1ScalarDemo) {
+		g_sM1Drive.sScalarCtrl.sFreqRampParams.fltRampUp = 0.0666666701;
+		g_sM1Drive.sScalarCtrl.sFreqRampParams.fltRampDown = 0.0666666701;
+		g_sM1Drive.sScalarCtrl.sFreqRampParams.fltState = 10;
+		g_sM1Drive.sScalarCtrl.sUDQReq.fltD = 0;
+		g_sM1Drive.sScalarCtrl.sUDQReq.fltQ = 1;
+		g_sM1Drive.sScalarCtrl.sFreqIntegrator.a32Gain = 1922;
+		//g_sM1Drive.sScalarCtrl.sFreqIntegrator.f32IAccK_1 = -1010896856;
+		g_sM1Drive.sScalarCtrl.sFreqIntegrator.f16InValK_1 = 1118;
+		g_sM1Drive.sScalarCtrl.fltFreqCmd = fltFreqCmd;
+		g_sM1Drive.sScalarCtrl.fltFreqMax = 293;
+		g_sM1Drive.sScalarCtrl.fltFreqRamp = 10;
+		//g_sM1Drive.sScalarCtrl.f16PosElScalar = -15425;
+		g_sM1Drive.sScalarCtrl.fltVHzGain = fltVHzGain;
+		g_sM1Drive.eControl                  = kControlMode_Scalar;
+	}
+}
+
+bool_t bM2ScalarDemo = FALSE;
+
+RAM_FUNC void M2ScalarDemo(void)
+{
+	if (bM2ScalarDemo) {
+		g_sM2Drive.sScalarCtrl.sFreqRampParams.fltRampUp = 0.0666666701;
+		g_sM2Drive.sScalarCtrl.sFreqRampParams.fltRampDown = 0.0666666701;
+		g_sM2Drive.sScalarCtrl.sFreqRampParams.fltState = 10;
+		g_sM2Drive.sScalarCtrl.sUDQReq.fltD = 0;
+		g_sM2Drive.sScalarCtrl.sUDQReq.fltQ = 1;
+		g_sM2Drive.sScalarCtrl.sFreqIntegrator.a32Gain = 1922;
+		//g_sM2Drive.sScalarCtrl.sFreqIntegrator.f32IAccK_1 = -1010896856;
+		g_sM2Drive.sScalarCtrl.sFreqIntegrator.f16InValK_1 = 1118;
+		g_sM2Drive.sScalarCtrl.fltFreqCmd = fltFreqCmd;
+		g_sM2Drive.sScalarCtrl.fltFreqMax = 293;
+		g_sM2Drive.sScalarCtrl.fltFreqRamp = 10;
+		//g_sM2Drive.sScalarCtrl.f16PosElScalar = -15425;
+		g_sM2Drive.sScalarCtrl.fltVHzGain = fltVHzGain;
+		g_sM2Drive.eControl                  = kControlMode_Scalar;
+	}
+}
+
+
 /* Demo Speed Stimulator */
 RAM_FUNC
 void SpeedDemo(void)

@@ -208,6 +208,10 @@ void TMR1_IRQHandler(void)
     /* Demo position stimulator */
     PositionDemo();
     
+    M1ScalarDemo();
+
+    M2ScalarDemo();
+
     /* Motor synchronisation */
     //MotorSynchronisation();
     
