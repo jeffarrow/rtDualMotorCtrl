@@ -185,7 +185,7 @@ typedef struct _clock_setup
 #define M2_ADC1_PH_C (9)
 #define M2_ADC2_PH_C (9)
 /* Phase current A assigned to ADC1 and ADC2 */
-#define M2_ADC1_UDCB (12)
+#define M2_ADC1_UDCB (15)
 #define M2_ADC2_UDCB (MCDRV_CHAN_OFF)
      
 /* offset measurement filter window */     

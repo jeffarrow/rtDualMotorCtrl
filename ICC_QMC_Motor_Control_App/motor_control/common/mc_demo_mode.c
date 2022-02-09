@@ -261,6 +261,8 @@ void PositionDemo(void)
 }
    
 /* Motor 1 Speed Demo */
+float_t demoSpeed=500.0;
+float_t prevDemoSpeed=500.0;
 RAM_FUNC
 void M1SpeedDemo(void)
 {
@@ -277,43 +279,46 @@ void M1SpeedDemo(void)
                 g_sM1Enc.ui16EncLedDemoType = 1U;
                 break;    
             case 10:
-                M1_SetSpeed((1000.0F)/g_fltM1speedAngularScale);
+                M1_SetSpeed((demoSpeed)/g_fltM1speedAngularScale);
                 break;
-            case 2000:
-                M1_SetSpeed((2000.0F)/g_fltM1speedAngularScale);
-                break;
-            case 4000:
-                M1_SetSpeed((3500.0F)/g_fltM1speedAngularScale);
-                break;
-            case 6000:
-                M1_SetSpeed((2000.0F)/g_fltM1speedAngularScale);
-                break;  
-            case 8000:
-                M1_SetSpeed((1000.0F)/g_fltM1speedAngularScale);
-                break;
-            case 10000:
-                M1_SetSpeed((-1000.0F)/g_fltM1speedAngularScale);
-                break;
-            case 12000:
-                M1_SetSpeed((-2000.0F)/g_fltM1speedAngularScale);
-                break;
-            case 14000:
-                M1_SetSpeed((-3500.0F)/g_fltM1speedAngularScale);
-                break;
-            case 16000:
-                M1_SetSpeed((-2000.0F)/g_fltM1speedAngularScale);
-                break;
-            case 18000:
-                M1_SetSpeed((-1000.0F)/g_fltM1speedAngularScale);
-                break;
-            case 20000:
-                M1_SetSpeed((0.0F)/g_fltM1speedAngularScale);
-                break;
-            case 20100:
-                ui32M1SpeedDemoCnt = 1;
-                break;
+//            case 2000:
+//                M1_SetSpeed((2000.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 4000:
+//                M1_SetSpeed((3500.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 6000:
+//                M1_SetSpeed((2000.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 8000:
+//                M1_SetSpeed((1000.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 10000:
+//                M1_SetSpeed((-1000.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 12000:
+//                M1_SetSpeed((-2000.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 14000:
+//                M1_SetSpeed((-3500.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 16000:
+//                M1_SetSpeed((-2000.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 18000:
+//                M1_SetSpeed((-1000.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 20000:
+//                M1_SetSpeed((0.0F)/g_fltM1speedAngularScale);
+//                break;
+//            case 20100:
+//                ui32M1SpeedDemoCnt = 1;
+//                break;
             default:
-                break;             
+                if (prevDemoSpeed != demoSpeed){
+                	M1_SetSpeed((demoSpeed)/g_fltM1speedAngularScale);
+					prevDemoSpeed = demoSpeed;
+                }
         }
     }
     else
@@ -331,6 +336,7 @@ void M1SpeedDemo(void)
 RAM_FUNC
 void M2SpeedDemo(void)
 {
+	return;
     if (bM2SpeedDemo)
     {
         ui32M2SpeedDemoCnt++;
@@ -344,43 +350,45 @@ void M2SpeedDemo(void)
                 g_sM2Enc.ui16EncLedDemoType = 1U;
                 break;    
             case 10:
-                M2_SetSpeed((1000.0F)/g_fltM2speedAngularScale);
+                M2_SetSpeed((demoSpeed)/g_fltM2speedAngularScale);
                 break;      
-            case 2000:      
-                M2_SetSpeed((2000.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 4000:      
-                M2_SetSpeed((3500.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 6000:      
-                M2_SetSpeed((2000.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 8000:      
-                M2_SetSpeed((1000.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 10000:     
-                M2_SetSpeed((-1000.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 12000:     
-                M2_SetSpeed((-2000.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 14000:     
-                M2_SetSpeed((-3500.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 16000:     
-                M2_SetSpeed((-2000.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 18000:     
-                M2_SetSpeed((-1000.0F)/g_fltM2speedAngularScale);
-                break;      
-            case 20000:     
-                M2_SetSpeed((0.0F)/g_fltM2speedAngularScale);
-                break;
-            case 20100:
-                ui32M2SpeedDemoCnt = 1;
-                break;
+//            case 2000:
+//                M2_SetSpeed((2000.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 4000:
+//                M2_SetSpeed((3500.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 6000:
+//                M2_SetSpeed((2000.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 8000:
+//                M2_SetSpeed((1000.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 10000:
+//                M2_SetSpeed((-1000.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 12000:
+//                M2_SetSpeed((-2000.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 14000:
+//                M2_SetSpeed((-3500.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 16000:
+//                M2_SetSpeed((-2000.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 18000:
+//                M2_SetSpeed((-1000.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 20000:
+//                M2_SetSpeed((0.0F)/g_fltM2speedAngularScale);
+//                break;
+//            case 20100:
+//                ui32M2SpeedDemoCnt = 1;
+//                break;
             default:
-                break;             
+                if (prevDemoSpeed != demoSpeed){
+                	M2_SetSpeed((demoSpeed)/g_fltM2speedAngularScale);
+                }
         }
     }
     else

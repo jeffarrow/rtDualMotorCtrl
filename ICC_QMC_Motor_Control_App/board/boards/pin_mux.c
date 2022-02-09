@@ -138,11 +138,11 @@ void BOARD_InitAdcPins(void) {
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B1_09_GPIO1_IO25,        /* GPIO_AD_B1_09 is configured as GPIO1_IO25 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-//  IOMUXC_SetPinMux(
-//      IOMUXC_GPIO_AD_B1_12_GPIO1_IO28,        /* GPIO_AD_B1_12 is configured as GPIO1_IO28 */
-//      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B1_14_GPIO1_IO30,        /* GPIO_AD_B1_14 is configured as GPIO1_IO30 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+	  IOMUXC_GPIO_AD_B1_15_GPIO1_IO31,        /* GPIO_AD_B1_14 is configured as GPIO1_IO30 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 
@@ -164,6 +164,7 @@ BOARD_InitPwmPins:
 void BOARD_InitPwmPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03u */
 
+  // motor1
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_14_FLEXPWM2_PWMA00,   /* GPIO_AD_B0_14 is configured as FLEXPWM2_PWMA00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
@@ -200,6 +201,8 @@ void BOARD_InitPwmPins(void) {
   IOMUXC_SetPinConfig(
 	  IOMUXC_GPIO_AD_B0_11_FLEXPWM2_PWMB02,
       0x10B0U);
+
+  // motor2
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_26_FLEXPWM1_PWMA00,     /* GPIO_EMC_26 is configured as FLEXPWM1_PWMA00 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
@@ -509,12 +512,12 @@ BOARD_InitUartPins:
 void BOARD_InitUartPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03u */
 
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_06_LPUART1_TX,        /* GPIO_AD_B0_06 is configured as LPUART1_TX */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
-  IOMUXC_SetPinMux(
-      IOMUXC_GPIO_AD_B0_07_LPUART1_RX,        /* GPIO_AD_B0_07 is configured as LPUART1_RX */
-      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+//  IOMUXC_SetPinMux(
+//      IOMUXC_GPIO_AD_B0_06_LPUART1_TX,        /* GPIO_AD_B0_06 is configured as LPUART1_TX */
+//      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+//  IOMUXC_SetPinMux(
+//      IOMUXC_GPIO_AD_B0_07_LPUART1_RX,        /* GPIO_AD_B0_07 is configured as LPUART1_RX */
+//      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 
 
