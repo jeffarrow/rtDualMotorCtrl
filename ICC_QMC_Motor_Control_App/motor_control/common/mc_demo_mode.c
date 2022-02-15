@@ -382,7 +382,6 @@ void M1SpeedDemo(void)
 RAM_FUNC
 void M2SpeedDemo(void)
 {
-	return;
     if (bM2SpeedDemo)
     {
         ui32M2SpeedDemoCnt++;

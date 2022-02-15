@@ -190,32 +190,35 @@ void InitClock(void)
 void InitADC(void)
 {       
     /* Enable clock to ADC module 1 */
-    CLOCK_EnableClock(kCLOCK_Adc1); 
+    CLOCK_EnableClock(kCLOCK_Adc1);
     /* Enable clock to ADC module 2 */
     CLOCK_EnableClock(kCLOCK_Adc2);
-                     
-    /* Single-ended 12-bit conversion (MODE = 0x1) */
-    /* Set divide ratio to 1 (ADIV = 0x0) */
+
+    /* Single-ended 10-bit conversion (MODE = 0x1) */
+    /* Set divide ratio to 2 (ADIV = 0x1) */
     /* 4 samples averaged (AVGS = 0x0) */
     /* IPG clock select (ADICLK = 0x0) */
-    ADC1->CFG = ( ADC_CFG_ADICLK(0U) | ADC_CFG_MODE(1U) | ADC_CFG_ADIV(1U) | ADC_CFG_AVGS(0U) | ADC_CFG_ADTRG(0U) );
-    ADC2->CFG = ( ADC_CFG_ADICLK(0U) | ADC_CFG_MODE(1U) | ADC_CFG_ADIV(1U) | ADC_CFG_AVGS(0U) | ADC_CFG_ADTRG(0U) );
+//    ADC1->CFG = (ADC_CFG_ADICLK(0U) | ADC_CFG_MODE(1U) | ADC_CFG_ADIV(1U) | ADC_CFG_AVGS(0U) | ADC_CFG_ADTRG(0U));
+//    ADC2->CFG = (ADC_CFG_ADICLK(0U) | ADC_CFG_MODE(1U) | ADC_CFG_ADIV(1U) | ADC_CFG_AVGS(0U) | ADC_CFG_ADTRG(0U));
+
+    ADC1->CFG = (ADC_CFG_ADICLK(0U) | ADC_CFG_MODE(2U) | ADC_CFG_ADIV(2U) | ADC_CFG_AVGS(0U) | ADC_CFG_ADTRG(0U)|ADC_CFG_ADHSC(1)|ADC_CFG_ADSTS(0));
+    ADC2->CFG = (ADC_CFG_ADICLK(0U) | ADC_CFG_MODE(2U) | ADC_CFG_ADIV(2U) | ADC_CFG_AVGS(0U) | ADC_CFG_ADTRG(0U)|ADC_CFG_ADHSC(1)|ADC_CFG_ADSTS(0));
 
     /* HW averaging disabled (AVGE = 0) */
-    /* One conversion or one set of conversion (ADCO = 0) */ 
-    ADC1->GC = (ADC_GC_AVGE(0U) | ADC_GC_ADCO(0U));
-    ADC2->GC = (ADC_GC_AVGE(0U) | ADC_GC_ADCO(0U));
-    
+    /* One conversion or one set of conversion (ADCO = 0) */
+    ADC1->GC = (ADC_GC_AVGE(1U) | ADC_GC_ADCO(0U));
+    ADC2->GC = (ADC_GC_AVGE(1U) | ADC_GC_ADCO(0U));
+
     /* Asynchronous clock output disabled */
-    ADC1->GC |= ADC_GC_ADACKEN(0U); 
+    ADC1->GC |= ADC_GC_ADACKEN(0U);
     ADC2->GC |= ADC_GC_ADACKEN(0U);
-    
-    /* ------- ADC self calibration procedure start ----- */ 
+
+    /* ------- ADC self calibration procedure start ----- */
     /* Starting the calibration of ADC1 */
     /* Clear the CALF and launch the calibration. */
     ADC1->GS = ADC_GS_CALF_MASK; /* Clear the CALF. */
     ADC1->GC |= ADC_GC_CAL_MASK; /* Launch the calibration. */
-      
+
     /* Check the status of CALF bit in ADC_GS and the CAL bit in ADC_GC. */
     while (0U != (ADC1->GC & ADC_GC_CAL_MASK))
     {
@@ -227,12 +230,12 @@ void InitADC(void)
             break;
         }
     }
-    
+
     /* Starting the calibration of ADC2 */
     /* Clear the CALF and launch the calibration. */
     ADC2->GS = ADC_GS_CALF_MASK; /* Clear the CALF. */
     ADC2->GC |= ADC_GC_CAL_MASK; /* Launch the calibration. */
-      
+
     /* Check the status of CALF bit in ADC_GS and the CAL bit in ADC_GC. */
     while (0U != (ADC2->GC & ADC_GC_CAL_MASK))
     {
@@ -244,72 +247,76 @@ void InitADC(void)
             break;
         }
     }
-    
-    /* ------- ADC self calibration procedure end ----- */   
+
+    /* ------- ADC self calibration procedure end ----- */
     /* hardware trigger selected */
     ADC1->CFG |= ADC_CFG_ADTRG(1U);
     /* hardware trigger selected */
     ADC2->CFG |= ADC_CFG_ADTRG(1U);
-    
+
     /* Set ADC channels for ADC_ETC */
-    /* Withouth this setting ADC_ETC not working properly!!! */  
-    ADC1->HC[0] = ADC_HC_ADCH(0x01U);
-    ADC1->HC[1] = ADC_HC_ADCH(0x01U);
-    ADC1->HC[2] = ADC_HC_ADCH(0x01U);
-    ADC1->HC[3] = ADC_HC_ADCH(0x01U);
-    ADC1->HC[4] = ADC_HC_ADCH(0x01U);
-    ADC1->HC[5] = ADC_HC_ADCH(0x01U);
-    ADC1->HC[5] |= ADC_HC_AIEN(1U); // AIEN = 1
-    
-    ADC2->HC[0] = ADC_HC_ADCH(0x02U);
-    ADC2->HC[1] = ADC_HC_ADCH(0x02U);
-    ADC2->HC[2] = ADC_HC_ADCH(0x02U);
-    ADC2->HC[3] = ADC_HC_ADCH(0x02U);
-    ADC2->HC[4] = ADC_HC_ADCH(0x02U);
-    ADC2->HC[5] = ADC_HC_ADCH(0x02U);
-     
-    /**************************************/
+    /* Without this setting ADC_ETC not working properly!!! */
+    ADC1->HC[0] = ADC_HC_ADCH(0x10U);
+    ADC1->HC[1] = ADC_HC_ADCH(0x10U);
+    ADC1->HC[2] = ADC_HC_ADCH(0x10U);
+    ADC1->HC[3] = ADC_HC_ADCH(0x10U);
+    ADC1->HC[4] = ADC_HC_ADCH(0x10U);
+    ADC1->HC[5] = ADC_HC_ADCH(0x10U);
+    ADC2->HC[0] = ADC_HC_ADCH(0x10U);
+    ADC2->HC[1] = ADC_HC_ADCH(0x10U);
+    ADC2->HC[2] = ADC_HC_ADCH(0x10U);
+
+    ADC2->HC[3] = ADC_HC_ADCH(0x10U);
+    ADC2->HC[4] = ADC_HC_ADCH(0x10U);
+    ADC2->HC[5] = ADC_HC_ADCH(0x10U);
+
+     /**************************************/
     /* motor M1 ADC driver initialization */
     /**************************************/
     /* offset filter window */
-    g_sM1AdcSensor.ui16OffsetFiltWindow = ADC_OFFSET_WINDOW;      
+    g_sM1AdcSensor.ui16OffsetFiltWindow = ADC_OFFSET_WINDOW;
+
     /* Phase current measurement */
     /* Sector 1,6 - measured currents Ic & Ib */
-    /* ADC1, channel Ic = M1_ADC1_PH_C, , HCRegister (Result)  = 0 */
-    g_sM1AdcSensor.sCurrSec16.pAdcBasePhaC = (ADC_Type *)ADC1;
+    /* ADC1, channel Ic = M1_ADC1_PH_C, , RESULT = 0 */
+    g_sM1AdcSensor.sCurrSec16.pAdcBasePhaC    = (ADC_Type *)ADC1;
     g_sM1AdcSensor.sCurrSec16.ui16ChanNumPhaC = M1_ADC1_PH_C;
     g_sM1AdcSensor.sCurrSec16.ui16HCRegPhaC = 0U;
-    /* ADC2, channel Ib = M1_ADC2_PH_B, HCRegister (Result)  = 0 */
-    g_sM1AdcSensor.sCurrSec16.pAdcBasePhaB = (ADC_Type *)ADC2;
+    /* ADC2, channel Ib = M1_ADC2_PH_B, RESULT = 0 */
+    g_sM1AdcSensor.sCurrSec16.pAdcBasePhaB    = (ADC_Type *)ADC2;
     g_sM1AdcSensor.sCurrSec16.ui16ChanNumPhaB = M1_ADC2_PH_B;
     g_sM1AdcSensor.sCurrSec16.ui16HCRegPhaB = 0U;
+
     /* Sector 2,3 - measured currents Ic & Ia*/
-    /* ADC1, channel Ic = M1_ADC1_PH_C, HCRegister (Result)  = 0 */
-    g_sM1AdcSensor.sCurrSec23.pAdcBasePhaC = (ADC_Type *)ADC1;
+    /* ADC1, channel Ic = M1_ADC1_PH_C, RESULT = 0 */
+    g_sM1AdcSensor.sCurrSec23.pAdcBasePhaC    = (ADC_Type *)ADC1;
     g_sM1AdcSensor.sCurrSec23.ui16ChanNumPhaC = M1_ADC1_PH_C;
     g_sM1AdcSensor.sCurrSec23.ui16HCRegPhaC = 0U;
-    /* ADC2, channel Ia = M1_ADC2_PH_A, HCRegister (Result)  = 0 */
-    g_sM1AdcSensor.sCurrSec23.pAdcBasePhaA = (ADC_Type *)ADC2;
+    /* ADC2, channel Ia = M1_ADC2_PH_A, RESULT = 0 */
+    g_sM1AdcSensor.sCurrSec23.pAdcBasePhaA    = (ADC_Type *)ADC2;
     g_sM1AdcSensor.sCurrSec23.ui16ChanNumPhaA = M1_ADC2_PH_A;
     g_sM1AdcSensor.sCurrSec23.ui16HCRegPhaA = 0U;
+
     /* Sector 4,5 - measured currents Ia & Ib */
-    /* ADC1, channel Ia = M1_ADC1_PH_A, HCRegister (Result)  = 0 */
-    g_sM1AdcSensor.sCurrSec45.pAdcBasePhaA = (ADC_Type *)ADC1;
+    /* ADC1, channel Ia = M1_ADC1_PH_A, RESULT = 0 */
+    g_sM1AdcSensor.sCurrSec45.pAdcBasePhaA    = (ADC_Type *)ADC1;
     g_sM1AdcSensor.sCurrSec45.ui16ChanNumPhaA = M1_ADC1_PH_A;
     g_sM1AdcSensor.sCurrSec45.ui16HCRegPhaA = 0U;
-    /* ADC2, channel Ib = M1_ADC2_PH_B, HCRegister (Result)  = 0 */
-    g_sM1AdcSensor.sCurrSec45.pAdcBasePhaB = (ADC_Type *)ADC2;
+    /* ADC2, channel Ib = M1_ADC2_PH_B, RESULT = 0 */
+    g_sM1AdcSensor.sCurrSec45.pAdcBasePhaB    = (ADC_Type *)ADC2;
     g_sM1AdcSensor.sCurrSec45.ui16ChanNumPhaB = M1_ADC2_PH_B;
-    g_sM1AdcSensor.sCurrSec45.ui16HCRegPhaB = 0U;    
+    g_sM1AdcSensor.sCurrSec45.ui16HCRegPhaB = 0U;
+
     /* UDCbus channel measurement */
-    /* ADC1, channel Udcb = M1_ADC1_UDCB, HCRegister (Result)  = 2 */
+    /* ADC1, channel Udcb = M1_ADC1_UDCB, RESULT = 1 */
     g_sM1AdcSensor.pui32UdcbAdcBase = (ADC_Type *)ADC1;
-    g_sM1AdcSensor.ui16ChanNumVDcb = M1_ADC1_UDCB;
-    g_sM1AdcSensor.ui16HCRegVDcb = 2U;     
+    g_sM1AdcSensor.ui16ChanNumVDcb  = M1_ADC1_UDCB;
+    g_sM1AdcSensor.ui16HCRegVDcb  = 1U;
+
     /* Assign channels and init all pointers */
     MCDRV_Curr3Ph2ShChanAssignInit(&g_sM1AdcSensor);
-  
-    /**************************************/
+
+   /**************************************/
     /* motor M2 ADC driver initialization */
     /**************************************/
     /* offset filter window */
@@ -341,19 +348,18 @@ void InitADC(void)
     /* ADC2, channel Ib = M2_ADC2_PH_B, HCRegister (Result)  = 0 */
     g_sM2AdcSensor.sCurrSec45.pAdcBasePhaB = (ADC_Type *)ADC2;
     g_sM2AdcSensor.sCurrSec45.ui16ChanNumPhaB = M2_ADC2_PH_B;
-    g_sM2AdcSensor.sCurrSec45.ui16HCRegPhaB = 3U;    
+    g_sM2AdcSensor.sCurrSec45.ui16HCRegPhaB = 3U;
     /* UDCbus channel measurement */
     /* ADC2, channel Udcb = M2_ADC2_UDCB, HCRegister (Result)  = 2 */
     g_sM2AdcSensor.pui32UdcbAdcBase = (ADC_Type *)ADC1;
     g_sM2AdcSensor.ui16ChanNumVDcb = M2_ADC1_UDCB;
-    g_sM2AdcSensor.ui16HCRegVDcb = 5U;    
+    g_sM2AdcSensor.ui16HCRegVDcb = 5U;
     /* Assign channels and init all pointers */
-    MCDRV_Curr3Ph2ShChanAssignInit(&g_sM2AdcSensor); 
+    MCDRV_Curr3Ph2ShChanAssignInit(&g_sM2AdcSensor);
 
-    /* Enable & setup interrupt from ADC1 */
+    /* Enable & setup interrupt from ADC */
     EnableIRQ(ADC1_IRQn);
-    NVIC_SetPriority(ADC1_IRQn, 1U); 
-         
+    NVIC_SetPriority(ADC1_IRQn, 1U);
 }
 
 /*!
@@ -422,98 +428,118 @@ void M1_InitPWM(void)
 
     /* PWM clock gating register: enabled */
     CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG9_MASK)) | CCM_CCGR4_CG9(0x3);
-  
+
     /* Full cycle reload */
-    PWMBase->SM[0].CTRL |= PWM_CTRL_HALF_MASK;
-    PWMBase->SM[1].CTRL |= PWM_CTRL_HALF_MASK;
-    PWMBase->SM[2].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[M1_PWM_PAIR_PHA].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL |= PWM_CTRL_HALF_MASK;
 
     /* Value register initial values, duty cycle 50% */
-    PWMBase->SM[0].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2U)));
-    PWMBase->SM[1].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2U)));
-    PWMBase->SM[2].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2U)));
+    PWMBase->SM[M1_PWM_PAIR_PHA].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2)));
+    PWMBase->SM[M1_PWM_PAIR_PHB].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2)));
+    PWMBase->SM[M1_PWM_PAIR_PHC].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 2)));
 
-    PWMBase->SM[0].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
-    PWMBase->SM[1].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
-    PWMBase->SM[2].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
+    PWMBase->SM[M1_PWM_PAIR_PHA].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
+    PWMBase->SM[M1_PWM_PAIR_PHB].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
+    PWMBase->SM[M1_PWM_PAIR_PHC].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
 
-    PWMBase->SM[0].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
-    PWMBase->SM[1].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
-    PWMBase->SM[2].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2U) - 1U));
+    PWMBase->SM[M1_PWM_PAIR_PHA].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2) - 1));
+    PWMBase->SM[M1_PWM_PAIR_PHB].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2) - 1));
+    PWMBase->SM[M1_PWM_PAIR_PHC].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M1PwmModulo / 2) - 1));
 
-    PWMBase->SM[0].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
-    PWMBase->SM[1].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
-    PWMBase->SM[2].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4U)));
+    PWMBase->SM[M1_PWM_PAIR_PHA].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4)));
+    PWMBase->SM[M1_PWM_PAIR_PHB].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4)));
+    PWMBase->SM[M1_PWM_PAIR_PHC].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M1PwmModulo / 4)));
 
-    PWMBase->SM[0].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
-    PWMBase->SM[1].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
-    PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4U));
+    PWMBase->SM[M1_PWM_PAIR_PHA].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4));
+    PWMBase->SM[M1_PWM_PAIR_PHB].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4));
+    PWMBase->SM[M1_PWM_PAIR_PHC].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M1PwmModulo / 4));
 
-    //PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2U) + 10U)));
-    PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2) + 140)));
-    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
-    PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
+    /* Trigger for ADC synchronization */
+//    PWMBase->SM[M1_PWM_PAIR_PHA].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2) + 10)));
+    PWMBase->SM[M1_PWM_PAIR_PHA].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M1PwmModulo / 2) + 140)));
+    PWMBase->SM[M1_PWM_PAIR_PHB].VAL4 = PWM_VAL4_VAL4((uint16_t)(0));
+    PWMBase->SM[M1_PWM_PAIR_PHC].VAL4 = PWM_VAL4_VAL4((uint16_t)(0));
 
-    PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
-    PWMBase->SM[1].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
-    PWMBase->SM[2].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
+    PWMBase->SM[M1_PWM_PAIR_PHA].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
+    PWMBase->SM[M1_PWM_PAIR_PHB].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
+    PWMBase->SM[M1_PWM_PAIR_PHC].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
 
-    /* PWM1 module 0 trigger on VAL4 enabled for ADC1 synchronization */
-    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); // kXBARA1_InputFlexpwm1Pwm1OutTrig01 ADC TRIGGER
+    /* PWM0 module 0 trigger on VAL4 enabled for ADC synchronization */
+    PWMBase->SM[M1_PWM_PAIR_PHA].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4);
+    /* PWM1 module 1 trigger on VAL0 enabled for PWM synchronization */
+    PWMBase->SM[M1_PWM_PAIR_PHB].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 0); /// kXBARA1_InputFlexpwm2Pwm2OutTrig01 - SYNCHRONIZATION FOR PWM1
 
     /* Set dead-time register */
-    PWMBase->SM[0].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[1].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[2].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[0].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[1].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
-    PWMBase->SM[2].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[M1_PWM_PAIR_PHA].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[M1_PWM_PAIR_PHB].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[M1_PWM_PAIR_PHC].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[M1_PWM_PAIR_PHA].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[M1_PWM_PAIR_PHB].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
+    PWMBase->SM[M1_PWM_PAIR_PHC].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M1PwmDeadTime);
 
     /* Channels A and B disabled when fault 0 occurs */
-    PWMBase->SM[0].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[1].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[2].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[0].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
-    PWMBase->SM[1].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
-    PWMBase->SM[2].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[M1_PWM_PAIR_PHA].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[M1_PWM_PAIR_PHB].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[M1_PWM_PAIR_PHC].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[M1_PWM_PAIR_PHA].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[M1_PWM_PAIR_PHB].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[M1_PWM_PAIR_PHC].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
 
     /* Modules one and two gets clock from module zero */
-    PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
-    PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
+    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 =
+        (PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
+    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 =
+        (PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
 
-    /* Master reload active for modules one and two*/
-    PWMBase->SM[1].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
-    PWMBase->SM[2].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
+    /* Master reload active for modules one and three */
+    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
+    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
 
     /* Master reload is generated every PWM opportunity */
-    PWMBase->SM[0].CTRL = (PWMBase->SM[0].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M1_FOC_FREQ_VS_PWM_FREQ - 1);
+    PWMBase->SM[M1_PWM_PAIR_PHA].CTRL =
+        (PWMBase->SM[M1_PWM_PAIR_PHA].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M1_FOC_FREQ_VS_PWM_FREQ - 1);
 
-    /* External synchronization for submodule 0 */
-    PWMBase->SM[0].CTRL2 = (PWMBase->SM[0].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x3); //  EXTERNAL SYNCHRONIZATION FROM PWM1
-
-    /* Master sync active for modules one and two*/
-    PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
-    PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
+    /* Master sync active for modules one and two -- why is this necessary? */
+    PWMBase->SM[M1_PWM_PAIR_PHB].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
+    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
 
     /* Fault 0 active in logic level one, automatic clearing */
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FLVL_MASK) | PWM_FCTRL_FLVL(0x1);
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FAUTO_MASK) | PWM_FCTRL_FAUTO(0x1);
 
     /* Clear fault flags */
-    PWMBase->FSTS = (PWMBase->FCTRL & ~PWM_FSTS_FFLAG_MASK) | PWM_FSTS_FFLAG(0xF);
+    PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFLAG_MASK) | PWM_FSTS_FFLAG(0xF);
 
     /* PWMs are re-enabled at PWM full cycle */
     PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFULL_MASK) | PWM_FSTS_FFULL(0x1);
 
-    /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing samples to activate */
-    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5U);
-    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5U);
+    /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing
+       samples to activate */
+    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5);
+    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5);
+
+    /* Enable A&B PWM outputs for submodules zero, one and three */
+    PWMBase->OUTEN = (PWMBase->OUTEN & ~PWM_OUTEN_PWMA_EN_MASK) | PWM_OUTEN_PWMA_EN(0xD);
+    PWMBase->OUTEN = (PWMBase->OUTEN & ~PWM_OUTEN_PWMB_EN_MASK) | PWM_OUTEN_PWMB_EN(0xD);
 
     /* Start PWMs (set load OK flags and run) */
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_CLDOK_MASK) | PWM_MCTRL_CLDOK(0xF);
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_LDOK_MASK) | PWM_MCTRL_LDOK(0xF);
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_RUN_MASK) | PWM_MCTRL_RUN(0xF);
-    
+
+    /*************************************** debug *****************************************/
+//    PWMBase->SM[M1_PWM_PAIR_PHA].INTEN = PWM_INTEN_CMPIE(1<<4);
+//    EnableIRQ(PWM2_0_IRQn);
+//    NVIC_SetPriority(PWM2_0_IRQn, 1U);
+    /***************************************************************************************/
+
     /* Initialize MC driver */
     g_sM1Pwm3ph.pui32PwmBaseAddress = (PWM_Type *)PWMBase;
 
@@ -542,97 +568,119 @@ void M2_InitPWM(void)
 
     /* PWM clock gating register: enabled */
     CCM->CCGR4 = (CCM->CCGR4 & ~(CCM_CCGR4_CG8_MASK)) | CCM_CCGR4_CG8(0x3);
-  
+
     /* Full cycle reload */
-    PWMBase->SM[0].CTRL |= PWM_CTRL_HALF_MASK;
-    PWMBase->SM[1].CTRL |= PWM_CTRL_HALF_MASK;
-    PWMBase->SM[2].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[M2_PWM_PAIR_PHA].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[M2_PWM_PAIR_PHB].CTRL |= PWM_CTRL_HALF_MASK;
+    PWMBase->SM[M2_PWM_PAIR_PHC].CTRL |= PWM_CTRL_HALF_MASK;
 
     /* Value register initial values, duty cycle 50% */
-    PWMBase->SM[0].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 2U)));
-    PWMBase->SM[1].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 2U)));
-    PWMBase->SM[2].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 2U)));
+    PWMBase->SM[M2_PWM_PAIR_PHA].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 2)));
+    PWMBase->SM[M2_PWM_PAIR_PHB].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 2)));
+    PWMBase->SM[M2_PWM_PAIR_PHC].INIT = PWM_INIT_INIT((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 2)));
 
-    PWMBase->SM[0].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
-    PWMBase->SM[1].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
-    PWMBase->SM[2].VAL0 = PWM_VAL0_VAL0((uint16_t)(0U));
+    PWMBase->SM[M2_PWM_PAIR_PHA].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
+    PWMBase->SM[M2_PWM_PAIR_PHB].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
+    PWMBase->SM[M2_PWM_PAIR_PHC].VAL0 = PWM_VAL0_VAL0((uint16_t)(0));
 
-    PWMBase->SM[0].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M2PwmModulo / 2U) - 1U));
-    PWMBase->SM[1].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M2PwmModulo / 2U) - 1U));
-    PWMBase->SM[2].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M2PwmModulo / 2U) - 1U));
+    PWMBase->SM[M2_PWM_PAIR_PHA].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M2PwmModulo / 2) - 1));
+    PWMBase->SM[M2_PWM_PAIR_PHB].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M2PwmModulo / 2) - 1));
+    PWMBase->SM[M2_PWM_PAIR_PHC].VAL1 = PWM_VAL1_VAL1((uint16_t)((g_sClockSetup.ui16M2PwmModulo / 2) - 1));
 
-    PWMBase->SM[0].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 4U)));
-    PWMBase->SM[1].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 4U)));
-    PWMBase->SM[2].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 4U)));
+    PWMBase->SM[M2_PWM_PAIR_PHA].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 4)));
+    PWMBase->SM[M2_PWM_PAIR_PHB].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 4)));
+    PWMBase->SM[M2_PWM_PAIR_PHC].VAL2 = PWM_VAL2_VAL2((uint16_t)(-(g_sClockSetup.ui16M2PwmModulo / 4)));
 
-    PWMBase->SM[0].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4U));
-    PWMBase->SM[1].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4U));
-    PWMBase->SM[2].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4U));
+    PWMBase->SM[M2_PWM_PAIR_PHA].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4));
+    PWMBase->SM[M2_PWM_PAIR_PHB].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4));
+    PWMBase->SM[M2_PWM_PAIR_PHC].VAL3 = PWM_VAL3_VAL3((uint16_t)(g_sClockSetup.ui16M2PwmModulo / 4));
 
-    PWMBase->SM[0].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 140U)));
-    PWMBase->SM[1].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2U) + 140U)));
-    PWMBase->SM[2].VAL4 = PWM_VAL4_VAL4((uint16_t)(0U));
+    /* Trigger for ADC synchronization */
+//    PWMBase->SM[M2_PWM_PAIR_PHA].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2) + 10)));
+    PWMBase->SM[M2_PWM_PAIR_PHA].VAL4 = PWM_VAL4_VAL4((uint16_t)((-(g_sClockSetup.ui16M2PwmModulo / 2) + 140)));
+    PWMBase->SM[M2_PWM_PAIR_PHB].VAL4 = PWM_VAL4_VAL4((uint16_t)(0));
+    PWMBase->SM[M2_PWM_PAIR_PHC].VAL4 = PWM_VAL4_VAL4((uint16_t)(0));
 
-    PWMBase->SM[0].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
-    PWMBase->SM[1].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
-    PWMBase->SM[2].VAL5 = PWM_VAL5_VAL5((uint16_t)(0U));
+    PWMBase->SM[M2_PWM_PAIR_PHA].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
+    PWMBase->SM[M2_PWM_PAIR_PHB].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
+    PWMBase->SM[M2_PWM_PAIR_PHC].VAL5 = PWM_VAL5_VAL5((uint16_t)(0));
 
-    /* PWM2 module 0 trigger on VAL4 enabled for ADC synchronization */
-    PWMBase->SM[0].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4); /// kXBARA1_InputFlexpwm1Pwm1OutTrig01 - ADC TRIGGER
-    /* PWM1 module 1 trigger on VAL0 enabled for PWM synchronization */
-    PWMBase->SM[1].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 0); /// kXBARA1_InputFlexpwm1Pwm2OutTrig01 - SYNCHRONIZATION FOR PWM2
+    /* PWM1 module 0 trigger on VAL4 enabled for ADC synchronization */
+    PWMBase->SM[M2_PWM_PAIR_PHA].TCTRL |= PWM_TCTRL_OUT_TRIG_EN(1 << 4);
 
     /* Set dead-time register */
-    PWMBase->SM[0].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
-    PWMBase->SM[1].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
-    PWMBase->SM[2].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
-    PWMBase->SM[0].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M2PwmDeadTime);
-    PWMBase->SM[1].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M2PwmDeadTime);
-    PWMBase->SM[2].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M2PwmDeadTime);
+    PWMBase->SM[M2_PWM_PAIR_PHA].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
+    PWMBase->SM[M2_PWM_PAIR_PHB].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
+    PWMBase->SM[M2_PWM_PAIR_PHC].DTCNT0 = PWM_DTCNT0_DTCNT0(g_sClockSetup.ui16M2PwmDeadTime);
+    PWMBase->SM[M2_PWM_PAIR_PHA].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M2PwmDeadTime);
+    PWMBase->SM[M2_PWM_PAIR_PHB].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M2PwmDeadTime);
+    PWMBase->SM[M2_PWM_PAIR_PHC].DTCNT1 = PWM_DTCNT1_DTCNT1(g_sClockSetup.ui16M2PwmDeadTime);
 
     /* Channels A and B disabled when fault 0 occurs */
-    PWMBase->SM[0].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[1].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[2].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
-    PWMBase->SM[0].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
-    PWMBase->SM[1].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
-    PWMBase->SM[2].DISMAP[0] = ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[M2_PWM_PAIR_PHA].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[M2_PWM_PAIR_PHB].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[M2_PWM_PAIR_PHC].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0A_MASK) | PWM_DISMAP_DIS0A(0x1));
+    PWMBase->SM[M2_PWM_PAIR_PHA].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[M2_PWM_PAIR_PHB].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
+    PWMBase->SM[M2_PWM_PAIR_PHC].DISMAP[0] =
+        ((PWMBase->SM[0].DISMAP[0] & ~PWM_DISMAP_DIS0B_MASK) | PWM_DISMAP_DIS0B(0x1));
 
     /* Modules one and two gets clock from module zero */
-    PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
-    PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
+    PWMBase->SM[M2_PWM_PAIR_PHB].CTRL2 =
+        (PWMBase->SM[M2_PWM_PAIR_PHB].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
+    PWMBase->SM[M2_PWM_PAIR_PHC].CTRL2 =
+        (PWMBase->SM[M2_PWM_PAIR_PHC].CTRL2 & ~PWM_CTRL2_CLK_SEL_MASK) | PWM_CTRL2_CLK_SEL(0x2);
 
-    /* Master reload active for modules one and two*/
-    PWMBase->SM[1].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
-    PWMBase->SM[2].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
+    /* Master reload active for modules one and two */
+    PWMBase->SM[M2_PWM_PAIR_PHB].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
+    PWMBase->SM[M2_PWM_PAIR_PHC].CTRL2 |= PWM_CTRL2_RELOAD_SEL_MASK;
 
     /* Master reload is generated every PWM opportunity */
-    PWMBase->SM[0].CTRL = (PWMBase->SM[0].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M2_FOC_FREQ_VS_PWM_FREQ - 1);
+    PWMBase->SM[M2_PWM_PAIR_PHA].CTRL =
+        (PWMBase->SM[M2_PWM_PAIR_PHA].CTRL & ~PWM_CTRL_LDFQ_MASK) | PWM_CTRL_LDFQ(M2_FOC_FREQ_VS_PWM_FREQ - 1);
 
-    /* Master sync active for modules one and two*/
-    PWMBase->SM[1].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
-    PWMBase->SM[2].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
+    /* External synchronization for submodule 0 */
+    PWMBase->SM[M2_PWM_PAIR_PHA].CTRL2 = (PWMBase->SM[M2_PWM_PAIR_PHA].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x3); //  EXTERNAL SYNCHRONIZATION FROM M1
+
+    /* Master sync active for modules one and two -- why is this necessary? */
+    PWMBase->SM[M2_PWM_PAIR_PHB].CTRL2 = (PWMBase->SM[1].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
+    PWMBase->SM[M1_PWM_PAIR_PHC].CTRL2 = (PWMBase->SM[2].CTRL2 & ~PWM_CTRL2_INIT_SEL_MASK) | PWM_CTRL2_INIT_SEL(0x2);
 
     /* Fault 0 active in logic level one, automatic clearing */
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FLVL_MASK) | PWM_FCTRL_FLVL(0x1);
     PWMBase->FCTRL = (PWMBase->FCTRL & ~PWM_FCTRL_FAUTO_MASK) | PWM_FCTRL_FAUTO(0x1);
 
     /* Clear fault flags */
-    PWMBase->FSTS = (PWMBase->FCTRL & ~PWM_FSTS_FFLAG_MASK) | PWM_FSTS_FFLAG(0xF);
+    PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFLAG_MASK) | PWM_FSTS_FFLAG(0xF);
 
     /* PWMs are re-enabled at PWM full cycle */
     PWMBase->FSTS = (PWMBase->FSTS & ~PWM_FSTS_FFULL_MASK) | PWM_FSTS_FFULL(0x1);
 
     /* PWM fault filter - 5 Fast peripheral clocks sample rate, 5 agreeing
        samples to activate */
-    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5U);
-    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5U);
+    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_PER_MASK) | PWM_FFILT_FILT_PER(5);
+    PWMBase->FFILT = (PWMBase->FFILT & ~PWM_FFILT_FILT_CNT_MASK) | PWM_FFILT_FILT_CNT(5);
+
+    /* Enable A&B PWM outputs for submodules zero, one and three */
+    PWMBase->OUTEN = (PWMBase->OUTEN & ~PWM_OUTEN_PWMA_EN_MASK) | PWM_OUTEN_PWMA_EN(0xD);
+    PWMBase->OUTEN = (PWMBase->OUTEN & ~PWM_OUTEN_PWMB_EN_MASK) | PWM_OUTEN_PWMB_EN(0xD);
 
     /* Start PWMs (set load OK flags and run) */
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_CLDOK_MASK) | PWM_MCTRL_CLDOK(0xF);
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_LDOK_MASK) | PWM_MCTRL_LDOK(0xF);
     PWMBase->MCTRL = (PWMBase->MCTRL & ~PWM_MCTRL_RUN_MASK) | PWM_MCTRL_RUN(0xF);
-    
+
+    /*************************************** debug *****************************************/
+//    PWMBase->SM[M2_PWM_PAIR_PHA].INTEN = PWM_INTEN_CMPIE(1<<4);
+//    EnableIRQ(PWM2_0_IRQn);
+//    NVIC_SetPriority(PWM2_0_IRQn, 1U);
+    /***************************************************************************************/
+
     /* Initialize MC driver */
     g_sM2Pwm3ph.pui32PwmBaseAddress = (PWM_Type *)PWMBase;
 
@@ -657,16 +705,15 @@ void InitXBAR(void)
 {
     /* Init xbara module. */
     XBARA_Init(XBARA);
-    
-    /* PWM synchronization - From PWM1 SM[1] (VAL4) to PWM2 */ 
-    /* FLEXPWM1_PWM2_OUT_TRIG0_1 ==> FLEXPWM2_EXT_SYNC0 */
-    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm2OutTrig01, kXBARA1_OutputFlexpwm2ExtSync0);
 
-    /* ADC TRIGGER - trigger from PWM1 SM[0] (VAL4) to ADC_ETC trigger 0 */
-    /* FLEXPWM1_PWM1_OUT_TRIG0_1 ==> ADC_ETC */
+    /* PWM synchronization - From motor 1 PWM2 SM[0] (VAL4) to motor 2  PWM1 */
+    /* FLEXPWM1_PWM2_OUT_TRIG0_1 ==> FLEXPWM2_EXT_SYNC0 */
+    XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm2Pwm2OutTrig01, kXBARA1_OutputFlexpwm1ExtSync0);
+
+    /* Configure the XBARA signal connections. (set for sync mode in ADC_ETC) -- M1 */
     XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm2Pwm1OutTrig01, kXBARA1_OutputAdcEtcTrig00);
-    /* ADC TRIGGER - trigger from PWM2 SM[0] (VAL4) to ADC_ETC trigger 1 */
-    /* FLEXPWM2_PWM1_OUT_TRIG0_1 ==> ADC_ETC */
+
+    /* Configure the XBARA signal connections. (set for sync mode in ADC_ETC) -- M2 */
     XBARA_SetSignalsConnection(XBARA, kXBARA1_InputFlexpwm1Pwm1OutTrig01, kXBARA1_OutputAdcEtcTrig01);
 
 //    XBARA_SetSignalsConnection(XBARA1, kXBARA1_InputIomuxXbarInout18, kXBARA1_OutputEnc1PhaseAInput); /* IOMUX_XBAR_INOUT18 output assigned to XBARA1_IN18 input is connected to XBARA1_OUT66 output assigned to ENC1_PHASE_A_INPUT */
@@ -696,111 +743,93 @@ void InitADC_ETC(void)
 {   
     adc_etc_config_t adcEtcConfig;
     adc_etc_trigger_config_t adcEtcTriggerConfig;
-    adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig;  
-    
+    adc_etc_trigger_chain_config_t adcEtcTriggerChainConfig;
+
     /* Initialize the ADC_ETC. */
     ADC_ETC_GetDefaultConfig(&adcEtcConfig);
-    adcEtcConfig.XBARtriggerMask = 0x3U; /* 0000011 - 0x3 - enabled trig0-0 and trig0-1; Enable the external XBAR(from PWM) trigger0 (ADC1) (ADC2 is in sync mode). */
+    adcEtcConfig.XBARtriggerMask = 0x03U; /* Enable the external XBAR trigger0 (M1) and trigger1 (M2). */
+    adcEtcConfig.enableTSCBypass = false; /* To use ADC2, this bit should be cleared. */
     ADC_ETC_Init(ADC_ETC, &adcEtcConfig);
-  
-    /* trigger0 is synchronized with trigger4 (sync mode have to be enabled just in trigger0 !) */
-    /* Set the external ADC_ETC trigger0 configuration. */
-    adcEtcTriggerConfig.enableSyncMode = true;
+
+    // MOTOR 1
+
+    /* Set the external XBAR trigger0 configuration. ADC1 */
+    adcEtcTriggerConfig.enableSyncMode      = true;
     adcEtcTriggerConfig.enableSWTriggerMode = false;
-    adcEtcTriggerConfig.triggerChainLength = 2U; 
-    adcEtcTriggerConfig.triggerPriority = 0U;
+    adcEtcTriggerConfig.triggerChainLength  = 1U;
+    adcEtcTriggerConfig.triggerPriority     = 0U;
     adcEtcTriggerConfig.sampleIntervalDelay = 0U;
-    adcEtcTriggerConfig.initialDelay = 0U;
-    
+    adcEtcTriggerConfig.initialDelay        = 0U;
+
     ADC_ETC_SetTriggerConfig(ADC_ETC, 0U, &adcEtcTriggerConfig);
 
-    adcEtcTriggerChainConfig.enableB2BMode = true;  
-       
+    adcEtcTriggerChainConfig.enableB2BMode = true;
+
     adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 0U; /* Select ADC_HC0 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done0 interrupt. */   
+    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable;      /* Enable the Done0 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 0U, 0U, &adcEtcTriggerChainConfig); /* Configure the trigger0 chain0. */
-       
+
     adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 1U; /* Select ADC_HC1 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
+    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable;      /* Enable the Done1 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 0U, 1U, &adcEtcTriggerChainConfig); /* Configure the trigger0 chain1. */
-    
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 2U; /* Select ADC_HC2 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
-    ADC_ETC_SetTriggerChainConfig(ADC_ETC, 0U, 2U, &adcEtcTriggerChainConfig); /* Configure the trigger0 chain2. */    
-    
-    /* Set the external ADC_ETC trigger4 configuration. */
-    adcEtcTriggerConfig.enableSyncMode = false; 
+
+    /* Set the external XBAR trigger4 configuration. ADC2 */
+    adcEtcTriggerConfig.enableSyncMode      = false;
     adcEtcTriggerConfig.enableSWTriggerMode = false;
-    adcEtcTriggerConfig.triggerChainLength = 2U;
-    adcEtcTriggerConfig.triggerPriority = 0U;
+    adcEtcTriggerConfig.triggerChainLength  = 1U;
+    adcEtcTriggerConfig.triggerPriority     = 0U;
     adcEtcTriggerConfig.sampleIntervalDelay = 0U;
-    adcEtcTriggerConfig.initialDelay = 0U;
-    
+    adcEtcTriggerConfig.initialDelay        = 0U;
+
     ADC_ETC_SetTriggerConfig(ADC_ETC, 4U, &adcEtcTriggerConfig);
-    
-    adcEtcTriggerChainConfig.enableB2BMode = true;
- 
+
     adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 0U; /* Select ADC_HC0 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done0 interrupt. */   
+    adcEtcTriggerChainConfig.InterruptEnable     = kADC_ETC_InterruptDisable;  /* Enable the Done0 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 4U, 0U, &adcEtcTriggerChainConfig); /* Configure the trigger4 chain0. */
-     
+
     adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 1U; /* Select ADC_HC1 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
+    adcEtcTriggerChainConfig.InterruptEnable     = kADC_ETC_InterruptDisable;  /* Enable the Done1 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 4U, 1U, &adcEtcTriggerChainConfig); /* Configure the trigger4 chain1. */
-    
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 2U; /* Select ADC_HC2 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
-    ADC_ETC_SetTriggerChainConfig(ADC_ETC, 4U, 2U, &adcEtcTriggerChainConfig); /* Configure the trigger4 chain2. */
-    
-    
-    /* trigger1 is synchronized with trigger5 (sync mode have to be enabled just in trigger1 !) */
-    /* Set the external ADC_ETC trigger2 configuration. */
-    adcEtcTriggerConfig.enableSyncMode = true; 
+
+    // MOTOR 2
+
+    /* Set the external XBAR trigger1 configuration.  ADC1 */
+    adcEtcTriggerConfig.enableSyncMode      = true;
     adcEtcTriggerConfig.enableSWTriggerMode = false;
-    adcEtcTriggerConfig.triggerChainLength = 2U; 
-    adcEtcTriggerConfig.triggerPriority = 0U;
+    adcEtcTriggerConfig.triggerChainLength  = 1U;
+    adcEtcTriggerConfig.triggerPriority     = 0U;
     adcEtcTriggerConfig.sampleIntervalDelay = 0U;
-    adcEtcTriggerConfig.initialDelay = 0U;
-    
+    adcEtcTriggerConfig.initialDelay        = 0U;
+
     ADC_ETC_SetTriggerConfig(ADC_ETC, 1U, &adcEtcTriggerConfig);
-    
+
     adcEtcTriggerChainConfig.enableB2BMode = true;
- 
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 3U; /* Select ADC_HC3 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done0 interrupt. */   
+
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 3U; /* Select ADC_HC0 register to trigger. */
+    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable;      /* Enable the Done0 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 1U, 0U, &adcEtcTriggerChainConfig); /* Configure the trigger1 chain0. */
-     
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 4U; /* Select ADC_HC4 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
+
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 5U; /* Select ADC_HC1 register to trigger. */
+    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable;      /* Enable the Done1 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 1U, 1U, &adcEtcTriggerChainConfig); /* Configure the trigger1 chain1. */
-    
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 5U; /* Select ADC_HC5 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
-    ADC_ETC_SetTriggerChainConfig(ADC_ETC, 1U, 2U, &adcEtcTriggerChainConfig); /* Configure the trigger1 chain2. */
-      
-    /* Set the external ADC_ETC trigger5 configuration. */
-    adcEtcTriggerConfig.enableSyncMode = false; 
+
+    /* Set the external XBAR trigger5 configuration.  ADC2 */
+    adcEtcTriggerConfig.enableSyncMode      = false;
     adcEtcTriggerConfig.enableSWTriggerMode = false;
-    adcEtcTriggerConfig.triggerChainLength = 2U; 
-    adcEtcTriggerConfig.triggerPriority = 0U;
+    adcEtcTriggerConfig.triggerChainLength  = 1U;
+    adcEtcTriggerConfig.triggerPriority     = 0U;
     adcEtcTriggerConfig.sampleIntervalDelay = 0U;
-    adcEtcTriggerConfig.initialDelay = 0U;
-    
+    adcEtcTriggerConfig.initialDelay        = 0U;
+
     ADC_ETC_SetTriggerConfig(ADC_ETC, 5U, &adcEtcTriggerConfig);
-    
-    adcEtcTriggerChainConfig.enableB2BMode = true;
- 
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 3U; /* Select ADC_HC3 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done0 interrupt. */   
+
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 3U; /* Select ADC_HC0 register to trigger. */
+    adcEtcTriggerChainConfig.InterruptEnable     = kADC_ETC_InterruptDisable;  /* Enable the Done0 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 5U, 0U, &adcEtcTriggerChainConfig); /* Configure the trigger5 chain0. */
-     
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 4U; /* Select ADC_HC4 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
+
+    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 5U; /* Select ADC_HC1 register to trigger. */
+    adcEtcTriggerChainConfig.InterruptEnable     = kADC_ETC_InterruptDisable;  /* Enable the Done1 interrupt. */
     ADC_ETC_SetTriggerChainConfig(ADC_ETC, 5U, 1U, &adcEtcTriggerChainConfig); /* Configure the trigger5 chain1. */
-    
-    adcEtcTriggerChainConfig.ADCHCRegisterSelect = 1U << 5U; /* Select ADC_HC5 register to trigger. */
-    adcEtcTriggerChainConfig.InterruptEnable = kADC_ETC_InterruptDisable; /* Enable the Done1 interrupt. */
-    ADC_ETC_SetTriggerChainConfig(ADC_ETC, 5U, 2U, &adcEtcTriggerChainConfig); /* Configure the trigger5 chain2. */
       
 }
 

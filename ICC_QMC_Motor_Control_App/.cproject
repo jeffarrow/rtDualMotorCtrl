@@ -675,6 +675,6 @@
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="com.nxp.mcuxpresso.core.datamodels">
 		<sdkName>SDK_2.x_MIMXRT1024-EVK</sdkName>
-		<sdkVersion>2.10.0</sdkVersion>
+		<sdkVersion>2.11.0</sdkVersion>
 	</storageModule>
 </cproject>

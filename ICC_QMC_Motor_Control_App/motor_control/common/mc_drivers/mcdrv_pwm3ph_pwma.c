@@ -70,30 +70,30 @@ bool_t MCDRV_eFlexPwm3PhSet(mcdrv_pwm3ph_pwma_t *this)
     this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL2 = f16DutyCycleTemp;
     this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL3 = f16DutyCycle;
 
-    register_debug (0x0001,
-    		this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL0 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL1,
-    		this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL2 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL3,
-			this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL4 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL5);
+//    register_debug (0x0001,
+//    		this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL0 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL1,
+//    		this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL2 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL3,
+//			this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL4 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhASubNum].VAL5);
 
     /* phase B */
     f16DutyCycle = MLIB_Mul_F16(f16ModuloTemp, sUABCtemp.f16B);
     f16DutyCycleTemp = MLIB_Neg_F16(f16DutyCycle);
     this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL2 = f16DutyCycleTemp;
     this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL3 = f16DutyCycle;
-    register_debug (0x0002,
-    		this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL0 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL1,
-    		this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL2 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL3,
-			this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL4 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL5);
+//    register_debug (0x0002,
+//    		this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL0 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL1,
+//    		this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL2 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL3,
+//			this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL4 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhBSubNum].VAL5);
 
     /* phase C */
     f16DutyCycle = MLIB_Mul_F16(f16ModuloTemp, sUABCtemp.f16C);
     f16DutyCycleTemp = MLIB_Neg_F16(f16DutyCycle);
     this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL2 = f16DutyCycleTemp;
     this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL3 = f16DutyCycle;
-    register_debug (0x0003,
-    		this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL0 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL1,
-    		this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL2 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL3,
-			this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL4 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL5);
+//    register_debug (0x0003,
+//    		this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL0 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL1,
+//    		this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL2 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL3,
+//			this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL4 << 16 | this->pui32PwmBaseAddress->SM[this->ui16PhCSubNum].VAL5);
 
     /* set LDOK bits */
     this->pui32PwmBaseAddress->MCTRL |= PWM_MCTRL_LDOK_MASK;

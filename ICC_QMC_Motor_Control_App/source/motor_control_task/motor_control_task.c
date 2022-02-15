@@ -127,7 +127,7 @@ void motor_control_init_task(void *pvParameters)
 void ADC1_IRQHandler(void)
 {
       
-    /* Check PWM compare flag for M1 - PWM1 Sub0 VAL4  */
+    /* Check PWM compare flag for M2 - PWM1 Sub0 VAL4  */
     ui16M1AdcConv =  (((PWM1->SM[0].STS & PWM_STS_CMPF_MASK)& 0x8U) >> 3U); 
     
     if(ui16M1AdcConv == 1U)
@@ -136,8 +136,8 @@ void ADC1_IRQHandler(void)
         PIT->CHANNEL[0].TCTRL = PIT_TCTRL_TEN(1U);
         PIT_cval_1 = PIT->CHANNEL[0].CVAL;
       
-        /* M1 State machine */
-        SM_StateMachineFast(&g_sM1Ctrl);
+        /* M2 State machine */
+        SM_StateMachineFast(&g_sM2Ctrl);
        
         /* M3 State machine */
 //        SM_StateMachineFast(&g_sM3Ctrl);
@@ -152,10 +152,7 @@ void ADC1_IRQHandler(void)
         
     }     
     
-    /* Check PWM compare flag for M3 - PWM3 Sub0 VAL4  */
-//    ui16M2AdcConv =  (((PWM3->SM[0].STS & PWM_STS_CMPF_MASK) & 0x8U) >> 3U);
-
-    /* Check PWM compare flag for M2 - PWM2 Sub0 VAL4  */
+    /* Check PWM compare flag for M1 - PWM2 Sub0 VAL4  */
     ui16M2AdcConv =  (((PWM2->SM[0].STS & PWM_STS_CMPF_MASK) & 0x8U) >> 3U);
        
     if(ui16M2AdcConv == 1U)
@@ -164,8 +161,8 @@ void ADC1_IRQHandler(void)
         PIT->CHANNEL[0].TCTRL = PIT_TCTRL_TEN(1U);
         PIT_cval_2 = PIT->CHANNEL[0].CVAL;
       
-        /* M2 State machine */
-        SM_StateMachineFast(&g_sM2Ctrl);
+        /* M1 State machine */
+        SM_StateMachineFast(&g_sM1Ctrl);
         
         /* M4 State machine */
 //        SM_StateMachineFast(&g_sM4Ctrl);
